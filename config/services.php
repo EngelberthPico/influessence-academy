@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'calendly' => [
+        'token' => env('CALENDLY_TOKEN'),
+        'scheduling_url' => env('CALENDLY_SCHEDULING_URL'),
+    ],
+
 ];
