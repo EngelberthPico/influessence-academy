@@ -24,6 +24,7 @@
             <flux:input
                 name="password"
                 :label="__('Password')"
+                :description="__('Mínimo 8 caracteres, con mayúscula, minúscula, número y símbolo.')"
                 type="password"
                 required
                 autocomplete="new-password"

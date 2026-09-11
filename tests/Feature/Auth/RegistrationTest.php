@@ -16,12 +16,25 @@ test('new users can register', function () {
     $response = $this->post(route('register.store'), [
         'name' => 'John Doe',
         'email' => 'test@example.com',
-        'password' => 'password',
-        'password_confirmation' => 'password',
+        'password' => 'Passw0rd!',
+        'password_confirmation' => 'Passw0rd!',
     ]);
 
     $response->assertSessionHasNoErrors()
         ->assertRedirect(route('dashboard', absolute: false));
 
     $this->assertAuthenticated();
+});
+
+test('registration fails with a password that does not meet the complexity requirements', function () {
+    $response = $this->post(route('register.store'), [
+        'name' => 'John Doe',
+        'email' => 'test@example.com',
+        'password' => 'lowercase',
+        'password_confirmation' => 'lowercase',
+    ]);
+
+    $response->assertSessionHasErrors('password');
+
+    $this->assertGuest();
 });

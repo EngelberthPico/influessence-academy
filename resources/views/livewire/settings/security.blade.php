@@ -16,6 +16,7 @@
             <flux:input
                 wire:model="password"
                 :label="__('New password')"
+                :description="__('Mínimo 8 caracteres, con mayúscula, minúscula, número y símbolo.')"
                 type="password"
                 required
                 autocomplete="new-password"

@@ -52,13 +52,34 @@ test('password can be reset with valid token', function () {
         $response = $this->post(route('password.update'), [
             'token' => $notification->token,
             'email' => $user->email,
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'password' => 'Passw0rd!',
+            'password_confirmation' => 'Passw0rd!',
         ]);
 
         $response
             ->assertSessionHasNoErrors()
             ->assertRedirect(route('login', absolute: false));
+
+        return true;
+    });
+});
+
+test('password cannot be reset with a password that does not meet the complexity requirements', function () {
+    Notification::fake();
+
+    $user = User::factory()->create();
+
+    $this->post(route('password.request'), ['email' => $user->email]);
+
+    Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
+        $response = $this->post(route('password.update'), [
+            'token' => $notification->token,
+            'email' => $user->email,
+            'password' => 'lowercase',
+            'password_confirmation' => 'lowercase',
+        ]);
+
+        $response->assertSessionHasErrors('password');
 
         return true;
     });

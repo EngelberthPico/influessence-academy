@@ -83,13 +83,29 @@ test('password can be updated', function () {
 
     $response = Livewire::test(Security::class)
         ->set('current_password', 'password')
-        ->set('password', 'new-password')
-        ->set('password_confirmation', 'new-password')
+        ->set('password', 'NewPassw0rd!')
+        ->set('password_confirmation', 'NewPassw0rd!')
         ->call('updatePassword');
 
     $response->assertHasNoErrors();
 
-    expect(Hash::check('new-password', $user->refresh()->password))->toBeTrue();
+    expect(Hash::check('NewPassw0rd!', $user->refresh()->password))->toBeTrue();
+});
+
+test('password update fails with a password that does not meet the complexity requirements', function () {
+    $user = User::factory()->create([
+        'password' => Hash::make('password'),
+    ]);
+
+    $this->actingAs($user);
+
+    $response = Livewire::test(Security::class)
+        ->set('current_password', 'password')
+        ->set('password', 'lowercase')
+        ->set('password_confirmation', 'lowercase')
+        ->call('updatePassword');
+
+    $response->assertHasErrors(['password']);
 });
 
 test('correct password must be provided to update password', function () {
@@ -101,8 +117,8 @@ test('correct password must be provided to update password', function () {
 
     $response = Livewire::test(Security::class)
         ->set('current_password', 'wrong-password')
-        ->set('password', 'new-password')
-        ->set('password_confirmation', 'new-password')
+        ->set('password', 'NewPassw0rd!')
+        ->set('password_confirmation', 'NewPassw0rd!')
         ->call('updatePassword');
 
     $response->assertHasErrors(['current_password']);
