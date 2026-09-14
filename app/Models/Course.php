@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CourseType;
 use Database\Factories\CourseFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-#[Fillable(['title', 'slug', 'description', 'price_cents', 'currency', 'vimeo_id', 'is_published', 'published_at'])]
+#[Fillable(['title', 'slug', 'description', 'price_cents', 'currency', 'vimeo_id', 'is_published', 'published_at', 'type', 'session_count', 'duration_months', 'redemption_window_days'])]
 class Course extends Model
 {
     /** @use HasFactory<CourseFactory> */
@@ -21,6 +22,7 @@ class Course extends Model
         return [
             'is_published' => 'boolean',
             'published_at' => 'datetime',
+            'type' => CourseType::class,
         ];
     }
 

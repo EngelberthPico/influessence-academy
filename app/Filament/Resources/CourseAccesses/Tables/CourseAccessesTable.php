@@ -30,7 +30,25 @@ class CourseAccessesTable
                     ->label('Activo')
                     ->boolean()
                     ->getStateUsing(fn (CourseAccess $record) => $record->revoked_at === null),
+
+                TextColumn::make('advisory_status')
+                    ->label('Estado de asesoría')
+                    ->badge()
+                    ->placeholder('No aplica')
+                    ->getStateUsing(function (CourseAccess $record) {
+                        if ($record->course?->redemption_window_days === null) {
+                            return null;
+                        }
+
+                        if ($record->advisory_expired_at !== null) {
+                            return 'Vencida';
+                        }
+
+                        return 'Vigente hasta '.$record->advisory_redeemable_until?->format('d/m/Y');
+                    })
+                    ->color(fn (CourseAccess $record) => $record->advisory_expired_at !== null ? 'danger' : 'success'),
             ])
+            ->modifyQueryUsing(fn ($query) => $query->with('course'))
             ->filters([
                 //
             ])

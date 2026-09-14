@@ -33,26 +33,75 @@
                 </p>
                 <a href="#cursos" class="inline-block rounded-full bg-espresso px-9 py-4 text-base font-semibold text-crema">Explorar cursos</a>
             </div>
-            <div class="flex justify-center lg:justify-end">
+            <div class="relative flex justify-center lg:justify-end">
                 <img
                     src="{{ asset('images/hero/fabiola-portada-periodico.webp') }}"
                     alt="Fabiola, fundadora de Influessence Academy, sosteniendo un ejemplar impreso con la portada 'Influessence Academy'"
                     width="1400"
                     height="2100"
                     fetchpriority="high"
-                    class="aspect-[4/5] w-full max-w-[480px] object-cover shadow-[inset_0_0_90px_28px_var(--color-crema)]"
+                    class="aspect-[4/5] w-full max-w-[480px] object-contain"
+                    style="mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Cdefs%3E%3Cfilter%20id%3D%27b%27%20x%3D%27-20%25%27%20y%3D%27-20%25%27%20width%3D%27140%25%27%20height%3D%27140%25%27%3E%3CfeGaussianBlur%20stdDeviation%3D%271.5%27%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20x%3D%278.3%27%20y%3D%272%27%20width%3D%2783.4%27%20height%3D%2796%27%20fill%3D%27%23fff%27%20filter%3D%27url%28%23b%29%27%2F%3E%3C%2Fsvg%3E'); -webkit-mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Cdefs%3E%3Cfilter%20id%3D%27b%27%20x%3D%27-20%25%27%20y%3D%27-20%25%27%20width%3D%27140%25%27%20height%3D%27140%25%27%3E%3CfeGaussianBlur%20stdDeviation%3D%271.5%27%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20x%3D%278.3%27%20y%3D%272%27%20width%3D%2783.4%27%20height%3D%2796%27%20fill%3D%27%23fff%27%20filter%3D%27url%28%23b%29%27%2F%3E%3C%2Fsvg%3E'); mask-size: 100% 100%; -webkit-mask-size: 100% 100%; mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;"
                 >
+
+                <div class="hidden lg:contents">
+                    {{-- Crecimiento en redes --}}
+                    <div class="absolute -left-10 top-6 w-40 -rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
+                        <flux:icon.arrow-up-right class="size-5 text-espresso" />
+                        <p class="mt-2 text-xs font-bold tracking-wide text-espresso uppercase">Crecimiento en redes</p>
+                    </div>
+
+                    {{-- Creación de contenido --}}
+                    <div class="absolute -right-8 top-16 w-40 rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
+                        <flux:icon.video-camera class="size-5 text-espresso" />
+                        <p class="mt-2 text-xs font-bold tracking-wide text-espresso uppercase">Creación de contenido</p>
+                    </div>
+
+                    {{-- Monetización --}}
+                    <div class="absolute top-1/2 -right-10 w-36 -translate-y-1/2 -rotate-3 rounded-sm bg-crema-suave p-4 shadow-lg">
+                        <flux:icon.currency-dollar class="size-5 text-espresso" />
+                        <p class="mt-2 text-xs font-bold tracking-wide text-espresso uppercase">Monetización</p>
+                    </div>
+
+                    {{-- Marca personal --}}
+                    <div class="absolute -left-12 bottom-24 w-36 rotate-3 rounded-sm bg-espresso p-4 text-crema shadow-lg">
+                        <flux:icon.user class="size-5" />
+                        <p class="mt-2 text-xs font-bold tracking-wide uppercase">Marca personal</p>
+                    </div>
+
+                </div>
             </div>
         </section>
 
-        {{-- DIFERENCIACION --}}
-        <section class="grid grid-cols-1 items-start gap-14 px-[6vw] py-16 lg:grid-cols-[0.85fr_1.15fr] lg:pt-[110px] lg:pb-[90px]">
-            <h2 class="text-[clamp(26px,3.2vw,36px)] leading-[1.18] font-bold">
-                Aprendes de personas que viven realmente de esto
-            </h2>
-            <div class="flex max-w-[580px] flex-col gap-[22px] text-[17px] leading-[1.7] text-espresso opacity-[0.88]">
-                <p>En Udemy o Domestika te enseña alguien que grabó un curso una vez. Aquí te enseña Fabiola, que sigue creando contenido todos los días y sabe exactamente qué cambió este mes en el algoritmo, qué funciona para creadoras hispanas y qué ya no.</p>
-                <p>No son clases genéricas de marketing digital traducidas al español. Son las mismas estrategias que usamos con nuestras propias cuentas y con las marcas que trabajamos en Influessence Agency, adaptadas a tu etapa y tu ritmo.</p>
+        {{-- MARCAS --}}
+        <section class="overflow-hidden bg-crema-suave py-10">
+            <p class="mb-6 text-center text-sm font-medium text-espresso opacity-70">Marcas con las que hemos colaborado</p>
+            <div class="marquee-mask">
+                <div class="marquee-track">
+                    @php
+                        $marcas = [
+                            ['file' => 'la-girl.png', 'alt' => 'LA Girl'],
+                            ['file' => 'morphe.svg', 'alt' => 'Morphe'],
+                            ['file' => 'garnier.png', 'alt' => 'Garnier'],
+                            ['file' => 'loreal.svg', 'alt' => "L'Oréal Paris"],
+                            ['file' => 'la-roche-posay.png', 'alt' => 'La Roche-Posay'],
+                            ['file' => 'yves-saint-laurent.png', 'alt' => 'Yves Saint Laurent'],
+                        ];
+                    @endphp
+                    <div class="flex shrink-0 items-center gap-16">
+                        @foreach ($marcas as $marca)
+                            <img src="{{ asset("images/brand/{$marca['file']}") }}" alt="{{ $marca['alt'] }}"
+                                 class="{{ $marca['file'] === 'morphe.svg' ? 'h-6 lg:h-7' : 'h-8 lg:h-10' }} w-auto shrink-0">
+                        @endforeach
+                    </div>
+                    {{-- Copia duplicada para el loop continuo — oculta a lectores de pantalla para no repetir la lista --}}
+                    <div class="flex shrink-0 items-center gap-16" aria-hidden="true">
+                        @foreach ($marcas as $marca)
+                            <img src="{{ asset("images/brand/{$marca['file']}") }}" alt=""
+                                 class="{{ $marca['file'] === 'morphe.svg' ? 'h-6 lg:h-7' : 'h-8 lg:h-10' }} w-auto shrink-0">
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </section>
 

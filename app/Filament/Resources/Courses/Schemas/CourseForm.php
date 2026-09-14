@@ -2,9 +2,12 @@
 
 namespace App\Filament\Resources\Courses\Schemas;
 
+use App\Enums\CourseType;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
 class CourseForm
@@ -31,6 +34,31 @@ class CourseForm
 
                 TextInput::make('vimeo_id')
                     ->label('ID o link del video en Vimeo'),
+
+                Select::make('type')
+                    ->label('Tipo')
+                    ->options(CourseType::class)
+                    ->default(CourseType::Recorded->value)
+                    ->required()
+                    ->live(),
+
+                TextInput::make('session_count')
+                    ->label('Número de sesiones')
+                    ->numeric()
+                    ->minValue(1)
+                    ->visible(fn (Get $get) => in_array($get->enum('type', CourseType::class), [CourseType::LiveProgram, CourseType::Hybrid])),
+
+                TextInput::make('duration_months')
+                    ->label('Duración (meses)')
+                    ->numeric()
+                    ->minValue(1)
+                    ->visible(fn (Get $get) => in_array($get->enum('type', CourseType::class), [CourseType::LiveProgram, CourseType::Hybrid])),
+
+                TextInput::make('redemption_window_days')
+                    ->label('Días para redimir la asesoría')
+                    ->numeric()
+                    ->minValue(1)
+                    ->visible(fn (Get $get) => $get->enum('type', CourseType::class) === CourseType::Hybrid),
 
                 Toggle::make('is_published')
                     ->label('Publicado'),

@@ -23,6 +23,10 @@ class CoursesTable
                     ->label('Precio')
                     ->formatStateUsing(fn ($state) => '$'.number_format($state / 100, 2)),
 
+                TextColumn::make('type')
+                    ->label('Tipo')
+                    ->badge(),
+
                 IconColumn::make('is_published')
                     ->label('Publicado')
                     ->boolean(),

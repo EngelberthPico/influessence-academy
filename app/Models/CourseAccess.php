@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['user_id', 'course_id', 'order_id', 'granted_at', 'revoked_at'])]
+#[Fillable(['user_id', 'course_id', 'order_id', 'granted_at', 'revoked_at', 'advisory_redeemable_until', 'advisory_expired_at'])]
 class CourseAccess extends Model
 {
     /** @use HasFactory<CourseAccessFactory> */
@@ -21,6 +21,8 @@ class CourseAccess extends Model
         return [
             'granted_at' => 'datetime',
             'revoked_at' => 'datetime',
+            'advisory_redeemable_until' => 'datetime',
+            'advisory_expired_at' => 'datetime',
         ];
     }
 
