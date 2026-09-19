@@ -169,9 +169,10 @@
             <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
                 {{-- Estrategia digital (grande, izquierda) --}}
                 <a href="#cursos" class="category-card group relative isolate flex min-h-[320px] items-end overflow-hidden rounded-sm bg-espresso p-8 lg:min-h-[360px]">
-                    <div class="absolute inset-0 flex items-center justify-center p-6">
-                        <p class="m-0 text-center font-mono text-xs text-crema opacity-60">[ ESPACIO PARA FOTO REAL — escritorio con laptop, notas y café, luz natural cálida ]</p>
-                    </div>
+                    <img src="{{ asset('images/categorias/estrategia-digital.webp') }}"
+                         alt="Escritorio con laptop, libros de estrategia, una libreta con un plan de contenido y una taza de café en luz natural cálida"
+                         class="absolute inset-0 h-full w-full object-cover"
+                         loading="lazy">
                     <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
                     <div class="relative z-10 text-crema">
                         <p class="mb-1 text-xs font-semibold tracking-[0.12em] text-terracota uppercase">Estrategia digital</p>
@@ -184,9 +185,10 @@
                 <div class="flex flex-col gap-5">
                     {{-- Creación de contenido --}}
                     <a href="#cursos" class="category-card group relative isolate flex min-h-[160px] items-end overflow-hidden rounded-sm bg-terracota p-7 lg:min-h-[180px]">
-                        <div class="absolute inset-0 flex items-center justify-center p-6">
-                            <p class="m-0 text-center font-mono text-xs text-crema opacity-60">[ ESPACIO PARA FOTO REAL — celular en trípode grabando, cámara de fondo ]</p>
-                        </div>
+                        <img src="{{ asset('images/categorias/creacion-de-contenido.webp') }}"
+                             alt="Creadora grabando con el celular montado en un trípode, moodboard de referencias y cámara al fondo"
+                             class="absolute inset-0 h-full w-full object-cover object-[center_65%]"
+                             loading="lazy">
                         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/80 via-espresso-oscuro/20 to-transparent"></div>
                         <div class="relative z-10 text-crema">
                             <p class="mb-1 text-xs font-semibold tracking-[0.12em] uppercase opacity-80">Creación de contenido</p>
@@ -197,9 +199,10 @@
                     <div class="grid grid-cols-2 gap-5">
                         {{-- Redes sociales --}}
                         <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-crema p-6 lg:min-h-[160px]">
-                            <div class="absolute inset-0 flex items-center justify-center p-4">
-                                <p class="m-0 text-center font-mono text-[11px] text-espresso opacity-50">[ FOTO — celular con apps de redes sociales ]</p>
-                            </div>
+                            <img src="{{ asset('images/categorias/redes-sociales.webp') }}"
+                                 alt="Celular sobre un escritorio mostrando la grilla de un perfil de Instagram"
+                                 class="absolute inset-0 h-full w-full object-cover"
+                                 loading="lazy">
                             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/70 via-espresso-oscuro/10 to-transparent"></div>
                             <div class="relative z-10 text-crema">
                                 <p class="mb-1 text-[11px] font-semibold tracking-[0.1em] uppercase opacity-80">Redes sociales</p>
@@ -209,9 +212,10 @@
 
                         {{-- Edición de video --}}
                         <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-espresso p-6 lg:min-h-[160px]">
-                            <div class="absolute inset-0 flex items-center justify-center p-4">
-                                <p class="m-0 text-center font-mono text-[11px] text-crema opacity-60">[ FOTO — laptop con timeline de edición de video ]</p>
-                            </div>
+                            <img src="{{ asset('images/categorias/edicion-de-video.webp') }}"
+                                 alt="Laptop con software de edición de video, cámara Sony al lado, escritorio de trabajo"
+                                 class="absolute inset-0 h-full w-full object-cover"
+                                 loading="lazy">
                             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
                             <div class="relative z-10 text-crema">
                                 <p class="mb-1 text-[11px] font-semibold tracking-[0.1em] uppercase opacity-80">Edición de video</p>
@@ -224,9 +228,10 @@
 
             {{-- Marca personal (ancha, abajo) --}}
             <a href="#cursos" class="category-card group relative isolate mt-5 flex min-h-[200px] items-end overflow-hidden rounded-sm bg-espresso-oscuro p-8 lg:min-h-[220px]">
-                <div class="absolute inset-0 flex items-center justify-center p-6">
-                    <p class="m-0 text-center font-mono text-xs text-crema opacity-60">[ ESPACIO PARA FOTO REAL — retrato editorial, moodboard con notas "Ideas / Estrategia / Resultados" de fondo ]</p>
-                </div>
+                <img src="{{ asset('images/categorias/marca-personal.webp') }}"
+                     alt="Retrato editorial de una mujer sentada junto a una ventana con luz natural, moodboard de referencias en la pared"
+                     class="absolute inset-0 h-full w-full object-cover"
+                     loading="lazy">
                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-espresso-oscuro via-espresso-oscuro/60 to-transparent lg:w-2/3"></div>
                 <div class="relative z-10 max-w-[360px] text-crema">
                     <p class="mb-1 text-xs font-semibold tracking-[0.12em] text-terracota uppercase">Marca personal</p>

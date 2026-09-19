@@ -79,11 +79,11 @@ select:focus[data-flux-control] {
     }
 }
 
-.category-card > div:first-child {
+.category-card > :first-child {
     transition: transform 0.4s ease;
 }
 
-.category-card:hover > div:first-child {
+.category-card:hover > :first-child {
     transform: scale(1.04);
 }
 
