@@ -3,25 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Courses\GetPublishedCoursesGroupedByTypeAction;
-use App\Models\Course;
 
-class CourseController extends Controller
+class HomeController extends Controller
 {
     public function index(GetPublishedCoursesGroupedByTypeAction $action)
     {
         $courses = $action->handle();
 
-        return view('courses.index', [
+        return view('welcome', [
             'liveProgramCourses' => $courses['liveProgram'],
             'hybridCourses' => $courses['hybrid'],
             'recordedCourses' => $courses['recorded'],
         ]);
-    }
-
-    public function show(Course $course)
-    {
-        abort_unless($course->is_published, 404);
-
-        return view('courses.show', ['course' => $course]);
     }
 }

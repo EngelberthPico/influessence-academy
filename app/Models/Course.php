@@ -58,4 +58,21 @@ class Course extends Model
     {
         return $this->belongsToMany(User::class, 'course_accesses');
     }
+
+    public function getDurationLabelAttribute(): string
+    {
+        if ($this->duration_months) {
+            return $this->duration_months === 1
+                ? '1 mes'
+                : "{$this->duration_months} meses";
+        }
+
+        if ($this->session_count) {
+            return $this->session_count === 1
+                ? '1 sesión'
+                : "{$this->session_count} sesiones";
+        }
+
+        return $this->type->getLabel();
+    }
 }

@@ -218,62 +218,94 @@
 
         {{-- CURSOS --}}
         <section id="cursos" class="scroll-mt-24 px-[6vw] py-16 lg:py-[100px]">
-            {{-- TODO: contenido hardcodeado. Conectar a App\Models\Course cuando se defina cómo mapear los niveles de precio (Asesoría 1:1 / Master Pro / Mentorship / Full Content / catálogo grabado) al esquema existente. --}}
             <h2 class="mb-5 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Elige tu nivel de acompañamiento</h2>
 
-            <p class="mb-8 max-w-[560px] text-base opacity-70">Acompañamiento en vivo con Fabi</p>
-            <div class="mb-18 grid grid-cols-1 gap-6 lg:grid-cols-[0.85fr_0.85fr_1.3fr]">
-                <div class="flex flex-col gap-[14px] bg-crema-suave p-8">
-                    <h3 class="text-xl font-bold">Asesoría 1:1</h3>
-                    <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">Una sesión personalizada de 2 horas con Fabi sobre lo que más te está trabando ahora, con un plan de acción claro al salir.</p>
-                    <div class="text-xl font-bold text-terracota">$349</div>
+            @if ($liveProgramCourses->isNotEmpty())
+                <p class="mb-8 max-w-[560px] text-base opacity-70">Acompañamiento en vivo con Fabi</p>
+                <div class="mb-18 grid grid-cols-1 gap-6 lg:grid-cols-[0.85fr_0.85fr_1.3fr]">
+                    @foreach ($liveProgramCourses as $course)
+                        @if ($loop->last && $liveProgramCourses->count() > 1)
+                            <a href="{{ route('courses.show', $course) }}" wire:navigate class="flex flex-col gap-4 bg-espresso px-9 py-10 text-crema">
+                                <span class="w-fit rounded-full bg-crema/15 px-3 py-1 text-xs font-semibold tracking-wide text-crema uppercase">{{ $course->duration_label }}</span>
+                                <h3 class="text-[26px] font-bold">{{ $course->title }}</h3>
+                                <p class="grow text-[15px] leading-[1.65] opacity-90">{{ Str::limit(strip_tags($course->description), 140) }}</p>
+                                <div class="flex items-center justify-between border-t border-crema/20 pt-4">
+                                    @if ($course->price_cents > 0)
+                                        <span class="text-2xl font-bold text-crema">${{ number_format($course->price_cents / 100, 0) }}</span>
+                                    @else
+                                        <span class="text-sm font-semibold opacity-70">Precio próximamente</span>
+                                    @endif
+                                    <span class="text-sm font-semibold underline decoration-crema decoration-2 underline-offset-4">Ver detalles</span>
+                                </div>
+                            </a>
+                        @else
+                            <a href="{{ route('courses.show', $course) }}" wire:navigate class="flex flex-col gap-4 bg-crema-suave p-8">
+                                <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">{{ $course->duration_label }}</span>
+                                <h3 class="text-xl font-bold">{{ $course->title }}</h3>
+                                <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 140) }}</p>
+                                <div class="flex items-center justify-between border-t border-espresso/10 pt-4">
+                                    @if ($course->price_cents > 0)
+                                        <span class="text-xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
+                                    @else
+                                        <span class="text-sm font-semibold opacity-60">Precio próximamente</span>
+                                    @endif
+                                    <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver detalles</span>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach
                 </div>
-                <div class="flex flex-col gap-[14px] border-[1.5px] border-espresso p-8">
-                    <h3 class="text-xl font-bold">Master Pro</h3>
-                    <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">3 meses, 6 clases en vivo de 1 hora, personalizadas con Fabi. Sales con tu estrategia de contenido armada y ajustada semana a semana.</p>
-                    <div class="text-xl font-bold text-terracota">$999</div>
-                </div>
-                <div class="flex flex-col gap-4 bg-espresso px-9 py-10 text-crema">
-                    <h3 class="text-[26px] font-bold">Mentorship</h3>
-                    <p class="grow text-[15px] leading-[1.65] opacity-90">6 meses de acompañamiento cercano con Fabi: 12 clases en vivo de 1 hora, personalizadas para construir tu carrera de creadora de principio a fin.</p>
-                    <div class="text-2xl font-bold text-crema">$1,699</div>
-                </div>
-            </div>
+            @endif
 
-            <p class="mb-8 max-w-[560px] text-base opacity-70">Curso grabado con acompañamiento final</p>
-            <div class="mb-18">
-                <div class="flex flex-col items-start gap-6 border-t-[3px] border-terracota bg-crema-suave p-9 sm:flex-row sm:items-end sm:justify-between">
-                    <div class="max-w-[640px]">
-                        <h3 class="mb-3 text-[22px] font-bold">Full Content</h3>
-                        <p class="text-[15px] leading-[1.6] opacity-[0.85]">Clases grabadas para armar tu contenido a tu ritmo, más una asesoría final con Fabi para revisar y ajustar tu estrategia. Redimible dentro de 3 meses.</p>
-                    </div>
-                    <div class="text-[22px] font-bold text-terracota">$549</div>
+            @if ($hybridCourses->isNotEmpty())
+                <p class="mb-8 max-w-[560px] text-base opacity-70">Curso grabado con acompañamiento final</p>
+                <div class="mb-18 grid grid-cols-1 gap-6">
+                    @foreach ($hybridCourses as $course)
+                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="flex flex-col gap-5 border-t-4 border-terracota bg-crema-suave p-9">
+                            <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">Curso + asesoría</span>
+                            <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
+                                <div class="max-w-[560px]">
+                                    <h3 class="mb-3 text-[22px] font-bold">{{ $course->title }}</h3>
+                                    <p class="text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 160) }}</p>
+                                </div>
+                                <div class="flex shrink-0 flex-col items-start gap-3 sm:items-end">
+                                    @if ($course->price_cents > 0)
+                                        <span class="text-[22px] font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
+                                    @else
+                                        <span class="text-sm font-semibold opacity-60">Precio próximamente</span>
+                                    @endif
+                                    <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver detalles</span>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
                 </div>
-            </div>
+            @endif
 
-            <p class="mb-8 max-w-[560px] text-base opacity-70">Catálogo de cursos grabados</p>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
-                <div class="flex flex-col gap-3 border-[1.5px] border-espresso p-[26px]">
-                    <h3 class="text-[17px] font-bold">Amazon Links</h3>
-                    <p class="grow text-sm leading-[1.55] opacity-[0.85]">Al terminar vas a saber armar tu tienda de Amazon y crear contenido que genera comisiones de forma constante.</p>
-                    <div class="text-lg font-bold text-terracota">$XX</div>
+            @if ($recordedCourses->isNotEmpty())
+                <p class="mb-8 max-w-[560px] text-base opacity-70">Catálogo de cursos grabados</p>
+                <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
+                    @foreach ($recordedCourses as $course)
+                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="flex flex-col gap-3 bg-crema-suave p-[26px]">
+                            <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">Grabado</span>
+                            <h3 class="text-[17px] font-bold">{{ $course->title }}</h3>
+                            <p class="grow text-sm leading-[1.55] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 110) }}</p>
+                            <div class="flex items-center justify-between border-t border-espresso/10 pt-3">
+                                @if ($course->price_cents > 0)
+                                    <span class="text-lg font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
+                                @else
+                                    <span class="text-xs font-semibold opacity-60">Precio próximamente</span>
+                                @endif
+                                <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver curso</span>
+                            </div>
+                        </a>
+                    @endforeach
                 </div>
-                <div class="flex flex-col gap-3 border-[1.5px] border-espresso p-[26px]">
-                    <h3 class="text-[17px] font-bold">UGC</h3>
-                    <p class="grow text-sm leading-[1.55] opacity-[0.85]">Al terminar vas a tener un portafolio de contenido UGC listo para ofrecer a marcas y cobrar por él.</p>
-                    <div class="text-lg font-bold text-terracota">$XX</div>
-                </div>
-                <div class="flex flex-col gap-3 border-[1.5px] border-espresso p-[26px]">
-                    <h3 class="text-[17px] font-bold">Edición básica</h3>
-                    <p class="grow text-sm leading-[1.55] opacity-[0.85]">Al terminar vas a editar tus propios videos con un flujo simple, sin depender de nadie más.</p>
-                    <div class="text-lg font-bold text-terracota">$XX</div>
-                </div>
-                <div class="flex flex-col gap-3 border-[1.5px] border-espresso p-[26px]">
-                    <h3 class="text-[17px] font-bold">Marca personal</h3>
-                    <p class="grow text-sm leading-[1.55] opacity-[0.85]">Al terminar vas a tener tu identidad visual y de voz definida, lista para aplicar en todo tu contenido.</p>
-                    <div class="text-lg font-bold text-terracota">$XX</div>
-                </div>
-            </div>
+            @endif
+
+            @if ($liveProgramCourses->isEmpty() && $hybridCourses->isEmpty() && $recordedCourses->isEmpty())
+                <p class="text-base opacity-70">Todavía no hay cursos publicados.</p>
+            @endif
         </section>
 
         {{-- COMO FUNCIONA --}}
@@ -331,7 +363,7 @@
                 </details>
                 <details class="border-b border-espresso py-[22px]">
                     <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Puedo tomar más de un curso a la vez?</summary>
-                    <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Sí. Muchas estudiantes combinan Estrategia de Contenido con Cámara, Voz y Presencia desde el inicio. Te ayudamos a definir el orden según tu situación.</p>
+                    <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Sí. Muchas estudiantes combinan un curso grabado con una asesoría en vivo desde el inicio. Te ayudamos a definir el orden según tu situación.</p>
                 </details>
                 <details class="border-b border-espresso py-[22px]">
                     <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Qué pasa si tengo poco tiempo cada semana?</summary>

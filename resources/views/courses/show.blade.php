@@ -1,5 +1,5 @@
 <x-layouts.marketing>
-    <section class="px-[6vw] py-16 lg:py-[100px]">
+    <section class="px-[6vw] pt-8 pb-16 lg:pt-12 lg:pb-[100px]">
         <a href="{{ route('courses.index') }}" wire:navigate class="mb-8 inline-block text-sm font-semibold text-terracota">← Volver al catálogo</a>
 
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1fr]">
@@ -12,7 +12,11 @@
             </div>
 
             <aside class="h-fit bg-crema-suave p-8">
-                <div class="mb-6 text-3xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</div>
+                @if ($course->price_cents > 0)
+                    <div class="mb-6 text-3xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</div>
+                @else
+                    <div class="mb-6 text-lg font-semibold opacity-60">Precio próximamente</div>
+                @endif
 
                 <ul class="mb-8 flex flex-col gap-3 text-sm text-espresso opacity-90">
                     @if ($course->session_count)

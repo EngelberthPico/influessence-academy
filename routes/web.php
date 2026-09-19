@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('cursos', [CourseController::class, 'index'])->name('courses.index');
 Route::get('curso/{course:slug}', [CourseController::class, 'show'])->name('courses.show');
