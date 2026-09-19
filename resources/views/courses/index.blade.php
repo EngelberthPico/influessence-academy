@@ -1,14 +1,14 @@
 <x-layouts.marketing>
     <section class="px-[6vw] pt-8 pb-16 lg:pt-12 lg:pb-[100px]">
         <h1 class="mb-5 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Elige tu nivel de acompañamiento</h1>
-        <p class="mb-12 max-w-[560px] text-base opacity-70">Desde una sesión puntual hasta seis meses de mentoría — el nivel de cercanía con Fabi lo eliges tú.</p>
+        <p class="mb-12 max-w-[560px] text-base opacity-70">Desde una sesión puntual hasta seis meses de mentoría — el nivel de cercanía con Fabiola lo eliges tú</p>
 
         @if ($liveProgramCourses->isEmpty() && $hybridCourses->isEmpty() && $recordedCourses->isEmpty())
-            <p class="text-base opacity-70">Todavía no hay cursos publicados. Vuelve pronto.</p>
+            <p class="text-base opacity-70">Todavía no hay cursos publicados. Vuelve pronto</p>
         @endif
 
         @if ($liveProgramCourses->isNotEmpty())
-            <p class="mb-8 max-w-[560px] text-base opacity-70">Acompañamiento en vivo con Fabi</p>
+            <p class="mb-8 max-w-[560px] text-base opacity-70">Acompañamiento en vivo con Fabiola</p>
             <div class="mb-18 grid grid-cols-1 gap-6 lg:grid-cols-3">
                 @foreach ($liveProgramCourses as $course)
                     <a href="{{ route('courses.show', $course) }}" wire:navigate

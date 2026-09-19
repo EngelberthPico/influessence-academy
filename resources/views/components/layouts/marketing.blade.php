@@ -33,14 +33,14 @@
         {{-- CTA FINAL + FOOTER --}}
         <section class="bg-espresso-oscuro px-[6vw] pt-16 pb-10 text-crema lg:pt-[100px] lg:pb-[60px]">
             <div class="mb-16 max-w-[640px]">
-                <h2 class="mb-5 text-[clamp(30px,4vw,46px)] leading-[1.15] font-bold">Tu carrera de creadora empieza con una decisión, no con una excusa más.</h2>
+                <h2 class="mb-5 text-[clamp(30px,4vw,46px)] leading-[1.15] font-bold">Tu carrera de creadora empieza con una decisión, no con una excusa más</h2>
                 <a href="{{ route('courses.index') }}" wire:navigate class="mt-3 inline-block rounded-full bg-terracota px-[34px] py-4 text-base font-semibold text-crema">Explorar cursos</a>
             </div>
 
             <div class="grid grid-cols-1 gap-10 border-t border-crema/20 pt-10 sm:grid-cols-2 lg:grid-cols-4">
                 <div>
                     <img src="{{ asset('images/brand/logo-crema.png') }}" alt="Influessence Academy" class="mb-3 h-9 w-auto">
-                    <p class="max-w-[220px] text-[14px] leading-[1.6] opacity-70">Academia online para creadoras hispanas.</p>
+                    <p class="max-w-[220px] text-[14px] leading-[1.6] opacity-70">Academia online para creadoras hispanas</p>
                 </div>
 
                 <div class="flex flex-col gap-3">
@@ -80,7 +80,7 @@
             </div>
 
             <div class="mt-10 border-t border-crema/20 pt-6 text-[13px] opacity-60">
-                © {{ date('Y') }} Influessence Academy. Todos los derechos reservados.
+                © {{ date('Y') }} Influessence Academy. Todos los derechos reservados
             </div>
         </section>
 

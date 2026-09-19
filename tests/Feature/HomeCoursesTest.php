@@ -36,7 +36,7 @@ test('the home shows a message when there are no published courses', function ()
     $response = $this->get(route('home'));
 
     $response->assertOk();
-    $response->assertSee('Todavía no hay cursos publicados.');
+    $response->assertSee('Todavía no hay cursos publicados');
 });
 
 test('the most expensive live program course is the one highlighted on the home', function () {
