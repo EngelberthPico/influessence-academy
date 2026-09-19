@@ -6,8 +6,12 @@
     <body class="overflow-x-hidden bg-crema font-sans text-espresso antialiased">
         {{-- NAV --}}
         <nav class="fixed inset-x-0 top-0 z-50 grid grid-cols-[auto_1fr_auto] items-center gap-4 px-[6vw] py-4 transition-colors duration-300">
-            <a href="{{ route('home') }}" wire:navigate>
-                <img src="{{ asset('images/brand/logo-espresso.png') }}" alt="Influessence Academy" class="h-8 w-auto">
+            <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-2">
+                <img src="{{ asset('images/brand/logo-espresso.png') }}" alt="Influessence" class="h-8 w-auto">
+                <svg class="size-3.5 shrink-0 text-terracota" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 0C12.6 6.7 17.3 11.4 24 12C17.3 12.6 12.6 17.3 12 24C11.4 17.3 6.7 12.6 0 12C6.7 11.4 11.4 6.7 12 0Z" />
+                </svg>
+                <span class="font-serif text-xl text-espresso italic">Academy</span>
             </a>
             <div class="hidden items-center justify-center gap-7 lg:flex">
                 <a href="#cursos" class="text-[15px] font-medium text-espresso">Cursos</a>
@@ -22,53 +26,56 @@
         </nav>
 
         {{-- HERO --}}
-        <section class="grid grid-cols-1 items-center gap-10 bg-crema-suave px-[6vw] pt-24 pb-16 lg:grid-cols-2 lg:gap-16 lg:pt-28 lg:pb-24">
-            <div>
-                <h1 class="mb-[26px] leading-[1.12] font-bold tracking-[-0.01em]">
-                    <span class="text-[clamp(40px,6.2vw,72px)]">Convierte tu contenido en</span><span class="-mt-2 block font-serif text-[clamp(38px,5.8vw,66px)] leading-none font-normal whitespace-nowrap italic">Tu Profesión</span>
+        <section class="relative overflow-hidden bg-crema-suave px-[6vw] pt-24 pb-16 lg:min-h-[720px] lg:px-0 lg:pt-28 lg:pb-0">
+            <div class="relative z-10 max-w-[560px] lg:pl-[6vw]">
+                <h1 class="mb-[26px] text-[clamp(34px,5.2vw,60px)] leading-[1.12] font-bold tracking-[-0.01em]">
+                    Convierte tu contenido en <span class="font-serif font-normal italic">tu profesión</span>
                 </h1>
-               
+                <p class="mb-7 font-serif text-[27px] text-terracota italic">
+                    La pena no factura.
+                </p>
                 <p class="mb-9 max-w-[480px] text-lg leading-[1.65] text-espresso opacity-[0.85]">
                     Aquí no te enseñamos a copiarle el estilo a nadie. Te enseñamos a crear, conectar con tu comunidad y monetizar tu contenido con un plan que sí puedes sostener.
                 </p>
                 <a href="#cursos" class="inline-block rounded-full bg-espresso px-9 py-4 text-base font-semibold text-crema">Explorar cursos</a>
             </div>
-            <div class="relative flex justify-center lg:justify-end">
+
+            {{-- Contenedor de la foto: en mobile es un bloque normal en flujo, en lg: se vuelve
+                 un fondo absoluto que sangra hasta el borde derecho real del viewport --}}
+            <div class="relative mt-12 aspect-[4/5] w-full lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:aspect-auto lg:w-[54%]">
                 <img
-                    src="{{ asset('images/hero/fabiola-portada-periodico.webp') }}"
-                    alt="Fabiola, fundadora de Influessence Academy, sosteniendo un ejemplar impreso con la portada 'Influessence Academy'"
-                    width="1400"
-                    height="2100"
+                    src="{{ asset('images/hero/fabiola-escritorio-editorial.webp') }}"
+                    alt="Fabiola, fundadora de Influessence Academy, en su escritorio con un ejemplar impreso con la portada 'Influessence Academy'"
+                    width="1536"
+                    height="1024"
                     fetchpriority="high"
-                    class="aspect-[4/5] w-full max-w-[480px] object-contain"
-                    style="mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Cdefs%3E%3Cfilter%20id%3D%27b%27%20x%3D%27-20%25%27%20y%3D%27-20%25%27%20width%3D%27140%25%27%20height%3D%27140%25%27%3E%3CfeGaussianBlur%20stdDeviation%3D%271.5%27%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20x%3D%278.3%27%20y%3D%272%27%20width%3D%2783.4%27%20height%3D%2796%27%20fill%3D%27%23fff%27%20filter%3D%27url%28%23b%29%27%2F%3E%3C%2Fsvg%3E'); -webkit-mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Cdefs%3E%3Cfilter%20id%3D%27b%27%20x%3D%27-20%25%27%20y%3D%27-20%25%27%20width%3D%27140%25%27%20height%3D%27140%25%27%3E%3CfeGaussianBlur%20stdDeviation%3D%271.5%27%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20x%3D%278.3%27%20y%3D%272%27%20width%3D%2783.4%27%20height%3D%2796%27%20fill%3D%27%23fff%27%20filter%3D%27url%28%23b%29%27%2F%3E%3C%2Fsvg%3E'); mask-size: 100% 100%; -webkit-mask-size: 100% 100%; mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;"
+                    class="hero-photo-mask h-full w-full object-cover"
                 >
 
                 <div class="hidden lg:contents">
                     {{-- Crecimiento en redes --}}
-                    <div class="absolute -left-10 top-6 w-40 -rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
+                    <div class="absolute left-6 top-24 w-40 -rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
                         <flux:icon.arrow-up-right class="size-5 text-espresso" />
                         <p class="mt-2 text-xs font-bold tracking-wide text-espresso uppercase">Crecimiento en redes</p>
                     </div>
 
                     {{-- Creación de contenido --}}
-                    <div class="absolute -right-8 top-16 w-40 rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
+                    <div class="absolute right-8 top-36 w-40 rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
                         <flux:icon.video-camera class="size-5 text-espresso" />
                         <p class="mt-2 text-xs font-bold tracking-wide text-espresso uppercase">Creación de contenido</p>
                     </div>
 
                     {{-- Monetización --}}
-                    <div class="absolute top-1/2 -right-10 w-36 -translate-y-1/2 -rotate-3 rounded-sm bg-crema-suave p-4 shadow-lg">
+                    <div class="absolute top-1/2 right-10 w-36 -translate-y-1/2 -rotate-3 rounded-sm bg-crema-suave p-4 shadow-lg">
                         <flux:icon.currency-dollar class="size-5 text-espresso" />
                         <p class="mt-2 text-xs font-bold tracking-wide text-espresso uppercase">Monetización</p>
                     </div>
 
                     {{-- Marca personal --}}
-                    <div class="absolute -left-12 bottom-24 w-36 rotate-3 rounded-sm bg-espresso p-4 text-crema shadow-lg">
+                    <div class="absolute bottom-28 left-10 w-36 rotate-3 rounded-sm bg-espresso p-4 text-crema shadow-lg">
                         <flux:icon.user class="size-5" />
                         <p class="mt-2 text-xs font-bold tracking-wide uppercase">Marca personal</p>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -158,23 +165,76 @@
         {{-- CATEGORIAS --}}
         <section id="categorias" class="scroll-mt-24 bg-crema-suave px-[6vw] py-14 lg:py-[90px]">
             <h2 class="mb-12 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">¿Qué quieres aprender?</h2>
-            <div class="grid grid-cols-2 gap-5 sm:grid-cols-4 lg:grid-rows-[repeat(2,minmax(140px,auto))]">
-                <a href="#cursos" class="col-span-2 row-span-2 flex items-end rounded-sm bg-espresso p-8 text-crema">
-                    <span class="text-2xl leading-[1.2] font-bold">Estrategia digital</span>
+
+            <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+                {{-- Estrategia digital (grande, izquierda) --}}
+                <a href="#cursos" class="category-card group relative isolate flex min-h-[320px] items-end overflow-hidden rounded-sm bg-espresso p-8 lg:min-h-[360px]">
+                    <div class="absolute inset-0 flex items-center justify-center p-6">
+                        <p class="m-0 text-center font-mono text-xs text-crema opacity-60">[ ESPACIO PARA FOTO REAL — escritorio con laptop, notas y café, luz natural cálida ]</p>
+                    </div>
+                    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
+                    <div class="relative z-10 text-crema">
+                        <p class="mb-1 text-xs font-semibold tracking-[0.12em] text-terracota uppercase">Estrategia digital</p>
+                        <h3 class="mb-3 text-2xl font-bold lg:text-[28px]">Estrategia digital</h3>
+                        <p class="mb-4 max-w-[280px] text-sm leading-[1.6] opacity-90">Aprende a crear estrategias digitales que convierten ideas en resultados.</p>
+                        <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Explorar cursos</span>
+                    </div>
                 </a>
-                <a href="#cursos" class="col-span-2 flex items-end rounded-sm bg-terracota p-7 text-crema">
-                    <span class="text-xl font-bold">Creación de contenido</span>
-                </a>
-                <a href="#cursos" class="flex items-end rounded-sm border-[1.5px] border-espresso p-6 text-espresso">
-                    <span class="text-lg font-bold">Redes sociales</span>
-                </a>
-                <a href="#cursos" class="flex items-end rounded-sm bg-crema p-6 text-espresso">
-                    <span class="text-lg font-bold">Edición de video</span>
-                </a>
-                <a href="#cursos" class="col-span-2 flex items-end rounded-sm border-[1.5px] border-espresso p-6 text-espresso">
-                    <span class="text-lg font-bold">Marca personal</span>
-                </a>
+
+                <div class="flex flex-col gap-5">
+                    {{-- Creación de contenido --}}
+                    <a href="#cursos" class="category-card group relative isolate flex min-h-[160px] items-end overflow-hidden rounded-sm bg-terracota p-7 lg:min-h-[180px]">
+                        <div class="absolute inset-0 flex items-center justify-center p-6">
+                            <p class="m-0 text-center font-mono text-xs text-crema opacity-60">[ ESPACIO PARA FOTO REAL — celular en trípode grabando, cámara de fondo ]</p>
+                        </div>
+                        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/80 via-espresso-oscuro/20 to-transparent"></div>
+                        <div class="relative z-10 text-crema">
+                            <p class="mb-1 text-xs font-semibold tracking-[0.12em] uppercase opacity-80">Creación de contenido</p>
+                            <h3 class="text-xl font-bold">Creación de contenido</h3>
+                        </div>
+                    </a>
+
+                    <div class="grid grid-cols-2 gap-5">
+                        {{-- Redes sociales --}}
+                        <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-crema p-6 lg:min-h-[160px]">
+                            <div class="absolute inset-0 flex items-center justify-center p-4">
+                                <p class="m-0 text-center font-mono text-[11px] text-espresso opacity-50">[ FOTO — celular con apps de redes sociales ]</p>
+                            </div>
+                            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/70 via-espresso-oscuro/10 to-transparent"></div>
+                            <div class="relative z-10 text-crema">
+                                <p class="mb-1 text-[11px] font-semibold tracking-[0.1em] uppercase opacity-80">Redes sociales</p>
+                                <h3 class="text-lg font-bold">Redes sociales</h3>
+                            </div>
+                        </a>
+
+                        {{-- Edición de video --}}
+                        <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-espresso p-6 lg:min-h-[160px]">
+                            <div class="absolute inset-0 flex items-center justify-center p-4">
+                                <p class="m-0 text-center font-mono text-[11px] text-crema opacity-60">[ FOTO — laptop con timeline de edición de video ]</p>
+                            </div>
+                            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
+                            <div class="relative z-10 text-crema">
+                                <p class="mb-1 text-[11px] font-semibold tracking-[0.1em] uppercase opacity-80">Edición de video</p>
+                                <h3 class="text-lg font-bold">Edición de video</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
+
+            {{-- Marca personal (ancha, abajo) --}}
+            <a href="#cursos" class="category-card group relative isolate mt-5 flex min-h-[200px] items-end overflow-hidden rounded-sm bg-espresso-oscuro p-8 lg:min-h-[220px]">
+                <div class="absolute inset-0 flex items-center justify-center p-6">
+                    <p class="m-0 text-center font-mono text-xs text-crema opacity-60">[ ESPACIO PARA FOTO REAL — retrato editorial, moodboard con notas "Ideas / Estrategia / Resultados" de fondo ]</p>
+                </div>
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-espresso-oscuro via-espresso-oscuro/60 to-transparent lg:w-2/3"></div>
+                <div class="relative z-10 max-w-[360px] text-crema">
+                    <p class="mb-1 text-xs font-semibold tracking-[0.12em] text-terracota uppercase">Marca personal</p>
+                    <h3 class="mb-3 text-2xl font-bold">Marca personal</h3>
+                    <p class="mb-4 text-sm leading-[1.6] opacity-90">Construye una presencia auténtica y haz que tu trabajo hable por ti.</p>
+                    <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Explorar cursos</span>
+                </div>
+            </a>
         </section>
 
         {{-- CURSOS --}}
