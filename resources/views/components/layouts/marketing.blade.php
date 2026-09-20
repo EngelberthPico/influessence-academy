@@ -22,7 +22,7 @@
             </div>
             <div class="flex items-center justify-end gap-6">
                 <a href="{{ route('login') }}" wire:navigate class="hidden text-[15px] font-medium text-espresso sm:inline">Entrar</a>
-                <a href="{{ route('courses.index') }}" wire:navigate class="shrink-0 rounded-full bg-terracota px-[26px] py-3 text-[15px] font-semibold whitespace-nowrap text-crema">Quiero crecer</a>
+                <a href="{{ route('courses.index') }}" wire:navigate class="shrink-0 rounded-full bg-terracota px-[26px] py-3 text-[15px] font-semibold whitespace-nowrap text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso hover:shadow-lg">Quiero crecer</a>
             </div>
         </nav>
 
@@ -34,7 +34,7 @@
         <section class="bg-espresso-oscuro px-[6vw] pt-16 pb-10 text-crema lg:pt-[100px] lg:pb-[60px]">
             <div class="mb-16 max-w-[640px]">
                 <h2 class="mb-5 text-[clamp(30px,4vw,46px)] leading-[1.15] font-bold">Tu carrera de creadora empieza con una decisión, no con una excusa más</h2>
-                <a href="{{ route('courses.index') }}" wire:navigate class="mt-3 inline-block rounded-full bg-terracota px-[34px] py-4 text-base font-semibold text-crema">Explorar cursos</a>
+                <a href="{{ route('courses.index') }}" wire:navigate class="mt-3 inline-block rounded-full bg-terracota px-[34px] py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-crema hover:text-espresso hover:shadow-lg">Explorar cursos</a>
             </div>
 
             <div class="grid grid-cols-1 gap-10 border-t border-crema/20 pt-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -106,6 +106,23 @@
                 };
                 onScroll();
                 window.addEventListener('scroll', onScroll, { passive: true });
+            })();
+
+            (function () {
+                const revealEls = document.querySelectorAll('.reveal');
+                if (!revealEls.length || !('IntersectionObserver' in window)) {
+                    revealEls.forEach((el) => el.classList.add('is-visible'));
+                    return;
+                }
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+                revealEls.forEach((el) => observer.observe(el));
             })();
         </script>
     </body>

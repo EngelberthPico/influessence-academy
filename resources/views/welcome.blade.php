@@ -11,7 +11,7 @@
                 <p class="mb-9 max-w-[480px] text-lg leading-[1.65] text-espresso opacity-[0.85]">
                     Aquí no te enseñamos a copiarle el estilo a nadie. Te enseñamos a crear, conectar con tu comunidad y monetizar tu contenido con un plan que sí puedes sostener
                 </p>
-                <a href="#cursos" class="inline-block rounded-full bg-espresso px-9 py-4 text-base font-semibold text-crema">Explorar cursos</a>
+                <a href="#cursos" class="inline-block rounded-full bg-espresso px-9 py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso-oscuro hover:shadow-lg">Explorar cursos</a>
             </div>
 
             {{-- Contenedor de la foto: en mobile es un bloque normal en flujo, en lg: se vuelve
@@ -91,7 +91,7 @@
             <h2 class="mb-[18px] max-w-[620px] text-[clamp(28px,3.5vw,40px)] font-bold">Un ecosistema completo para tu crecimiento</h2>
             <p class="mb-12 max-w-[560px] text-[17px] leading-[1.6] opacity-[0.85]">Desde el primer paso hasta la monetización, tienes todo lo que necesitas para convertirte en la creadora que siempre soñaste ser</p>
             <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-7">
-                <div class="flex h-full flex-col">
+                <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                     <div class="flex aspect-[16/10] items-center justify-center bg-terracota p-5">
                         <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — Fabiola dando una clase en vivo, laptop y notas al frente ]</p>
                     </div>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <div class="flex h-full flex-col">
+                <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                     <div class="flex aspect-[16/10] items-center justify-center bg-espresso-oscuro p-5">
                         <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — estudiante grabando UGC con el celular en un espacio cotidiano ]</p>
                     </div>
@@ -115,7 +115,7 @@
                     </div>
                 </div>
 
-                <div class="flex h-full flex-col">
+                <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                     <div class="flex aspect-[16/10] items-center justify-center bg-terracota p-5">
                         <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — creadoras trabajando en las estaciones de contenido durante el evento ]</p>
                     </div>
@@ -128,7 +128,7 @@
                 </div>
 
                 {{-- Texto pendiente de confirmar con Eli y Fabiola --}}
-                <div class="flex h-full flex-col">
+                <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                     <div class="flex aspect-[16/10] items-center justify-center bg-espresso-oscuro p-5">
                         <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — escritorio con plantillas impresas y una tablet mostrando una guía ]</p>
                     </div>
@@ -154,78 +154,88 @@
 
             <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
                 {{-- Estrategia digital (grande, izquierda) --}}
-                <a href="#cursos" class="category-card group relative isolate flex min-h-[320px] items-end overflow-hidden rounded-sm bg-espresso p-8 lg:min-h-[360px]">
-                    <img src="{{ asset('images/categorias/estrategia-digital.webp') }}"
-                         alt="Escritorio con laptop, libros de estrategia, una libreta con un plan de contenido y una taza de café en luz natural cálida"
-                         class="absolute inset-0 h-full w-full object-cover"
-                         loading="lazy">
-                    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
-                    <div class="relative z-10 text-crema">
-                        <p class="mb-1 text-xs font-semibold tracking-[0.12em] text-terracota uppercase">Estrategia digital</p>
-                        <h3 class="mb-3 text-2xl font-bold lg:text-[28px]">Estrategia digital</h3>
-                        <p class="mb-4 max-w-[280px] text-sm leading-[1.6] opacity-90">Aprende a crear estrategias digitales que convierten ideas en resultados</p>
-                        <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Explorar cursos</span>
-                    </div>
-                </a>
+                <div class="reveal rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                    <a href="#cursos" class="category-card group relative isolate flex min-h-[320px] items-end overflow-hidden rounded-sm bg-espresso p-8 lg:min-h-[360px]">
+                        <img src="{{ asset('images/categorias/estrategia-digital.webp') }}"
+                             alt="Escritorio con laptop, libros de estrategia, una libreta con un plan de contenido y una taza de café en luz natural cálida"
+                             class="absolute inset-0 h-full w-full object-cover"
+                             loading="lazy">
+                        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
+                        <div class="relative z-10 text-crema">
+                            <p class="mb-1 text-xs font-semibold tracking-[0.12em] text-terracota uppercase">Estrategia digital</p>
+                            <h3 class="mb-3 text-2xl font-bold lg:text-[28px]">Estrategia digital</h3>
+                            <p class="mb-4 max-w-[280px] text-sm leading-[1.6] opacity-90">Aprende a crear estrategias digitales que convierten ideas en resultados</p>
+                            <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Explorar cursos</span>
+                        </div>
+                    </a>
+                </div>
 
                 <div class="flex flex-col gap-5">
                     {{-- Creación de contenido --}}
-                    <a href="#cursos" class="category-card group relative isolate flex min-h-[160px] items-end overflow-hidden rounded-sm bg-terracota p-7 lg:min-h-[180px]">
-                        <img src="{{ asset('images/categorias/creacion-de-contenido.webp') }}"
-                             alt="Creadora grabando con el celular montado en un trípode, moodboard de referencias y cámara al fondo"
-                             class="absolute inset-0 h-full w-full object-cover object-[center_65%]"
-                             loading="lazy">
-                        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/80 via-espresso-oscuro/20 to-transparent"></div>
-                        <div class="relative z-10 text-crema">
-                            <p class="mb-1 text-xs font-semibold tracking-[0.12em] uppercase opacity-80">Creación de contenido</p>
-                            <h3 class="text-xl font-bold">Creación de contenido</h3>
-                        </div>
-                    </a>
+                    <div class="reveal rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                        <a href="#cursos" class="category-card group relative isolate flex min-h-[160px] items-end overflow-hidden rounded-sm bg-terracota p-7 lg:min-h-[180px]">
+                            <img src="{{ asset('images/categorias/creacion-de-contenido.webp') }}"
+                                 alt="Creadora grabando con el celular montado en un trípode, moodboard de referencias y cámara al fondo"
+                                 class="absolute inset-0 h-full w-full object-cover object-[center_65%]"
+                                 loading="lazy">
+                            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/80 via-espresso-oscuro/20 to-transparent"></div>
+                            <div class="relative z-10 text-crema">
+                                <p class="mb-1 text-xs font-semibold tracking-[0.12em] uppercase opacity-80">Creación de contenido</p>
+                                <h3 class="text-xl font-bold">Creación de contenido</h3>
+                            </div>
+                        </a>
+                    </div>
 
                     <div class="grid grid-cols-2 gap-5">
                         {{-- Redes sociales --}}
-                        <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-crema p-6 lg:min-h-[160px]">
-                            <img src="{{ asset('images/categorias/redes-sociales.webp') }}"
-                                 alt="Celular sobre un escritorio mostrando la grilla de un perfil de Instagram"
-                                 class="absolute inset-0 h-full w-full object-cover"
-                                 loading="lazy">
-                            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/70 via-espresso-oscuro/10 to-transparent"></div>
-                            <div class="relative z-10 text-crema">
-                                <p class="mb-1 text-[11px] font-semibold tracking-[0.1em] uppercase opacity-80">Redes sociales</p>
-                                <h3 class="text-lg font-bold">Redes sociales</h3>
-                            </div>
-                        </a>
+                        <div class="reveal rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                            <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-crema p-6 lg:min-h-[160px]">
+                                <img src="{{ asset('images/categorias/redes-sociales.webp') }}"
+                                     alt="Celular sobre un escritorio mostrando la grilla de un perfil de Instagram"
+                                     class="absolute inset-0 h-full w-full object-cover"
+                                     loading="lazy">
+                                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/70 via-espresso-oscuro/10 to-transparent"></div>
+                                <div class="relative z-10 text-crema">
+                                    <p class="mb-1 text-[11px] font-semibold tracking-[0.1em] uppercase opacity-80">Redes sociales</p>
+                                    <h3 class="text-lg font-bold">Redes sociales</h3>
+                                </div>
+                            </a>
+                        </div>
 
                         {{-- Edición de video --}}
-                        <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-espresso p-6 lg:min-h-[160px]">
-                            <img src="{{ asset('images/categorias/edicion-de-video.webp') }}"
-                                 alt="Laptop con software de edición de video, cámara Sony al lado, escritorio de trabajo"
-                                 class="absolute inset-0 h-full w-full object-cover"
-                                 loading="lazy">
-                            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
-                            <div class="relative z-10 text-crema">
-                                <p class="mb-1 text-[11px] font-semibold tracking-[0.1em] uppercase opacity-80">Edición de video</p>
-                                <h3 class="text-lg font-bold">Edición de video</h3>
-                            </div>
-                        </a>
+                        <div class="reveal rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                            <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-espresso p-6 lg:min-h-[160px]">
+                                <img src="{{ asset('images/categorias/edicion-de-video.webp') }}"
+                                     alt="Laptop con software de edición de video, cámara Sony al lado, escritorio de trabajo"
+                                     class="absolute inset-0 h-full w-full object-cover"
+                                     loading="lazy">
+                                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
+                                <div class="relative z-10 text-crema">
+                                    <p class="mb-1 text-[11px] font-semibold tracking-[0.1em] uppercase opacity-80">Edición de video</p>
+                                    <h3 class="text-lg font-bold">Edición de video</h3>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {{-- Marca personal (ancha, abajo) --}}
-            <a href="#cursos" class="category-card group relative isolate mt-5 flex min-h-[200px] items-end overflow-hidden rounded-sm bg-espresso-oscuro p-8 lg:min-h-[220px]">
-                <img src="{{ asset('images/categorias/marca-personal.webp') }}"
-                     alt="Retrato editorial de una mujer sentada junto a una ventana con luz natural, moodboard de referencias en la pared"
-                     class="absolute inset-0 h-full w-full object-cover"
-                     loading="lazy">
-                <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-espresso-oscuro via-espresso-oscuro/60 to-transparent lg:w-2/3"></div>
-                <div class="relative z-10 max-w-[360px] text-crema">
-                    <p class="mb-1 text-xs font-semibold tracking-[0.12em] text-terracota uppercase">Marca personal</p>
-                    <h3 class="mb-3 text-2xl font-bold">Marca personal</h3>
-                    <p class="mb-4 text-sm leading-[1.6] opacity-90">Construye una presencia auténtica y haz que tu trabajo hable por ti</p>
-                    <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Explorar cursos</span>
-                </div>
-            </a>
+            <div class="reveal mt-5 rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                <a href="#cursos" class="category-card group relative isolate flex min-h-[200px] items-end overflow-hidden rounded-sm bg-espresso-oscuro p-8 lg:min-h-[220px]">
+                    <img src="{{ asset('images/categorias/marca-personal.webp') }}"
+                         alt="Retrato editorial de una mujer sentada junto a una ventana con luz natural, moodboard de referencias en la pared"
+                         class="absolute inset-0 h-full w-full object-cover"
+                         loading="lazy">
+                    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-espresso-oscuro via-espresso-oscuro/60 to-transparent lg:w-2/3"></div>
+                    <div class="relative z-10 max-w-[360px] text-crema">
+                        <p class="mb-1 text-xs font-semibold tracking-[0.12em] text-terracota uppercase">Marca personal</p>
+                        <h3 class="mb-3 text-2xl font-bold">Marca personal</h3>
+                        <p class="mb-4 text-sm leading-[1.6] opacity-90">Construye una presencia auténtica y haz que tu trabajo hable por ti</p>
+                        <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Explorar cursos</span>
+                    </div>
+                </a>
+            </div>
         </section>
 
         {{-- CURSOS --}}
@@ -237,7 +247,7 @@
                 <div class="mb-18 grid grid-cols-1 gap-6 lg:grid-cols-[0.85fr_0.85fr_1.3fr]">
                     @foreach ($liveProgramCourses as $course)
                         @if ($loop->last && $liveProgramCourses->count() > 1)
-                            <a href="{{ route('courses.show', $course) }}" wire:navigate class="flex flex-col gap-4 bg-espresso px-9 py-10 text-crema">
+                            <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-4 rounded-sm bg-espresso px-9 py-10 text-crema transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                                 <span class="w-fit rounded-full bg-crema/15 px-3 py-1 text-xs font-semibold tracking-wide text-crema uppercase">{{ $course->duration_label }}</span>
                                 <h3 class="text-[26px] font-bold">{{ $course->title }}</h3>
                                 <p class="grow text-[15px] leading-[1.65] opacity-90">{{ Str::limit(strip_tags($course->description), 140) }}</p>
@@ -251,7 +261,7 @@
                                 </div>
                             </a>
                         @else
-                            <a href="{{ route('courses.show', $course) }}" wire:navigate class="flex flex-col gap-4 bg-crema-suave p-8">
+                            <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-4 rounded-sm bg-crema-suave p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                                 <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">{{ $course->duration_label }}</span>
                                 <h3 class="text-xl font-bold">{{ $course->title }}</h3>
                                 <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 140) }}</p>
@@ -273,7 +283,7 @@
                 <p class="mb-8 max-w-[560px] text-base opacity-70">Curso grabado con acompañamiento final</p>
                 <div class="mb-18 grid grid-cols-1 gap-6">
                     @foreach ($hybridCourses as $course)
-                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="flex flex-col gap-5 border-t-4 border-terracota bg-crema-suave p-9">
+                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-5 rounded-sm border-t-4 border-terracota bg-crema-suave p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                             <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">Curso + asesoría</span>
                             <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
                                 <div class="max-w-[560px]">
@@ -298,7 +308,7 @@
                 <p class="mb-8 max-w-[560px] text-base opacity-70">Catálogo de cursos grabados</p>
                 <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
                     @foreach ($recordedCourses as $course)
-                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="flex flex-col gap-3 bg-crema-suave p-[26px]">
+                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-3 rounded-sm bg-crema-suave p-[26px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                             <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">Grabado</span>
                             <h3 class="text-[17px] font-bold">{{ $course->title }}</h3>
                             <p class="grow text-sm leading-[1.55] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 110) }}</p>
@@ -324,22 +334,22 @@
         <section id="como-funciona" class="scroll-mt-24 bg-crema-suave px-[6vw] py-16 lg:py-[100px]">
             <h2 class="mb-14 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Cómo funciona la inscripción</h2>
             <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-10">
-                <div>
+                <div class="reveal">
                     <div class="mb-3 text-[44px] font-bold text-terracota">01</div>
                     <h3 class="mb-2 text-lg font-bold">Elige tu curso</h3>
                     <p class="text-[15px] leading-[1.6] opacity-[0.85]">Según dónde estés hoy: empezando, mejorando tu presencia o monetizando</p>
                 </div>
-                <div>
+                <div class="reveal">
                     <div class="mb-3 text-[44px] font-bold text-terracota">02</div>
                     <h3 class="mb-2 text-lg font-bold">Acceso inmediato</h3>
                     <p class="text-[15px] leading-[1.6] opacity-[0.85]">Entras a la plataforma y empiezas el mismo día, a tu ritmo</p>
                 </div>
-                <div>
+                <div class="reveal">
                     <div class="mb-3 text-[44px] font-bold text-terracota">03</div>
                     <h3 class="mb-2 text-lg font-bold">Comunidad semanal</h3>
                     <p class="text-[15px] leading-[1.6] opacity-[0.85]">Sesiones en vivo con Fabiola y el grupo para resolver dudas reales</p>
                 </div>
-                <div>
+                <div class="reveal">
                     <div class="mb-3 text-[44px] font-bold text-terracota">04</div>
                     <h3 class="mb-2 text-lg font-bold">Seguimiento a tu avance</h3>
                     <p class="text-[15px] leading-[1.6] opacity-[0.85]">Revisamos tu contenido y tu estrategia, no solo te damos videos grabados</p>
@@ -349,10 +359,10 @@
 
         {{-- TESTIMONIO --}}
         <section id="nosotras" class="grid scroll-mt-24 grid-cols-1 items-center gap-14 px-[6vw] py-16 lg:grid-cols-[0.85fr_1.15fr] lg:py-[100px]">
-            <div class="flex aspect-square items-center justify-center rounded-sm bg-espresso-oscuro p-6">
+            <div class="reveal flex aspect-square items-center justify-center rounded-sm bg-espresso-oscuro p-6">
                 <p class="m-0 text-center font-mono text-[13px] text-crema opacity-[0.85]">[ ESPACIO PARA FOTO REAL — Fabiola, fundadora ]</p>
             </div>
-            <div>
+            <div class="reveal">
                 <p class="mb-7 font-serif text-[28px] leading-[1.4] text-espresso italic">
                     "Yo también sentí pena de mostrarme. Lo que me cambió no fue perder la pena de un día para otro, fue tener un plan y personas al lado que me lo recordaran cada semana"
                 </p>
@@ -365,19 +375,19 @@
         <section class="bg-crema-suave px-[6vw] py-16 lg:py-[100px]">
             <h2 class="mb-12 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Preguntas frecuentes</h2>
             <div class="flex max-w-[760px] flex-col">
-                <details class="border-b border-espresso py-[22px]">
+                <details class="reveal border-b border-espresso py-[22px]">
                     <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Necesito ya tener seguidores para empezar?</summary>
                     <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">No. La mayoría de nuestras estudiantes empieza desde cero o con cuentas pequeñas. El programa está diseñado para construir desde ahí, con estrategia real en lugar de esperar a que algo se viralice</p>
                 </details>
-                <details class="border-b border-espresso py-[22px]">
+                <details class="reveal border-b border-espresso py-[22px]">
                     <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Los cursos son en vivo o grabados?</summary>
                     <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Las clases base son grabadas para que avances a tu ritmo, y cada semana hay sesiones en vivo de acompañamiento y comunidad con Fabiola</p>
                 </details>
-                <details class="border-b border-espresso py-[22px]">
+                <details class="reveal border-b border-espresso py-[22px]">
                     <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Puedo tomar más de un curso a la vez?</summary>
                     <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Sí. Muchas estudiantes combinan un curso grabado con una asesoría en vivo desde el inicio. Te ayudamos a definir el orden según tu situación</p>
                 </details>
-                <details class="border-b border-espresso py-[22px]">
+                <details class="reveal border-b border-espresso py-[22px]">
                     <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Qué pasa si tengo poco tiempo cada semana?</summary>
                     <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">El sistema está pensado para mujeres con trabajo, hijos y otras responsabilidades. No se trata de publicar más, sino de publicar con intención en el tiempo que sí tienes</p>
                 </details>

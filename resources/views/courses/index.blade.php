@@ -12,7 +12,7 @@
             <div class="mb-18 grid grid-cols-1 gap-6 lg:grid-cols-3">
                 @foreach ($liveProgramCourses as $course)
                     <a href="{{ route('courses.show', $course) }}" wire:navigate
-                       class="flex flex-col gap-4 bg-crema-suave p-8 pt-6 {{ $loop->last && $liveProgramCourses->count() > 1 ? 'border-t-4 border-terracota' : 'border-t-4 border-transparent' }}">
+                       class="reveal flex flex-col gap-4 rounded-sm bg-crema-suave p-8 pt-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)] {{ $loop->last && $liveProgramCourses->count() > 1 ? 'border-t-4 border-terracota' : 'border-t-4 border-transparent' }}">
                         <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">{{ $course->duration_label }}</span>
                         <h3 class="text-xl font-bold">{{ $course->title }}</h3>
                         <p class="grow max-w-[240px] text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 120) }}</p>
@@ -34,7 +34,7 @@
             <div class="mb-18 grid grid-cols-1 gap-6">
                 @foreach ($hybridCourses as $course)
                     <a href="{{ route('courses.show', $course) }}" wire:navigate
-                       class="flex flex-col gap-5 border-t-4 border-terracota bg-crema-suave p-9">
+                       class="reveal flex flex-col gap-5 rounded-sm border-t-4 border-terracota bg-crema-suave p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                         <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">Curso + asesoría</span>
                         <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
                             <div class="max-w-[560px]">
@@ -60,7 +60,7 @@
             <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
                 @foreach ($recordedCourses as $course)
                     <a href="{{ route('courses.show', $course) }}" wire:navigate
-                       class="flex flex-col gap-3 bg-crema-suave p-[26px]">
+                       class="reveal flex flex-col gap-3 rounded-sm bg-crema-suave p-[26px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                         <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">Grabado</span>
                         <h3 class="text-[17px] font-bold">{{ $course->title }}</h3>
                         <p class="grow text-sm leading-[1.55] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 110) }}</p>

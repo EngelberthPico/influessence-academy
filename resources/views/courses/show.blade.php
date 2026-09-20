@@ -3,7 +3,7 @@
         <a href="{{ route('courses.index') }}" wire:navigate class="mb-8 inline-block text-sm font-semibold text-terracota">← Volver al catálogo</a>
 
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1fr]">
-            <div>
+            <div class="reveal">
                 <p class="mb-2 text-xs font-semibold tracking-[0.12em] text-terracota uppercase">{{ $course->type->getLabel() }}</p>
                 <h1 class="mb-6 text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold">{{ $course->title }}</h1>
                 <div class="prose-none max-w-none text-[17px] leading-[1.7] text-espresso opacity-90">
@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <aside class="h-fit bg-crema-suave p-8">
+            <aside class="reveal h-fit rounded-sm bg-crema-suave p-8">
                 @if ($course->price_cents > 0)
                     <div class="mb-6 text-3xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</div>
                 @else
