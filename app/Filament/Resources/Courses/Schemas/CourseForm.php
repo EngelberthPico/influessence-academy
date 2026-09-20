@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Courses\Schemas;
 
+use App\Actions\Courses\ResolveVimeoEmbedUrlAction;
 use App\Enums\CourseType;
+use Closure;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -33,7 +35,19 @@ class CourseForm
                     ->afterStateHydrated(fn ($component, $state) => $component->state($state !== null ? $state / 100 : null)),
 
                 TextInput::make('vimeo_id')
-                    ->label('ID o link del video en Vimeo'),
+                    ->label('ID o link del video en Vimeo')
+                    ->helperText('Pega el número del video o el link de Vimeo')
+                    ->rule(function () {
+                        return function (string $attribute, $value, Closure $fail) {
+                            if (blank($value)) {
+                                return;
+                            }
+
+                            if (app(ResolveVimeoEmbedUrlAction::class)->handle($value) === null) {
+                                $fail('No reconocemos ese valor. Pega el número del video o el link de Vimeo');
+                            }
+                        };
+                    }),
 
                 Select::make('type')
                     ->label('Tipo')

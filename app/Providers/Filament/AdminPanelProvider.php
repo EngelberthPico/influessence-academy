@@ -28,9 +28,12 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->brandName('Influessence Academy')
+            ->brandLogo(asset('images/brand/logo-espresso.png'))
+            ->darkModeBrandLogo(asset('images/brand/logo-crema.png'))
+            ->brandLogoHeight('2rem')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::hex('#946B4A'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

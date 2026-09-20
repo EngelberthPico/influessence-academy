@@ -12,35 +12,32 @@
     --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-serif: 'Playfair Display', serif;
 
+    /* Altura real del navbar del sitio (resources/views/components/site-nav.blade.php).
+       Única fuente de verdad: la usan el propio layout de marketing y el área con sidebar
+       para reservar el espacio exacto que ocupa el navbar fijo. */
+    --nav-height: 5rem;
+
     --color-crema: #FFFED1;
     --color-crema-suave: #FFFEE8;
     --color-espresso: #412B19;
     --color-espresso-oscuro: #2A1B10;
     --color-terracota: #946B4A;
 
-    --color-zinc-50: #fafafa;
-    --color-zinc-100: #f5f5f5;
-    --color-zinc-200: #e5e5e5;
-    --color-zinc-300: #d4d4d4;
-    --color-zinc-400: #a3a3a3;
-    --color-zinc-500: #737373;
-    --color-zinc-600: #525252;
-    --color-zinc-700: #404040;
-    --color-zinc-800: #262626;
-    --color-zinc-900: #171717;
-    --color-zinc-950: #0a0a0a;
+    --color-zinc-50: #fffee8;
+    --color-zinc-100: #f9f7e1;
+    --color-zinc-200: #eae6cf;
+    --color-zinc-300: #dad5bd;
+    --color-zinc-400: #a79b83;
+    --color-zinc-500: #7b6852;
+    --color-zinc-600: #634f3a;
+    --color-zinc-700: #553f2c;
+    --color-zinc-800: #412b19;
+    --color-zinc-900: #362314;
+    --color-zinc-950: #2a1b10;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
-    --color-accent-foreground: var(--color-white);
-}
-
-@layer theme {
-    .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
-    }
+    --color-accent: var(--color-espresso);
+    --color-accent-content: var(--color-terracota);
+    --color-accent-foreground: var(--color-crema);
 }
 
 @layer base {
@@ -51,6 +48,20 @@
     ::backdrop,
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
+    }
+
+    /*
+     * En móvil, el panel del sidebar se abre con position:fixed;top:0 (ver
+     * flux/sidebar/index.blade.php), lo que lo hace arrancar detrás del navbar
+     * fijo del sitio. Lo bajamos --nav-height para que empiece justo debajo y
+     * no tape su propio botón de cerrar. Va en @layer base (declarada antes que
+     * "utilities") porque, entre reglas !important, la capa declarada primero
+     * gana sobre las posteriores — así supera el top-0! que Flux aplica ahí.
+     */
+    [data-flux-sidebar][data-flux-sidebar-on-mobile] {
+        top: var(--nav-height) !important;
+        min-height: calc(100dvh - var(--nav-height)) !important;
+        max-height: calc(100dvh - var(--nav-height)) !important;
     }
 }
 
@@ -66,6 +77,55 @@ input:focus[data-flux-control],
 textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+/*
+ * Flux no expone la variante "primary" como atributo en el DOM, pero sí la usa
+ * como clase Tailwind literal (bg-[var(--color-accent)]) en el propio botón.
+ * Nos apoyamos en esa clase para dar forma de píldora solo a botones primarios,
+ * sin tocar resources/views/flux/. Los botones de ícono y de menú usan otras
+ * variantes (subtle, ghost, filled), así que no se ven afectados.
+ */
+[data-flux-button][class*="bg-[var(--color-accent)]"] {
+    border-radius: 9999px;
+}
+
+
+/*
+ * Item activo del menú lateral: Flux marca la página actual con data-current
+ * en la raíz del item (ver flux/sidebar/item.blade.php). Usamos ese atributo
+ * para el fondo/texto/ícono de marca, ya que no podemos editar el componente.
+ */
+[data-flux-sidebar-item][data-current] {
+    background-color: color-mix(in oklab, var(--color-espresso), transparent 90%);
+}
+
+[data-flux-sidebar-item][data-current] [data-content] {
+    color: var(--color-espresso);
+    font-weight: 600;
+}
+
+[data-flux-sidebar-item][data-current] svg {
+    color: var(--color-terracota);
+}
+
+[data-flux-sidebar-item]:not([data-current]):hover {
+    background-color: color-mix(in oklab, var(--color-espresso), transparent 95%);
+}
+
+/* Mismo tratamiento de "item activo" para el menú lateral de ajustes. */
+[data-flux-navlist-item][data-current] {
+    background-color: color-mix(in oklab, var(--color-espresso), transparent 90%);
+    color: var(--color-espresso);
+    font-weight: 600;
+}
+
+[data-flux-navlist-item][data-current] svg {
+    color: var(--color-terracota);
+}
+
+[data-flux-navlist-item]:not([data-current]):hover {
+    background-color: color-mix(in oklab, var(--color-espresso), transparent 95%);
 }
 
 /* \[:where(&)\]:size-4 {

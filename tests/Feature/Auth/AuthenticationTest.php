@@ -9,6 +9,15 @@ test('login screen can be rendered', function () {
     $response->assertOk();
 });
 
+test('the login screen has no visible title or description, only a screen-reader heading', function () {
+    $response = $this->get(route('login'));
+
+    $response->assertOk();
+    $response->assertDontSee('Ingresa tu correo y contraseña para iniciar sesión');
+    $response->assertSee('sr-only', false);
+    $response->assertSee('Inicia sesión en tu cuenta');
+});
+
 test('users can authenticate using the login screen', function () {
     $user = User::factory()->create();
 
