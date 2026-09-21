@@ -5,10 +5,10 @@
             <a href="{{ route('learning.show', $course) }}" wire:navigate class="w-fit text-sm font-semibold text-espresso underline decoration-terracota decoration-2 underline-offset-4">{{ $course->title }}</a>
         </div>
 
+        <h1 class="text-[clamp(28px,3.5vw,40px)] font-bold text-espresso">{{ $lesson->title }}</h1>
+
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div class="flex flex-col gap-6 lg:col-span-2">
-                <h1 class="text-[clamp(28px,3.5vw,40px)] font-bold text-espresso">{{ $lesson->title }}</h1>
-
                 @if ($embedUrl)
                     <x-vimeo-player :url="$embedUrl" :title="$lesson->title" />
                 @else
@@ -33,7 +33,7 @@
             </div>
 
             <div class="lg:col-span-1">
-                <div class="lg:sticky lg:top-[var(--nav-height)]">
+                <div class="lg:sticky lg:top-[calc(var(--nav-height)+16px)]">
                     <x-course-outline :course="$course" :current="$lesson" />
                 </div>
             </div>

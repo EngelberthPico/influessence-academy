@@ -20,7 +20,7 @@
                     width="1536"
                     height="1024"
                     fetchpriority="high"
-                    class="hero-photo-mask h-full w-full object-cover"
+                    class="hero-photo-mask h-full w-full object-cover object-center lg:object-[76%_center]"
                 >
 
                 <div class="hidden lg:contents">
@@ -242,8 +242,8 @@
 
                 <div class="mb-12 grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
                     @foreach ($bestSellerCourses as $course)
-                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-4 rounded-sm bg-crema-suave p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                            <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">{{ $course->card_label }}</span>
+                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-4 rounded-sm border border-espresso/15 bg-crema-suave p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                            <span class="w-fit text-xs font-semibold tracking-wide uppercase text-terracota">{{ $course->card_label }}</span>
                             <h3 class="text-xl font-bold">{{ $course->title }}</h3>
                             <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 140) }}</p>
                             <div class="flex items-center justify-between border-t border-espresso/10 pt-4">
@@ -283,13 +283,13 @@
                 </div>
                 <div class="reveal">
                     <div class="mb-3 text-[44px] font-bold text-terracota">03</div>
-                    <h3 class="mb-2 text-lg font-bold">Comunidad semanal</h3>
-                    <p class="text-[15px] leading-[1.6] opacity-[0.85]">Sesiones en vivo con Fabiola y el grupo para resolver dudas reales</p>
+                    <h3 class="mb-2 text-lg font-bold">Aprende a tu ritmo</h3>
+                    <p class="text-[15px] leading-[1.6] opacity-[0.85]">Los cursos grabados los ves cuando quieras y las veces que necesites, organizados por módulos</p>
                 </div>
                 <div class="reveal">
                     <div class="mb-3 text-[44px] font-bold text-terracota">04</div>
-                    <h3 class="mb-2 text-lg font-bold">Seguimiento a tu avance</h3>
-                    <p class="text-[15px] leading-[1.6] opacity-[0.85]">Revisamos tu contenido y tu estrategia, no solo te damos videos grabados</p>
+                    <h3 class="mb-2 text-lg font-bold">Agenda tu clase en vivo</h3>
+                    <p class="text-[15px] leading-[1.6] opacity-[0.85]">Si tu curso incluye asesoría, o es un programa en vivo, agendas tu clase con Fabiola desde tu cuenta</p>
                 </div>
             </div>
         </section>
@@ -318,7 +318,7 @@
                 </details>
                 <details class="reveal border-b border-espresso py-[22px]">
                     <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Los cursos son en vivo o grabados?</summary>
-                    <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Las clases base son grabadas para que avances a tu ritmo, y cada semana hay sesiones en vivo de acompañamiento y comunidad con Fabiola</p>
+                    <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Depende del curso. Los cursos grabados los ves a tu ritmo y no incluyen sesiones en vivo. Los programas en vivo son con Fabiola, y algunos cursos grabados cierran con una asesoría con ella</p>
                 </details>
                 <details class="reveal border-b border-espresso py-[22px]">
                     <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Puedo tomar más de un curso a la vez?</summary>

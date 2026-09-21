@@ -1,6 +1,6 @@
 @props(['course', 'current' => null])
 
-<nav aria-label="Contenido del curso" class="flex flex-col gap-6 rounded-sm border-t-4 border-terracota bg-crema-suave p-6">
+<nav aria-label="Contenido del curso" class="flex flex-col gap-6 rounded-sm border border-espresso/15 border-t-4 border-t-terracota bg-crema-suave p-6">
     @foreach ($course->modules as $moduleIndex => $module)
         <div class="flex flex-col gap-3">
             <div>
