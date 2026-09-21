@@ -12,7 +12,7 @@
             <div class="mb-18 grid grid-cols-1 gap-6 lg:grid-cols-3">
                 @foreach ($liveProgramCourses as $course)
                     <a href="{{ route('courses.show', $course) }}" wire:navigate
-                       class="reveal flex flex-col gap-4 rounded-sm border border-espresso/15 bg-crema-suave p-8 pt-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)] {{ $loop->last && $liveProgramCourses->count() > 1 ? 'border-t-4 border-t-terracota' : 'border-t-4 border-t-transparent' }}">
+                       class="reveal flex flex-col gap-4 rounded-sm border border-espresso/15 bg-crema-suave p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                         <span class="w-fit text-xs font-semibold tracking-wide uppercase text-terracota">{{ $course->duration_label }}</span>
                         <h3 class="text-xl font-bold">{{ $course->title }}</h3>
                         <p class="grow max-w-[240px] text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 120) }}</p>

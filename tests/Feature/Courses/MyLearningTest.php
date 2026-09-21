@@ -98,7 +98,7 @@ test('show shows a pending message when the course has no vimeo id', function ()
     $response->assertDontSee('<iframe', false);
 });
 
-test('show shows the live program message when the course type is live program and has no video', function () {
+test('show shows the agenda tu clase section instead of a video for live program courses', function () {
     $user = User::factory()->create();
     $course = Course::factory()->create(['vimeo_id' => null, 'type' => CourseType::LiveProgram]);
 
@@ -107,7 +107,8 @@ test('show shows the live program message when the course type is live program a
     $response = $this->actingAs($user)->get(route('learning.show', $course));
 
     $response->assertOk();
-    $response->assertSee('Este programa es en vivo, por eso no tiene un video para ver aquí');
+    $response->assertSee('Agenda tu clase');
+    $response->assertDontSee('Este programa es en vivo, por eso no tiene un video para ver aquí');
     $response->assertDontSee('<iframe', false);
 });
 

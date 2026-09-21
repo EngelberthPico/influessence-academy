@@ -2,9 +2,13 @@
 
 namespace App\Actions\Bookings;
 
+use App\Actions\Courses\GetLiveProgramSchedulingAction;
 use App\Enums\BookingStatus;
+use App\Enums\CourseType;
 use App\Exceptions\CalendlyConfirmationException;
+use App\Exceptions\CourseBookingException;
 use App\Models\Booking;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -13,8 +17,36 @@ use Throwable;
 
 class ConfirmCalendlyBookingAction
 {
-    public function handle(User $user, string $eventUri, string $inviteeUri): Booking
+    public function __construct(private readonly GetLiveProgramSchedulingAction $schedulingAction) {}
+
+    public function handle(User $user, string $eventUri, string $inviteeUri, ?Course $course = null): Booking
     {
+        if ($course) {
+            if (! $user->hasAccessTo($course)) {
+                throw new CourseBookingException('No tienes acceso a este curso.', 403);
+            }
+
+            if ($course->type !== CourseType::LiveProgram) {
+                throw new CourseBookingException('Este curso no incluye clases en vivo', 422);
+            }
+
+            $existingBooking = Booking::query()
+                ->where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->where('calendly_event_uri', $eventUri)
+                ->first();
+
+            if ($existingBooking) {
+                return $existingBooking;
+            }
+
+            $scheduling = $this->schedulingAction->handle($user, $course);
+
+            if ($scheduling['remaining'] !== null && $scheduling['remaining'] <= 0) {
+                throw new CourseBookingException('Ya agendaste todas las sesiones de este programa. Escríbenos si necesitas cambiar una', 422);
+            }
+        }
+
         try {
             $event = Http::withToken(config('services.calendly.token'))
                 ->connectTimeout(3)
@@ -66,6 +98,7 @@ class ConfirmCalendlyBookingAction
             ['calendly_event_uri' => $eventUri],
             [
                 'user_id' => $user->id,
+                'course_id' => $course?->id,
                 'scheduled_at' => $startTime,
                 'status' => BookingStatus::Scheduled,
             ],

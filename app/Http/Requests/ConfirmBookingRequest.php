@@ -25,6 +25,7 @@ class ConfirmBookingRequest extends FormRequest
         return [
             'event_uri' => ['required', 'string', 'regex:/^https:\/\/api\.calendly\.com\/scheduled_events\/[\w-]+$/'],
             'invitee_uri' => ['required', 'string', 'regex:/^https:\/\/api\.calendly\.com\/scheduled_events\/[\w-]+\/invitees\/[\w-]+$/'],
+            'course_id' => ['nullable', 'integer', 'exists:courses,id'],
         ];
     }
 }
