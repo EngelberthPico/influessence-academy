@@ -2,13 +2,15 @@
 
 namespace App\Filament\Resources\Courses\Schemas;
 
-use App\Actions\Courses\ResolveVimeoEmbedUrlAction;
 use App\Enums\CourseType;
-use Closure;
+use App\Rules\ValidVimeoVideo;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
@@ -35,19 +37,9 @@ class CourseForm
                     ->afterStateHydrated(fn ($component, $state) => $component->state($state !== null ? $state / 100 : null)),
 
                 TextInput::make('vimeo_id')
-                    ->label('ID o link del video en Vimeo')
-                    ->helperText('Pega el número del video o el link de Vimeo')
-                    ->rule(function () {
-                        return function (string $attribute, $value, Closure $fail) {
-                            if (blank($value)) {
-                                return;
-                            }
-
-                            if (app(ResolveVimeoEmbedUrlAction::class)->handle($value) === null) {
-                                $fail('No reconocemos ese valor. Pega el número del video o el link de Vimeo');
-                            }
-                        };
-                    }),
+                    ->label('Video de bienvenida (opcional)')
+                    ->helperText('Se muestra arriba del curso, antes de los módulos. Pega el número del video o el link de Vimeo')
+                    ->rule(new ValidVimeoVideo),
 
                 Select::make('type')
                     ->label('Tipo')
@@ -76,6 +68,54 @@ class CourseForm
 
                 Toggle::make('is_published')
                     ->label('Publicado'),
+
+                Section::make('Contenido del curso')
+                    ->columnSpanFull()
+                    ->visible(fn (Get $get) => in_array($get->enum('type', CourseType::class), [CourseType::Recorded, CourseType::Hybrid]))
+                    ->schema([
+                        Repeater::make('modules')
+                            ->label('Módulos')
+                            ->relationship('modules')
+                            ->orderColumn('position')
+                            ->collapsible()
+                            ->cloneable(false)
+                            ->addActionLabel('Agregar módulo')
+                            ->itemLabel(fn (array $state): string => filled($state['title'] ?? null) ? $state['title'] : 'Módulo nuevo')
+                            ->schema([
+                                TextInput::make('title')
+                                    ->label('Título del módulo')
+                                    ->required(),
+
+                                Textarea::make('description')
+                                    ->label('Descripción (opcional)')
+                                    ->rows(2),
+
+                                Repeater::make('lessons')
+                                    ->label('Videos')
+                                    ->relationship('lessons')
+                                    ->orderColumn('position')
+                                    ->collapsible()
+                                    ->cloneable(false)
+                                    ->minItems(0)
+                                    ->addActionLabel('Agregar video')
+                                    ->itemLabel(fn (array $state): string => filled($state['title'] ?? null) ? $state['title'] : 'Video nuevo')
+                                    ->schema([
+                                        TextInput::make('title')
+                                            ->label('Título del video')
+                                            ->required(),
+
+                                        TextInput::make('vimeo_id')
+                                            ->label('ID o link del video en Vimeo')
+                                            ->helperText('Pega el número del video o el link de Vimeo')
+                                            ->required()
+                                            ->rule(new ValidVimeoVideo),
+
+                                        Textarea::make('description')
+                                            ->label('Descripción (opcional)')
+                                            ->rows(2),
+                                    ]),
+                            ]),
+                    ]),
             ]);
     }
 }

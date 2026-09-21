@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
 
 #[Fillable(['title', 'slug', 'description', 'price_cents', 'currency', 'vimeo_id', 'is_published', 'published_at', 'type', 'session_count', 'duration_months', 'redemption_window_days'])]
@@ -57,6 +58,18 @@ class Course extends Model
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'course_accesses');
+    }
+
+    public function modules(): HasMany
+    {
+        return $this->hasMany(CourseModule::class)->orderBy('position')->orderBy('id');
+    }
+
+    public function lessons(): HasManyThrough
+    {
+        return $this->hasManyThrough(Lesson::class, CourseModule::class)
+            ->orderBy('course_modules.position')
+            ->orderBy('lessons.position');
     }
 
     public function getDurationLabelAttribute(): string
