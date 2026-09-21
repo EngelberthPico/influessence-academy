@@ -69,6 +69,10 @@ class CourseForm
                 Toggle::make('is_published')
                     ->label('Publicado'),
 
+                Toggle::make('is_best_seller')
+                    ->label('Más vendido')
+                    ->helperText('Los cursos marcados aparecen en la página de inicio, siempre que estén publicados. Te recomendamos marcar entre 3 y 6'),
+
                 Section::make('Contenido del curso')
                     ->columnSpanFull()
                     ->visible(fn (Get $get) => in_array($get->enum('type', CourseType::class), [CourseType::Recorded, CourseType::Hybrid]))

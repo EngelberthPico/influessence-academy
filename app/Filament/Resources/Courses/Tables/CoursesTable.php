@@ -31,6 +31,10 @@ class CoursesTable
                     ->label('Publicado')
                     ->boolean(),
 
+                IconColumn::make('is_best_seller')
+                    ->label('Más vendido')
+                    ->boolean(),
+
                 TextColumn::make('created_at')
                     ->label('Creado')
                     ->date(),

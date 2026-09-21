@@ -3,58 +3,71 @@
 use App\Enums\CourseType;
 use App\Models\Course;
 
-test('the home shows real published courses instead of hardcoded content', function () {
-    $liveProgram = Course::factory()->create([
-        'title' => 'Mentoría Real',
+test('the home shows published courses marked as best seller', function () {
+    $bestSeller = Course::factory()->bestSeller()->create([
+        'title' => 'Curso Estrella',
         'type' => CourseType::LiveProgram,
-        'price_cents' => 99900,
-        'is_published' => true,
-    ]);
-    $hybrid = Course::factory()->create([
-        'title' => 'Curso Híbrido Real',
-        'type' => CourseType::Hybrid,
-        'is_published' => true,
-    ]);
-    $recorded = Course::factory()->create([
-        'title' => 'Curso Grabado Real',
-        'type' => CourseType::Recorded,
         'is_published' => true,
     ]);
 
     $response = $this->get(route('home'));
 
     $response->assertOk();
-    $response->assertSee($liveProgram->title);
-    $response->assertSee($hybrid->title);
-    $response->assertSee($recorded->title);
-    $response->assertDontSee('Mentorship');
-    $response->assertDontSee('Master Pro');
-    $response->assertDontSee('Amazon Links');
+    $response->assertSee('Los cursos más vendidos');
+    $response->assertSee($bestSeller->title);
 });
 
-test('the home shows a message when there are no published courses', function () {
+test('the home does not show published courses that are not marked as best seller', function () {
+    $regular = Course::factory()->create([
+        'title' => 'Curso Regular',
+        'is_published' => true,
+        'is_best_seller' => false,
+    ]);
+
     $response = $this->get(route('home'));
 
     $response->assertOk();
-    $response->assertSee('Todavía no hay cursos publicados');
+    $response->assertDontSee($regular->title);
 });
 
-test('the most expensive live program course is the one highlighted on the home', function () {
-    $cheaper = Course::factory()->create([
-        'title' => 'Asesoría Puntual',
-        'type' => CourseType::LiveProgram,
-        'price_cents' => 34900,
-        'is_published' => true,
-    ]);
-    $mostExpensive = Course::factory()->create([
-        'title' => 'Programa Premium',
-        'type' => CourseType::LiveProgram,
-        'price_cents' => 169900,
-        'is_published' => true,
+test('the home does not show best seller courses that are not published', function () {
+    $unpublished = Course::factory()->bestSeller()->create([
+        'title' => 'Curso Sin Publicar',
+        'is_published' => false,
     ]);
 
     $response = $this->get(route('home'));
 
     $response->assertOk();
-    $response->assertSeeInOrder([$cheaper->title, $mostExpensive->title]);
+    $response->assertDontSee($unpublished->title);
+});
+
+test('the home shows a fallback message and catalog link when there are no best seller courses', function () {
+    Course::factory()->create(['is_published' => true, 'is_best_seller' => false]);
+
+    $response = $this->get(route('home'));
+
+    $response->assertOk();
+    $response->assertSee('Nuestros cursos');
+    $response->assertSee('Explora el catálogo completo');
+    $response->assertSee(route('courses.index'), false);
+});
+
+test('the home no longer shows the old catalog subtitles', function () {
+    Course::factory()->bestSeller()->create(['type' => CourseType::LiveProgram, 'is_published' => true]);
+
+    $response = $this->get(route('home'));
+
+    $response->assertOk();
+    $response->assertDontSee('Catálogo de cursos grabados');
+    $response->assertDontSee('Acompañamiento en vivo con Fabiola');
+    $response->assertDontSee('Curso grabado con acompañamiento final');
+});
+
+test('the home hero button and ver mas links point to the catalog instead of the cursos anchor', function () {
+    $response = $this->get(route('home'));
+    $content = $response->getContent();
+
+    $response->assertOk();
+    expect(substr_count($content, 'href="'.route('courses.index').'"'))->toBeGreaterThanOrEqual(6);
 });

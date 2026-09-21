@@ -28,7 +28,15 @@ class CourseFactory extends Factory
             'currency' => 'usd',
             'vimeo_id' => null,
             'is_published' => true,
+            'is_best_seller' => false,
             'published_at' => now(),
         ];
+    }
+
+    public function bestSeller(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_best_seller' => true,
+        ]);
     }
 }

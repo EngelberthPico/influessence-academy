@@ -8,7 +8,7 @@
                 <p class="mb-9 max-w-[480px] text-lg leading-[1.65] text-espresso opacity-[0.85]">
                     Aquí no te enseñamos a copiarle el estilo a nadie. Te enseñamos a crear, conectar con tu comunidad y monetizar tu contenido con un plan que sí puedes sostener
                 </p>
-                <a href="#cursos" class="inline-block rounded-full bg-espresso px-9 py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso-oscuro hover:shadow-lg">Explorar cursos</a>
+                <a href="{{ route('courses.index') }}" wire:navigate class="inline-block rounded-full bg-espresso px-9 py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso-oscuro hover:shadow-lg">Explorar cursos</a>
             </div>
 
             {{-- Contenedor de la foto: en mobile es un bloque normal en flujo, en lg: se vuelve
@@ -96,7 +96,7 @@
                         <flux:icon.academic-cap class="size-5 text-terracota" />
                         <h3 class="text-[19px] font-bold">Academia Influessence</h3>
                         <p class="grow text-sm leading-[1.55] opacity-[0.85]">Aprende la estrategia completa para crecer, crear y monetizar en redes sociales</p>
-                        <a href="#cursos" class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
+                        <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
                     </div>
                 </div>
 
@@ -108,7 +108,7 @@
                         <flux:icon.video-camera class="size-5 text-terracota" />
                         <h3 class="text-[19px] font-bold">UGC &amp; Content Creation</h3>
                         <p class="grow text-sm leading-[1.55] opacity-[0.85]">Domina la creación de contenido real y atractivo para marcas y tu propia audiencia</p>
-                        <a href="#cursos" class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
+                        <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
                     </div>
                 </div>
 
@@ -120,7 +120,7 @@
                         <flux:icon.user-group class="size-5 text-terracota" />
                         <h3 class="text-[19px] font-bold">The Creator Content House Experience</h3>
                         <p class="grow text-sm leading-[1.55] opacity-[0.85]">Un evento presencial de Fabiola con creadoras que quieren optimizar su tiempo al crear contenido: retos y estaciones donde en cada una grabas algo distinto en un solo día. Al terminar, sales con hasta 20 videos listos</p>
-                        <a href="#cursos" class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
+                        <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
                     </div>
                 </div>
 
@@ -133,7 +133,7 @@
                         <flux:icon.document-text class="size-5 text-terracota" />
                         <h3 class="text-[19px] font-bold">Plantillas &amp; Herramientas</h3>
                         <p class="grow text-sm leading-[1.55] opacity-[0.85]">Plantillas, guías y recursos listos para que implementes todo lo aprendido</p>
-                        <a href="#cursos" class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
+                        <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
                     </div>
                 </div>
             </div>
@@ -152,7 +152,7 @@
             <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
                 {{-- Estrategia digital (grande, izquierda) --}}
                 <div class="reveal rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                    <a href="#cursos" class="category-card group relative isolate flex min-h-[320px] items-end overflow-hidden rounded-sm bg-espresso p-8 lg:min-h-[360px]">
+                    <a href="{{ route('courses.index') }}" wire:navigate class="category-card group relative isolate flex min-h-[320px] items-end overflow-hidden rounded-sm bg-espresso p-8 lg:min-h-[360px]">
                         <img src="{{ asset('images/categorias/estrategia-digital.webp') }}"
                              alt="Escritorio con laptop, libros de estrategia, una libreta con un plan de contenido y una taza de café en luz natural cálida"
                              class="absolute inset-0 h-full w-full object-cover"
@@ -219,7 +219,7 @@
 
             {{-- Marca personal (ancha, abajo) --}}
             <div class="reveal mt-5 rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                <a href="#cursos" class="category-card group relative isolate flex min-h-[200px] items-end overflow-hidden rounded-sm bg-espresso-oscuro p-8 lg:min-h-[220px]">
+                <a href="{{ route('courses.index') }}" wire:navigate class="category-card group relative isolate flex min-h-[200px] items-end overflow-hidden rounded-sm bg-espresso-oscuro p-8 lg:min-h-[220px]">
                     <img src="{{ asset('images/categorias/marca-personal.webp') }}"
                          alt="Retrato editorial de una mujer sentada junto a una ventana con luz natural, moodboard de referencias en la pared"
                          class="absolute inset-0 h-full w-full object-cover"
@@ -237,94 +237,34 @@
 
         {{-- CURSOS --}}
         <section id="cursos" class="scroll-mt-24 px-[6vw] py-16 lg:py-[100px]">
-            <h2 class="mb-5 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Elige tu nivel de acompañamiento</h2>
+            @if ($bestSellerCourses->isNotEmpty())
+                <h2 class="mb-12 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Los cursos más vendidos</h2>
 
-            @if ($liveProgramCourses->isNotEmpty())
-                <p class="mb-8 max-w-[560px] text-base opacity-70">Acompañamiento en vivo con Fabiola</p>
-                <div class="mb-18 grid grid-cols-1 gap-6 lg:grid-cols-[0.85fr_0.85fr_1.3fr]">
-                    @foreach ($liveProgramCourses as $course)
-                        @if ($loop->last && $liveProgramCourses->count() > 1)
-                            <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-4 rounded-sm bg-espresso px-9 py-10 text-crema transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                                <span class="w-fit rounded-full bg-crema/15 px-3 py-1 text-xs font-semibold tracking-wide text-crema uppercase">{{ $course->duration_label }}</span>
-                                <h3 class="text-[26px] font-bold">{{ $course->title }}</h3>
-                                <p class="grow text-[15px] leading-[1.65] opacity-90">{{ Str::limit(strip_tags($course->description), 140) }}</p>
-                                <div class="flex items-center justify-between border-t border-crema/20 pt-4">
-                                    @if ($course->price_cents > 0)
-                                        <span class="text-2xl font-bold text-crema">${{ number_format($course->price_cents / 100, 0) }}</span>
-                                    @else
-                                        <span class="text-sm font-semibold opacity-70">Precio próximamente</span>
-                                    @endif
-                                    <span class="text-sm font-semibold underline decoration-crema decoration-2 underline-offset-4">Ver detalles</span>
-                                </div>
-                            </a>
-                        @else
-                            <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-4 rounded-sm bg-crema-suave p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                                <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">{{ $course->duration_label }}</span>
-                                <h3 class="text-xl font-bold">{{ $course->title }}</h3>
-                                <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 140) }}</p>
-                                <div class="flex items-center justify-between border-t border-espresso/10 pt-4">
-                                    @if ($course->price_cents > 0)
-                                        <span class="text-xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
-                                    @else
-                                        <span class="text-sm font-semibold opacity-60">Precio próximamente</span>
-                                    @endif
-                                    <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver detalles</span>
-                                </div>
-                            </a>
-                        @endif
-                    @endforeach
-                </div>
-            @endif
-
-            @if ($hybridCourses->isNotEmpty())
-                <p class="mb-8 max-w-[560px] text-base opacity-70">Curso grabado con acompañamiento final</p>
-                <div class="mb-18 grid grid-cols-1 gap-6">
-                    @foreach ($hybridCourses as $course)
-                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-5 rounded-sm border-t-4 border-terracota bg-crema-suave p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                            <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">Curso + asesoría</span>
-                            <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between">
-                                <div class="max-w-[560px]">
-                                    <h3 class="mb-3 text-[22px] font-bold">{{ $course->title }}</h3>
-                                    <p class="text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 160) }}</p>
-                                </div>
-                                <div class="flex shrink-0 flex-col items-start gap-3 sm:items-end">
-                                    @if ($course->price_cents > 0)
-                                        <span class="text-[22px] font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
-                                    @else
-                                        <span class="text-sm font-semibold opacity-60">Precio próximamente</span>
-                                    @endif
-                                    <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver detalles</span>
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
-                </div>
-            @endif
-
-            @if ($recordedCourses->isNotEmpty())
-                <p class="mb-8 max-w-[560px] text-base opacity-70">Catálogo de cursos grabados</p>
-                <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
-                    @foreach ($recordedCourses as $course)
-                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-3 rounded-sm bg-crema-suave p-[26px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                            <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">Grabado</span>
-                            <h3 class="text-[17px] font-bold">{{ $course->title }}</h3>
-                            <p class="grow text-sm leading-[1.55] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 110) }}</p>
-                            <div class="flex items-center justify-between border-t border-espresso/10 pt-3">
+                <div class="mb-12 grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
+                    @foreach ($bestSellerCourses as $course)
+                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-4 rounded-sm bg-crema-suave p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                            <span class="w-fit rounded-full bg-crema px-3 py-1 text-xs font-semibold tracking-wide text-espresso uppercase">{{ $course->card_label }}</span>
+                            <h3 class="text-xl font-bold">{{ $course->title }}</h3>
+                            <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 140) }}</p>
+                            <div class="flex items-center justify-between border-t border-espresso/10 pt-4">
                                 @if ($course->price_cents > 0)
-                                    <span class="text-lg font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
+                                    <span class="text-xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
                                 @else
-                                    <span class="text-xs font-semibold opacity-60">Precio próximamente</span>
+                                    <span class="text-sm font-semibold opacity-60">Precio próximamente</span>
                                 @endif
-                                <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver curso</span>
+                                <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver detalles</span>
                             </div>
                         </a>
                     @endforeach
                 </div>
+            @else
+                <h2 class="mb-5 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Nuestros cursos</h2>
+                <p class="mb-8 max-w-[560px] text-base opacity-70">Explora el catálogo completo</p>
             @endif
 
-            @if ($liveProgramCourses->isEmpty() && $hybridCourses->isEmpty() && $recordedCourses->isEmpty())
-                <p class="text-base opacity-70">Todavía no hay cursos publicados</p>
-            @endif
+            <div class="flex justify-center">
+                <a href="{{ route('courses.index') }}" wire:navigate class="rounded-full bg-terracota px-[26px] py-3 text-[15px] font-semibold whitespace-nowrap text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso hover:shadow-lg">Ver todos los cursos</a>
+            </div>
         </section>
 
         {{-- COMO FUNCIONA --}}

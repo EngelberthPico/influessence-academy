@@ -42,6 +42,17 @@ test('the catalog only shows published courses grouped by type', function () {
     $response->assertDontSee($unpublished->title);
 });
 
+test('the catalog shows published courses regardless of best seller status', function () {
+    $bestSeller = Course::factory()->bestSeller()->create(['title' => 'Curso Estrella', 'is_published' => true]);
+    $regular = Course::factory()->create(['title' => 'Curso Normal', 'is_published' => true, 'is_best_seller' => false]);
+
+    $response = $this->get(route('courses.index'));
+
+    $response->assertOk();
+    $response->assertSee($bestSeller->title);
+    $response->assertSee($regular->title);
+});
+
 test('a published course can be viewed', function () {
     $course = Course::factory()->create(['is_published' => true]);
 

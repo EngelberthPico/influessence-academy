@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Courses\GetPublishedCoursesGroupedByTypeAction;
+use App\Actions\Courses\GetBestSellerCoursesAction;
 
 class HomeController extends Controller
 {
-    public function index(GetPublishedCoursesGroupedByTypeAction $action)
+    public function index(GetBestSellerCoursesAction $action)
     {
-        $courses = $action->handle();
-
         return view('welcome', [
-            'liveProgramCourses' => $courses['liveProgram'],
-            'hybridCourses' => $courses['hybrid'],
-            'recordedCourses' => $courses['recorded'],
+            'bestSellerCourses' => $action->handle(),
         ]);
     }
 }
