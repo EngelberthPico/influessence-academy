@@ -18,7 +18,7 @@ class CourseAccessResource extends Resource
 {
     protected static ?string $model = CourseAccess::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedKey;
 
     protected static ?string $modelLabel = 'acceso';
 

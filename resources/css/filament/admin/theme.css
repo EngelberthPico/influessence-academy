@@ -1,0 +1,102 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+@theme {
+    /*
+     * Mismos valores que --color-crema/-crema-suave/-espresso/-espresso-oscuro/-terracota
+     * en resources/css/app.css, para poder usar las mismas clases de marca
+     * (text-espresso, bg-terracota, text-crema...) en las vistas de este panel
+     * (resources/views/filament/partials/*). Este build de Tailwind es
+     * independiente del sitio, así que los tokens se repiten aquí a propósito.
+     */
+    --color-crema: #FFFED1;
+    --color-crema-suave: #FFFEE8;
+    --color-espresso: #412B19;
+    --color-espresso-oscuro: #2A1B10;
+    --color-terracota: #946B4A;
+}
+
+/*
+ * Fondo de página vs. superficies: Filament pinta el body con bg-gray-50, que ya
+ * reutiliza la escala cálida de app.css (ver "gray" en AdminPanelProvider), pero
+ * eso dejaría la página del mismo tono que las tarjetas. Aquí separamos los dos
+ * niveles: página en crema, superficies (topbar, sidebar, tarjetas, tablas) en
+ * crema suave con un borde espresso muy tenue, igual que en el área de "Mi cuenta".
+ */
+.fi-body {
+    background-color: var(--color-crema);
+}
+
+.fi-sidebar,
+.fi-sidebar-header,
+.fi-section-content-ctn,
+.fi-ta-ctn {
+    background-color: var(--color-crema-suave);
+}
+
+/*
+ * El navbar del panel usa el mismo crema que <x-site-nav> (sitio público y
+ * área de "Mi cuenta"), no el crema suave de las demás superficies, para que
+ * la barra superior se vea igual en todo el proyecto.
+ */
+.fi-topbar {
+    background-color: var(--color-crema);
+    border-bottom: 1px solid color-mix(in oklab, var(--color-espresso), transparent 90%);
+    box-shadow: none;
+}
+
+/*
+ * Filament oculta el logo del topbar por debajo de "lg" (.fi-topbar-start es
+ * "hidden lg:flex"), asumiendo que la marca se ve al abrir el sidebar móvil.
+ * El ticket pide que el logo se vea siempre en la barra superior, incluido en
+ * 375px, así que forzamos que se muestre en todos los anchos.
+ */
+.fi-topbar-start {
+    display: flex;
+}
+
+.fi-sidebar.fi-sidebar-open {
+    border-inline-end: 1px solid color-mix(in oklab, var(--color-espresso), transparent 90%);
+    box-shadow: none;
+}
+
+.fi-sidebar-header {
+    border-bottom: 1px solid color-mix(in oklab, var(--color-espresso), transparent 90%);
+}
+
+.fi-section-content-ctn,
+.fi-ta-ctn {
+    border: 1px solid color-mix(in oklab, var(--color-espresso), transparent 90%);
+}
+
+/*
+ * Item activo del sidebar: mismo lenguaje visual que el sidebar de "Mi cuenta"
+ * (resources/css/app.css, [data-flux-sidebar-item][data-current]) en vez del
+ * primary-700 que usa Filament por defecto.
+ */
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    background-color: color-mix(in oklab, var(--color-espresso), transparent 90%);
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-icon {
+    color: var(--color-terracota);
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-label {
+    color: var(--color-espresso);
+    font-weight: 600;
+}
+
+/*
+ * Botones primarios sólidos: la paleta "primary" a mano ya no se ve anaranjada,
+ * pero su tono 600/400 (los que usa el botón, ver ButtonComponent::getColorMap)
+ * siguen siendo un marrón más claro que el espresso de marca. Los forzamos a
+ * espresso con texto crema, igual que el botón primario del área privada.
+ */
+.fi-btn.fi-color-primary.fi-bg-color-600,
+.fi-btn.fi-color-primary.fi-bg-color-400 {
+    background-color: var(--color-espresso);
+    color: var(--color-crema);
+}

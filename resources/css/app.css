@@ -23,6 +23,15 @@
     --color-espresso-oscuro: #2A1B10;
     --color-terracota: #946B4A;
 
+    /* Estos 5 tokens se repiten en resources/css/filament/admin/theme.css
+       (build de Tailwind independiente para el panel de administración),
+       para que las vistas de app/Filament/** puedan usar las mismas clases
+       de marca. Si cambias un valor aquí, cámbialo también allá. */
+
+    /* Esta escala se reutiliza tal cual como paleta "gray" del panel de
+       administración en app/Providers/Filament/AdminPanelProvider.php,
+       para que el panel y el área privada ("Mi cuenta") no diverjan. Si
+       cambias un valor aquí, cámbialo también allá. */
     --color-zinc-50: #fffee8;
     --color-zinc-100: #f9f7e1;
     --color-zinc-200: #eae6cf;
