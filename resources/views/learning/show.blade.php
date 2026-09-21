@@ -14,10 +14,22 @@
             <div class="rounded-sm bg-crema-suave p-6">
                 <p class="text-espresso opacity-70">Este programa es en vivo, por eso no tiene un video para ver aquí</p>
             </div>
-        @else
+        @elseif ($course->modules->isEmpty())
             <div class="rounded-sm bg-crema-suave p-6">
                 <p class="text-espresso opacity-70">El video de este curso todavía no está disponible</p>
             </div>
+        @endif
+
+        @if ($course->modules->isNotEmpty())
+            @php $firstLesson = $course->modules->first()->lessons->first(); @endphp
+
+            <a
+                href="{{ route('learning.lesson', [$course, $firstLesson]) }}"
+                wire:navigate
+                class="w-fit shrink-0 rounded-full bg-terracota px-[26px] py-3 text-[15px] font-semibold whitespace-nowrap text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso hover:shadow-lg"
+            >Empezar</a>
+
+            <x-course-outline :course="$course" />
         @endif
     </div>
 </x-layouts::app>

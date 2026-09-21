@@ -19,6 +19,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('mi-cuenta', [MyLearningController::class, 'index'])->name('learning.index');
     Route::get('mi-cuenta/curso/{course:slug}', [MyLearningController::class, 'show'])->name('learning.show');
+    Route::get('mi-cuenta/curso/{course:slug}/video/{lesson}', [MyLearningController::class, 'lesson'])
+        ->name('learning.lesson')
+        ->scopeBindings();
 });
 
 require __DIR__.'/settings.php';
