@@ -118,7 +118,7 @@ test('an admin sees the link to the admin panel on my account', function () {
 
     $response->assertOk();
     $response->assertSee('Administración');
-    $response->assertSee(route('filament.admin.pages.dashboard'), false);
+    $response->assertSee(route('filament.admin.resources.course-accesses.index'), false);
 });
 
 test('a regular user does not see the link to the admin panel', function () {

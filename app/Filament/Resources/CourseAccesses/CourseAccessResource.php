@@ -20,6 +20,8 @@ class CourseAccessResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedKey;
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $modelLabel = 'acceso';
 
     protected static ?string $pluralModelLabel = 'accesos';

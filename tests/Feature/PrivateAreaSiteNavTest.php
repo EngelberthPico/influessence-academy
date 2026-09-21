@@ -11,7 +11,7 @@ test('the site navbar links are visible on the private account page', function (
     $response->assertSee('Cursos');
     $response->assertSee('Categorías');
     $response->assertSee('Cómo funciona');
-    $response->assertSee('Nosotras');
+    $response->assertSee('Nosotros');
 });
 
 test('the brand logo appears only once on the private account page', function () {

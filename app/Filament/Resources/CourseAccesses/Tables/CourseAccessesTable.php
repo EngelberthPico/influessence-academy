@@ -2,20 +2,47 @@
 
 namespace App\Filament\Resources\CourseAccesses\Tables;
 
+use App\Models\Course;
 use App\Models\CourseAccess;
+use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CourseAccessesTable
 {
     public static function configure(Table $table): Table
     {
+        $byPerson = Group::make('user_id')
+            ->label('Persona')
+            ->collapsible()
+            ->getTitleFromRecordUsing(fn (CourseAccess $record): string => "{$record->user->name} · {$record->user->email}")
+            ->orderQueryUsing(fn (Builder $query, string $direction): Builder => $query->orderBy(
+                User::select('name')->whereColumn('users.id', 'course_accesses.user_id'),
+                $direction,
+            ));
+
+        $byCourse = Group::make('course_id')
+            ->label('Curso')
+            ->collapsible()
+            ->getTitleFromRecordUsing(fn (CourseAccess $record): string => $record->course->title)
+            ->orderQueryUsing(fn (Builder $query, string $direction): Builder => $query->orderBy(
+                Course::select('title')->whereColumn('courses.id', 'course_accesses.course_id'),
+                $direction,
+            ));
+
         return $table
             ->columns([
                 TextColumn::make('user.name')
-                    ->label('Usuario')
+                    ->label('Persona')
+                    ->searchable(),
+
+                TextColumn::make('user.email')
+                    ->label('Correo')
                     ->searchable(),
 
                 TextColumn::make('course.title')
@@ -49,8 +76,15 @@ class CourseAccessesTable
                     ->color(fn (CourseAccess $record) => $record->advisory_expired_at !== null ? 'danger' : 'success'),
             ])
             ->modifyQueryUsing(fn ($query) => $query->with('course'))
+            ->groups([$byPerson, $byCourse])
+            ->defaultGroup($byPerson)
+            ->defaultSort('granted_at', 'desc')
             ->filters([
-                //
+                SelectFilter::make('user_id')
+                    ->label('Persona')
+                    ->relationship('user', 'name')
+                    ->searchable()
+                    ->preload(),
             ])
             ->recordActions([
                 Action::make('revoke')

@@ -12,7 +12,7 @@
         <a href="{{ route('courses.index') }}" wire:navigate class="text-[15px] font-medium text-espresso">Cursos</a>
         <a href="{{ route('home') }}#categorias" class="text-[15px] font-medium text-espresso">Categorías</a>
         <a href="{{ route('home') }}#como-funciona" class="text-[15px] font-medium text-espresso">Cómo funciona</a>
-        <a href="{{ route('home') }}#nosotras" class="text-[15px] font-medium text-espresso">Nosotras</a>
+        <a href="{{ route('home') }}#nosotros" class="text-[15px] font-medium text-espresso">Nosotros</a>
     </div>
     <div class="flex items-center justify-end gap-6">
         @auth

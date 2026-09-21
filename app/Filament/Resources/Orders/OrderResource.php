@@ -20,6 +20,8 @@ class OrderResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingBag;
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $modelLabel = 'compra';
 
     protected static ?string $pluralModelLabel = 'compras';

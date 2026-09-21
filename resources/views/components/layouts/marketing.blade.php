@@ -29,7 +29,7 @@
                     <a href="{{ route('courses.index') }}" wire:navigate class="text-[14px] text-crema opacity-[0.85]">Cursos</a>
                     <a href="{{ route('home') }}#categorias" class="text-[14px] text-crema opacity-[0.85]">Categorías</a>
                     <a href="{{ route('home') }}#como-funciona" class="text-[14px] text-crema opacity-[0.85]">Cómo funciona</a>
-                    <a href="{{ route('home') }}#nosotras" class="text-[14px] text-crema opacity-[0.85]">Nosotras</a>
+                    <a href="{{ route('home') }}#nosotros" class="text-[14px] text-crema opacity-[0.85]">Nosotros</a>
                 </div>
 
                 <div class="flex flex-col gap-3">

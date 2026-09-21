@@ -6,7 +6,7 @@ use App\Models\User;
 test('an admin can open the admin panel and the logo links to the public site', function () {
     $admin = User::factory()->create(['role' => UserRole::Admin]);
 
-    $response = $this->actingAs($admin)->get('/admin');
+    $response = $this->actingAs($admin)->get('/admin/course-accesses');
 
     $response->assertOk();
     $response->assertSeeHtmlInOrder(['href="'.route('home').'"', 'fi-logo']);
@@ -15,7 +15,7 @@ test('an admin can open the admin panel and the logo links to the public site', 
 test('the admin panel topbar no longer has "Ver sitio" or a link to the public catalog', function () {
     $admin = User::factory()->create(['role' => UserRole::Admin]);
 
-    $response = $this->actingAs($admin)->get('/admin');
+    $response = $this->actingAs($admin)->get('/admin/course-accesses');
 
     $response->assertOk();
     $response->assertDontSee('Ver sitio');
@@ -25,7 +25,7 @@ test('the admin panel topbar no longer has "Ver sitio" or a link to the public c
 test('"Mi cuenta" still points to the student account in the topbar and the avatar menu', function () {
     $admin = User::factory()->create(['role' => UserRole::Admin]);
 
-    $response = $this->actingAs($admin)->get('/admin');
+    $response = $this->actingAs($admin)->get('/admin/course-accesses');
 
     $response->assertOk();
     $response->assertSee(route('learning.index'), false);
@@ -34,7 +34,7 @@ test('"Mi cuenta" still points to the student account in the topbar and the avat
 test('the admin panel no longer links to the Filament info widget', function () {
     $admin = User::factory()->create(['role' => UserRole::Admin]);
 
-    $response = $this->actingAs($admin)->get('/admin');
+    $response = $this->actingAs($admin)->get('/admin/course-accesses');
 
     $response->assertOk();
     $response->assertDontSee('filamentphp.com', false);

@@ -1,13 +1,10 @@
 <x-layouts.marketing :transparent-nav="true">
         {{-- HERO --}}
-        <section class="relative overflow-hidden bg-crema-suave px-[6vw] pt-24 pb-16 lg:min-h-screen lg:px-0 lg:pt-28 lg:pb-0">
+        <section class="relative overflow-hidden bg-crema-suave px-[6vw] pt-24 pb-16 lg:flex lg:min-h-screen lg:items-center lg:px-0 lg:pt-0 lg:pb-0">
             <div class="relative z-10 max-w-[560px] lg:pl-[6vw]">
                 <h1 class="mb-[26px] text-[clamp(34px,5.2vw,60px)] leading-[1.12] font-bold tracking-[-0.01em]">
-                    Convierte tu contenido en <span class="font-serif font-normal italic">tu profesión</span>
+                    Convierte tu contenido en <span class="block font-serif font-normal italic whitespace-nowrap">tu profesión</span>
                 </h1>
-                <p class="mb-7 font-serif text-[27px] text-terracota italic">
-                    La pena no factura
-                </p>
                 <p class="mb-9 max-w-[480px] text-lg leading-[1.65] text-espresso opacity-[0.85]">
                     Aquí no te enseñamos a copiarle el estilo a nadie. Te enseñamos a crear, conectar con tu comunidad y monetizar tu contenido con un plan que sí puedes sostener
                 </p>
@@ -358,7 +355,7 @@
         </section>
 
         {{-- TESTIMONIO --}}
-        <section id="nosotras" class="grid scroll-mt-24 grid-cols-1 items-center gap-14 px-[6vw] py-16 lg:grid-cols-[0.85fr_1.15fr] lg:py-[100px]">
+        <section id="nosotros" class="grid scroll-mt-24 grid-cols-1 items-center gap-14 px-[6vw] py-16 lg:grid-cols-[0.85fr_1.15fr] lg:py-[100px]">
             <div class="reveal flex aspect-square items-center justify-center rounded-sm bg-espresso-oscuro p-6">
                 <p class="m-0 text-center font-mono text-[13px] text-crema opacity-[0.85]">[ ESPACIO PARA FOTO REAL — Fabiola, fundadora ]</p>
             </div>

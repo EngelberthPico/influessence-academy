@@ -18,7 +18,7 @@
                     </flux:sidebar.item>
 
                     @if (auth()->user()->isAdmin())
-                        <flux:sidebar.item icon="shield-check" :href="route('filament.admin.pages.dashboard')">
+                        <flux:sidebar.item icon="shield-check" :href="route('filament.admin.resources.course-accesses.index')">
                             Administración
                         </flux:sidebar.item>
                     @endif
