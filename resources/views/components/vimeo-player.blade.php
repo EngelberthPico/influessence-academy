@@ -9,7 +9,7 @@
         title="{{ $title }}"
         class="size-full"
         loading="lazy"
-        allow="autoplay; fullscreen; picture-in-picture"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
         allowfullscreen
     ></iframe>
 </div>

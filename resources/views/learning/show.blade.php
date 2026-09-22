@@ -62,16 +62,28 @@
             </div>
 
             @if ($scheduling['remaining'] !== 0 && filled($calendlySchedulingUrl))
-                <script src="https://assets.calendly.com/assets/external/widget.js"></script>
                 <script>
-                    Calendly.initInlineWidget({
-                        url: @js($calendlySchedulingUrl),
-                        parentElement: document.getElementById('calendly-embed'),
-                        prefill: {
-                            name: @js(auth()->user()->name),
-                            email: @js(auth()->user()->email),
-                        },
-                    });
+                    (function () {
+                        function initCalendly() {
+                            Calendly.initInlineWidget({
+                                url: @js($calendlySchedulingUrl),
+                                parentElement: document.getElementById('calendly-embed'),
+                                prefill: {
+                                    name: @js(auth()->user()->name),
+                                    email: @js(auth()->user()->email),
+                                },
+                            });
+                        }
+
+                        if (window.Calendly) {
+                            initCalendly();
+                        } else {
+                            var widgetScript = document.createElement('script');
+                            widgetScript.src = 'https://assets.calendly.com/assets/external/widget.js';
+                            widgetScript.onload = initCalendly;
+                            document.head.appendChild(widgetScript);
+                        }
+                    })();
 
                     window.addEventListener('message', function (event) {
                         if (event.origin !== 'https://calendly.com') {
