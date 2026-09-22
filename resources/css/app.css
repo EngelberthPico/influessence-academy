@@ -74,6 +74,13 @@
     }
 }
 
+/* Alpine no inyecta esta regla por su cuenta — hace falta declararla para que
+   los elementos con x-cloak (menú mobile del navbar, íconos de hamburguesa)
+   no destellen visibles antes de que Alpine termine de inicializar. */
+[x-cloak] {
+    display: none !important;
+}
+
 [data-flux-field]:not(ui-radio, ui-checkbox) {
     @apply grid gap-2;
 }
@@ -198,3 +205,10 @@ select:focus[data-flux-control] {
         transition: none;
     }
 }
+
+/* El scroll suave del carrusel se controla desde JS (mobile-carousel.blade.php,
+   goTo()), que ya respeta prefers-reduced-motion ahí. No se declara también acá
+   vía "scroll-behavior: smooth" porque, combinado con scroll-snap, entra en
+   conflicto con el parámetro "behavior" explícito de scrollTo() y cancela el
+   scroll programático (confirmado al depurar el carrusel). El swipe nativo con
+   el dedo no depende de esta propiedad, así que quitarla no le afecta. */

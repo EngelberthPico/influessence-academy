@@ -1,27 +1,20 @@
 <x-layouts.marketing :transparent-nav="true">
         {{-- HERO --}}
-        <section class="relative overflow-hidden bg-crema-suave px-[6vw] pt-24 pb-16 lg:flex lg:min-h-screen lg:items-center lg:px-0 lg:pt-0 lg:pb-0">
-            <div class="relative z-10 max-w-[560px] lg:pl-[6vw]">
-                <h1 class="mb-[26px] text-[clamp(34px,5.2vw,60px)] leading-[1.12] font-bold tracking-[-0.01em]">
-                    Convierte tu contenido en <span class="block font-serif font-normal italic whitespace-nowrap">tu profesión</span>
-                </h1>
-                <p class="mb-9 max-w-[480px] text-lg leading-[1.65] text-espresso opacity-[0.85]">
-                    Aquí no te enseñamos a copiarle el estilo a nadie. Te enseñamos a crear, conectar con tu comunidad y monetizar tu contenido con un plan que sí puedes sostener
-                </p>
-                <a href="{{ route('courses.index') }}" wire:navigate class="inline-block rounded-full bg-espresso px-9 py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso-oscuro hover:shadow-lg">Explorar cursos</a>
-            </div>
-
-            {{-- Contenedor de la foto: en mobile es un bloque normal en flujo, en lg: se vuelve
-                 un fondo absoluto que sangra hasta el borde derecho real del viewport --}}
-            <div class="relative mt-12 aspect-[4/5] w-full lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:aspect-auto lg:w-[54%]">
+        <section class="relative isolate flex min-h-dvh flex-col justify-end overflow-hidden bg-crema-suave px-[6vw] pb-28 lg:flex lg:min-h-screen lg:flex-row lg:items-center lg:justify-normal lg:px-0 lg:pb-0">
+            {{-- Foto de fondo: en mobile ocupa toda la sección detrás del texto, con un scrim
+                 oscuro (mismo criterio que las tarjetas de la sección CATEGORIAS más abajo) para
+                 que el texto se lea encima. En lg: vuelve a ser la columna derecha absoluta de
+                 siempre, sin scrim, exactamente como antes --}}
+            <div class="absolute inset-0 z-0 lg:left-auto lg:z-auto lg:w-[54%]">
                 <img
                     src="{{ asset('images/hero/fabiola-escritorio-editorial.webp') }}"
                     alt="Fabiola, fundadora de Influessence Academy, en su escritorio con un ejemplar impreso con la portada 'Influessence Academy'"
                     width="1536"
                     height="1024"
                     fetchpriority="high"
-                    class="hero-photo-mask h-full w-full object-cover object-center lg:object-[76%_center]"
+                    class="hero-photo-mask h-full w-full object-cover object-[65%_32%] lg:object-[76%_center]"
                 >
+                <div class="absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/45 to-transparent lg:hidden"></div>
 
                 <div class="hidden lg:contents">
                     {{-- Crecimiento en redes --}}
@@ -48,6 +41,16 @@
                         <p class="mt-2 text-xs font-bold tracking-wide uppercase">Marca personal</p>
                     </div>
                 </div>
+            </div>
+
+            <div class="relative z-10 max-w-[560px] lg:pl-[6vw]">
+                <h1 class="mb-[26px] text-[clamp(34px,5.2vw,60px)] leading-[1.12] font-bold tracking-[-0.01em] text-crema lg:text-espresso">
+                    Convierte tu contenido en <span class="block font-serif font-normal italic whitespace-nowrap">tu profesión</span>
+                </h1>
+                <p class="mb-9 max-w-[480px] text-lg leading-[1.65] text-crema opacity-95 lg:text-espresso lg:opacity-[0.85]">
+                    Aquí no te enseñamos a copiarle el estilo a nadie. Te enseñamos a crear, conectar con tu comunidad y monetizar tu contenido con un plan que sí puedes sostener
+                </p>
+                <a href="{{ route('courses.index') }}" wire:navigate class="inline-block rounded-full bg-terracota px-9 py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:shadow-lg lg:bg-espresso lg:hover:bg-espresso-oscuro">Explorar cursos</a>
             </div>
         </section>
 
@@ -88,54 +91,56 @@
             <h2 class="mb-[18px] max-w-[620px] text-[clamp(28px,3.5vw,40px)] font-bold">Un ecosistema completo para tu crecimiento</h2>
             <p class="mb-12 max-w-[560px] text-[17px] leading-[1.6] opacity-[0.85]">Desde el primer paso hasta la monetización, tienes todo lo que necesitas para convertirte en la creadora que siempre soñaste ser</p>
             <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-7">
-                <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                    <div class="flex aspect-[16/10] items-center justify-center bg-terracota p-5">
-                        <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — Fabiola dando una clase en vivo, laptop y notas al frente ]</p>
+                <x-mobile-carousel label="Ecosistema Influessence">
+                    <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                        <div class="flex aspect-[16/10] items-center justify-center bg-terracota p-5">
+                            <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — Fabiola dando una clase en vivo, laptop y notas al frente ]</p>
+                        </div>
+                        <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
+                            <flux:icon.academic-cap class="size-5 text-terracota" />
+                            <h3 class="text-[19px] font-bold">Academia Influessence</h3>
+                            <p class="grow text-sm leading-[1.55] opacity-[0.85]">Aprende la estrategia completa para crecer, crear y monetizar en redes sociales</p>
+                            <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
+                        </div>
                     </div>
-                    <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
-                        <flux:icon.academic-cap class="size-5 text-terracota" />
-                        <h3 class="text-[19px] font-bold">Academia Influessence</h3>
-                        <p class="grow text-sm leading-[1.55] opacity-[0.85]">Aprende la estrategia completa para crecer, crear y monetizar en redes sociales</p>
-                        <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
-                    </div>
-                </div>
 
-                <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                    <div class="flex aspect-[16/10] items-center justify-center bg-espresso-oscuro p-5">
-                        <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — estudiante grabando UGC con el celular en un espacio cotidiano ]</p>
+                    <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                        <div class="flex aspect-[16/10] items-center justify-center bg-espresso-oscuro p-5">
+                            <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — estudiante grabando UGC con el celular en un espacio cotidiano ]</p>
+                        </div>
+                        <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
+                            <flux:icon.video-camera class="size-5 text-terracota" />
+                            <h3 class="text-[19px] font-bold">UGC &amp; Content Creation</h3>
+                            <p class="grow text-sm leading-[1.55] opacity-[0.85]">Domina la creación de contenido real y atractivo para marcas y tu propia audiencia</p>
+                            <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
+                        </div>
                     </div>
-                    <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
-                        <flux:icon.video-camera class="size-5 text-terracota" />
-                        <h3 class="text-[19px] font-bold">UGC &amp; Content Creation</h3>
-                        <p class="grow text-sm leading-[1.55] opacity-[0.85]">Domina la creación de contenido real y atractivo para marcas y tu propia audiencia</p>
-                        <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
-                    </div>
-                </div>
 
-                <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                    <div class="flex aspect-[16/10] items-center justify-center bg-terracota p-5">
-                        <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — creadoras trabajando en las estaciones de contenido durante el evento ]</p>
+                    <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                        <div class="flex aspect-[16/10] items-center justify-center bg-terracota p-5">
+                            <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — creadoras trabajando en las estaciones de contenido durante el evento ]</p>
+                        </div>
+                        <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
+                            <flux:icon.user-group class="size-5 text-terracota" />
+                            <h3 class="text-[19px] font-bold">The Creator Content House Experience</h3>
+                            <p class="grow text-sm leading-[1.55] opacity-[0.85]">Un evento presencial de Fabiola con creadoras que quieren optimizar su tiempo al crear contenido: retos y estaciones donde en cada una grabas algo distinto en un solo día. Al terminar, sales con hasta 20 videos listos</p>
+                            <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
+                        </div>
                     </div>
-                    <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
-                        <flux:icon.user-group class="size-5 text-terracota" />
-                        <h3 class="text-[19px] font-bold">The Creator Content House Experience</h3>
-                        <p class="grow text-sm leading-[1.55] opacity-[0.85]">Un evento presencial de Fabiola con creadoras que quieren optimizar su tiempo al crear contenido: retos y estaciones donde en cada una grabas algo distinto en un solo día. Al terminar, sales con hasta 20 videos listos</p>
-                        <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
-                    </div>
-                </div>
 
-                {{-- Texto pendiente de confirmar con Eli y Fabiola --}}
-                <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                    <div class="flex aspect-[16/10] items-center justify-center bg-espresso-oscuro p-5">
-                        <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — escritorio con plantillas impresas y una tablet mostrando una guía ]</p>
+                    {{-- Texto pendiente de confirmar con Eli y Fabiola --}}
+                    <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                        <div class="flex aspect-[16/10] items-center justify-center bg-espresso-oscuro p-5">
+                            <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — escritorio con plantillas impresas y una tablet mostrando una guía ]</p>
+                        </div>
+                        <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
+                            <flux:icon.document-text class="size-5 text-terracota" />
+                            <h3 class="text-[19px] font-bold">Plantillas &amp; Herramientas</h3>
+                            <p class="grow text-sm leading-[1.55] opacity-[0.85]">Plantillas, guías y recursos listos para que implementes todo lo aprendido</p>
+                            <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
+                        </div>
                     </div>
-                    <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
-                        <flux:icon.document-text class="size-5 text-terracota" />
-                        <h3 class="text-[19px] font-bold">Plantillas &amp; Herramientas</h3>
-                        <p class="grow text-sm leading-[1.55] opacity-[0.85]">Plantillas, guías y recursos listos para que implementes todo lo aprendido</p>
-                        <a href="{{ route('courses.index') }}" wire:navigate class="mt-1 text-sm font-semibold text-terracota">Ver más</a>
-                    </div>
-                </div>
+                </x-mobile-carousel>
             </div>
 
             <div class="mt-14 flex flex-col items-center gap-3 text-center sm:flex-row sm:gap-6 sm:text-left">
@@ -241,21 +246,23 @@
                 <h2 class="mb-12 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Los cursos más vendidos</h2>
 
                 <div class="mb-12 grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
-                    @foreach ($bestSellerCourses as $course)
-                        <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-4 rounded-sm border border-espresso/15 bg-crema-suave p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                            <span class="w-fit text-xs font-semibold tracking-wide uppercase text-terracota">{{ $course->card_label }}</span>
-                            <h3 class="text-xl font-bold">{{ $course->title }}</h3>
-                            <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 140) }}</p>
-                            <div class="flex items-center justify-between border-t border-espresso/10 pt-4">
-                                @if ($course->price_cents > 0)
-                                    <span class="text-xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
-                                @else
-                                    <span class="text-sm font-semibold opacity-60">Precio próximamente</span>
-                                @endif
-                                <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver detalles</span>
-                            </div>
-                        </a>
-                    @endforeach
+                    <x-mobile-carousel :count="$bestSellerCourses->count()" label="Cursos más vendidos">
+                        @foreach ($bestSellerCourses as $course)
+                            <a href="{{ route('courses.show', $course) }}" wire:navigate class="reveal flex flex-col gap-4 rounded-sm border border-espresso/15 bg-crema-suave p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                                <span class="w-fit text-xs font-semibold tracking-wide uppercase text-terracota">{{ $course->card_label }}</span>
+                                <h3 class="text-xl font-bold">{{ $course->title }}</h3>
+                                <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 140) }}</p>
+                                <div class="flex items-center justify-between border-t border-espresso/10 pt-4">
+                                    @if ($course->price_cents > 0)
+                                        <span class="text-xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
+                                    @else
+                                        <span class="text-sm font-semibold opacity-60">Precio próximamente</span>
+                                    @endif
+                                    <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Comprar</span>
+                                </div>
+                            </a>
+                        @endforeach
+                    </x-mobile-carousel>
                 </div>
             @else
                 <h2 class="mb-5 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Nuestros cursos</h2>
