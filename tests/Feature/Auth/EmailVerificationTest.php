@@ -51,6 +51,14 @@ test('email is not verified with invalid hash', function () {
     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
 });
 
+test('an unverified user visiting a verified-only route is redirected to the verification notice', function () {
+    $user = User::factory()->unverified()->create();
+
+    $response = $this->actingAs($user)->get(route('learning.index'));
+
+    $response->assertRedirect(route('verification.notice'));
+});
+
 test('already verified user visiting verification link is redirected without firing event again', function () {
     $user = User::factory()->create([
         'email_verified_at' => now(),
