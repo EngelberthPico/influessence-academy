@@ -48,7 +48,7 @@
                     Convierte tu contenido en <span class="block font-serif font-normal italic whitespace-nowrap">tu profesión</span>
                 </h1>
                 <p class="mb-9 max-w-[480px] text-lg leading-[1.65] text-crema opacity-95 lg:text-espresso lg:opacity-[0.85]">
-                    Aquí no te enseñamos a copiarle el estilo a nadie. Te enseñamos a crear, conectar con tu comunidad y monetizar tu contenido con un plan que sí puedes sostener
+                    Construye una presencia digital auténtica y conviértela en oportunidades. Aprende a crear, conectar con tu comunidad y monetizar tu contenido con un plan que sí puedes sostener.
                 </p>
                 <a href="{{ route('courses.index') }}" wire:navigate class="inline-block rounded-full bg-terracota px-9 py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:shadow-lg lg:bg-espresso lg:hover:bg-espresso-oscuro">Explorar cursos</a>
             </div>
@@ -56,7 +56,11 @@
 
         {{-- MARCAS --}}
         <section class="overflow-hidden bg-crema-suave py-10">
-            <p class="mb-6 text-center text-sm font-medium text-espresso opacity-70">Marcas con las que hemos colaborado</p>
+            <p class="mb-6 flex items-center justify-center gap-3 text-center text-sm font-medium text-espresso opacity-70">
+                <x-diamond />
+                Marcas con las que hemos colaborado
+                <x-diamond />
+            </p>
             <div class="marquee-mask">
                 <div class="marquee-track">
                     @php
@@ -88,13 +92,20 @@
 
         {{-- ECOSISTEMA --}}
         <section class="px-[6vw] py-16 lg:py-[100px]">
-            <h2 class="mb-[18px] max-w-[620px] text-[clamp(28px,3.5vw,40px)] font-bold">Un ecosistema completo para tu crecimiento</h2>
-            <p class="mb-12 max-w-[560px] text-[17px] leading-[1.6] opacity-[0.85]">Desde el primer paso hasta la monetización, tienes todo lo que necesitas para convertirte en la creadora que siempre soñaste ser</p>
+            <h2 class="mb-[18px] max-w-[620px] text-[clamp(28px,3.5vw,40px)] leading-[1.05] font-bold">Un ecosistema completo <span class="block font-serif font-normal italic">para tu crecimiento</span></h2>
+            <p class="mb-12 max-w-[560px] text-[17px] leading-[1.6] opacity-[0.85]">Desde el primer paso hasta la monetización, tienes todo lo que necesitas para convertirte en una creadora que convierte sus ideas en oportunidades reales</p>
             <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-7">
                 <x-mobile-carousel label="Ecosistema Influessence">
                     <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                        <div class="flex aspect-[16/10] items-center justify-center bg-terracota p-5">
-                            <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — Fabiola dando una clase en vivo, laptop y notas al frente ]</p>
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img
+                                src="{{ asset('images/ecosistema/academia-influessence-clase-en-vivo.webp') }}"
+                                alt="Clase en vivo de Influessence Academy vista desde una laptop, con la cuadrícula de participantes conectadas"
+                                width="1200"
+                                height="960"
+                                loading="lazy"
+                                class="h-full w-full object-cover"
+                            >
                         </div>
                         <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
                             <flux:icon.academic-cap class="size-5 text-terracota" />
@@ -105,8 +116,15 @@
                     </div>
 
                     <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                        <div class="flex aspect-[16/10] items-center justify-center bg-espresso-oscuro p-5">
-                            <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — estudiante grabando UGC con el celular en un espacio cotidiano ]</p>
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img
+                                src="{{ asset('images/ecosistema/ugc-content-creation-productos-belleza.webp') }}"
+                                alt="Creadora rodeada de productos de belleza mientras graba contenido UGC"
+                                width="1200"
+                                height="960"
+                                loading="lazy"
+                                class="h-full w-full object-cover"
+                            >
                         </div>
                         <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
                             <flux:icon.video-camera class="size-5 text-terracota" />
@@ -117,8 +135,15 @@
                     </div>
 
                     <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                        <div class="flex aspect-[16/10] items-center justify-center bg-terracota p-5">
-                            <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — creadoras trabajando en las estaciones de contenido durante el evento ]</p>
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img
+                                src="{{ asset('images/ecosistema/creator-content-house-experience-batas.webp') }}"
+                                alt="Creadoras en batas blancas durante el evento presencial The Creator Content House Experience"
+                                width="1200"
+                                height="960"
+                                loading="lazy"
+                                class="h-full w-full object-cover"
+                            >
                         </div>
                         <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
                             <flux:icon.user-group class="size-5 text-terracota" />
@@ -143,11 +168,7 @@
                 </x-mobile-carousel>
             </div>
 
-            <div class="mt-14 flex flex-col items-center gap-3 text-center sm:flex-row sm:gap-6 sm:text-left">
-                <span class="hidden h-px grow bg-espresso/15 sm:block"></span>
-                <p class="text-sm font-semibold tracking-[0.08em] text-espresso opacity-70 sm:shrink-0">Un ecosistema para tu libertad</p>
-                <span class="hidden h-px grow bg-espresso/15 sm:block"></span>
-            </div>
+    
         </section>
 
         {{-- CATEGORIAS --}}
@@ -276,7 +297,7 @@
 
         {{-- COMO FUNCIONA --}}
         <section id="como-funciona" class="scroll-mt-24 bg-crema-suave px-[6vw] py-16 lg:py-[100px]">
-            <h2 class="mb-14 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Cómo funciona la inscripción</h2>
+            <h2 class="mb-14 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Cómo funciona la <span class="font-serif font-normal italic">inscripción</span></h2>
             <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-10">
                 <div class="reveal">
                     <div class="mb-3 text-[44px] font-bold text-terracota">01</div>
@@ -303,8 +324,15 @@
 
         {{-- TESTIMONIO --}}
         <section id="nosotros" class="grid scroll-mt-24 grid-cols-1 items-center gap-14 px-[6vw] py-16 lg:grid-cols-[0.85fr_1.15fr] lg:py-[100px]">
-            <div class="reveal flex aspect-square items-center justify-center rounded-sm bg-espresso-oscuro p-6">
-                <p class="m-0 text-center font-mono text-[13px] text-crema opacity-[0.85]">[ ESPACIO PARA FOTO REAL — Fabiola, fundadora ]</p>
+            <div class="reveal aspect-square overflow-hidden rounded-sm">
+                <img
+                    src="{{ asset('images/nosotros/fabiola-mesa-recortes-prensa.webp') }}"
+                    alt="Fabiola, fundadora de Influessence Academy, de pie junto a una mesa con recortes de prensa de la academia"
+                    width="1200"
+                    height="1800"
+                    loading="lazy"
+                    class="h-full w-full object-cover object-[50%_45%]"
+                >
             </div>
             <div class="reveal">
                 <p class="mb-7 font-serif text-[28px] leading-[1.4] text-espresso italic">
@@ -320,19 +348,19 @@
             <h2 class="mb-12 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Preguntas frecuentes</h2>
             <div class="flex max-w-[760px] flex-col">
                 <details class="reveal border-b border-espresso py-[22px]">
-                    <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Necesito ya tener seguidores para empezar?</summary>
-                    <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">No. La mayoría de nuestras estudiantes empieza desde cero o con cuentas pequeñas. El programa está diseñado para construir desde ahí, con estrategia real en lugar de esperar a que algo se viralice</p>
+                    <summary class="flex cursor-pointer list-none items-center gap-3 text-lg font-semibold [&::-webkit-details-marker]:hidden"><x-diamond />¿Necesito ya tener seguidores para empezar?</summary>
+                    <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">No. La mayoría de nuestras estudiantes empieza desde cero o con cuentas pequeñas. Nuestros cursos están diseñados para construir desde ahí, con estrategia real en lugar de esperar a que algo se viralice</p>
                 </details>
                 <details class="reveal border-b border-espresso py-[22px]">
-                    <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Los cursos son en vivo o grabados?</summary>
+                    <summary class="flex cursor-pointer list-none items-center gap-3 text-lg font-semibold [&::-webkit-details-marker]:hidden"><x-diamond />¿Los cursos son en vivo o grabados?</summary>
                     <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Depende del curso. Los cursos grabados los ves a tu ritmo y no incluyen sesiones en vivo. Los programas en vivo son con Fabiola, y algunos cursos grabados cierran con una asesoría con ella</p>
                 </details>
                 <details class="reveal border-b border-espresso py-[22px]">
-                    <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Puedo tomar más de un curso a la vez?</summary>
+                    <summary class="flex cursor-pointer list-none items-center gap-3 text-lg font-semibold [&::-webkit-details-marker]:hidden"><x-diamond />¿Puedo tomar más de un curso a la vez?</summary>
                     <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Sí. Muchas estudiantes combinan un curso grabado con una asesoría en vivo desde el inicio. Te ayudamos a definir el orden según tu situación</p>
                 </details>
                 <details class="reveal border-b border-espresso py-[22px]">
-                    <summary class="cursor-pointer list-none text-lg font-semibold [&::-webkit-details-marker]:hidden">¿Qué pasa si tengo poco tiempo cada semana?</summary>
+                    <summary class="flex cursor-pointer list-none items-center gap-3 text-lg font-semibold [&::-webkit-details-marker]:hidden"><x-diamond />¿Qué pasa si tengo poco tiempo cada semana?</summary>
                     <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">El sistema está pensado para mujeres con trabajo, hijos y otras responsabilidades. No se trata de publicar más, sino de publicar con intención en el tiempo que sí tienes</p>
                 </details>
             </div>

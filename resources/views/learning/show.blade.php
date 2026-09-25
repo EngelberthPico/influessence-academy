@@ -16,7 +16,19 @@
             </div>
         @endif
 
-        @if ($course->type === \App\Enums\CourseType::LiveProgram)
+        @if ($course->modules->isNotEmpty())
+            @php $firstLesson = $course->modules->first()->lessons->first(); @endphp
+
+            <a
+                href="{{ route('learning.lesson', [$course, $firstLesson]) }}"
+                wire:navigate
+                class="w-fit shrink-0 rounded-full bg-terracota px-[26px] py-3 text-[15px] font-semibold whitespace-nowrap text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso hover:shadow-lg"
+            >Empezar</a>
+
+            <x-course-outline :course="$course" />
+        @endif
+
+        @if (in_array($course->type, [\App\Enums\CourseType::LiveProgram, \App\Enums\CourseType::Hybrid], true))
             <div class="flex flex-col gap-4 rounded-sm border border-espresso/15 bg-crema-suave p-6">
                 <div>
                     <h2 class="text-xl font-bold text-espresso">Agenda tu clase</h2>
@@ -28,7 +40,9 @@
                     @endif
                 </div>
 
-                @if ($scheduling['remaining'] === 0)
+                @if ($scheduling['deadlinePassed'])
+                    <p class="text-espresso opacity-70">El plazo para agendar tu asesoría venció el {{ $scheduling['redeemableUntil']->format('d/m/Y') }}. Escríbenos si necesitas ayuda</p>
+                @elseif ($scheduling['remaining'] === 0)
                     <p class="text-espresso opacity-70">Ya agendaste todas las sesiones de tu programa. Si necesitas cambiar una, usa el link del correo de confirmación de Calendly o escríbenos</p>
                 @elseif (blank($calendlySchedulingUrl))
                     <p class="text-espresso opacity-70">El agendamiento no está disponible por ahora. Escríbenos y lo coordinamos</p>
@@ -61,7 +75,7 @@
                 @endif
             </div>
 
-            @if ($scheduling['remaining'] !== 0 && filled($calendlySchedulingUrl))
+            @if (! $scheduling['deadlinePassed'] && $scheduling['remaining'] !== 0 && filled($calendlySchedulingUrl))
                 <script>
                     (function () {
                         function initCalendly() {
@@ -131,18 +145,6 @@
                     });
                 </script>
             @endif
-        @endif
-
-        @if ($course->modules->isNotEmpty())
-            @php $firstLesson = $course->modules->first()->lessons->first(); @endphp
-
-            <a
-                href="{{ route('learning.lesson', [$course, $firstLesson]) }}"
-                wire:navigate
-                class="w-fit shrink-0 rounded-full bg-terracota px-[26px] py-3 text-[15px] font-semibold whitespace-nowrap text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso hover:shadow-lg"
-            >Empezar</a>
-
-            <x-course-outline :course="$course" />
         @endif
     </div>
 </x-layouts::app>

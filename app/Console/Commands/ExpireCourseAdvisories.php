@@ -26,9 +26,6 @@ class ExpireCourseAdvisories extends Command
             ->where('advisory_redeemable_until', '<', now())
             ->whereNull('advisory_expired_at')
             ->each(function (CourseAccess $courseAccess) use (&$expiredCount): void {
-                // ConfirmCalendlyBookingAction no asocia course_id todavía, así que esta
-                // comprobación siempre da negativo en la práctica hasta que el flujo de
-                // reservas se actualice para asociar el curso correcto (pendiente conocido).
                 $hasBooking = Booking::query()
                     ->where('user_id', $courseAccess->user_id)
                     ->where('course_id', $courseAccess->course_id)

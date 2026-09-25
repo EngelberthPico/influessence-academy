@@ -1,7 +1,7 @@
 <x-layouts.marketing>
     <section class="px-[6vw] pt-8 pb-16 lg:pt-12 lg:pb-[100px]">
-        <h1 class="mb-5 max-w-[600px] text-[clamp(28px,3.5vw,40px)] font-bold">Elige tu nivel de acompañamiento</h1>
-        <p class="mb-12 max-w-[560px] text-base opacity-70">Desde una sesión puntual hasta seis meses de mentoría — el nivel de cercanía con Fabiola lo eliges tú</p>
+        <h1 class="mb-5 max-w-[600px] text-[clamp(28px,3.5vw,40px)] leading-[1.05] font-bold">Elige tu nivel de <span class="font-serif font-normal italic">acompañamiento</span></h1>
+        <p class="mb-12 text-[clamp(8.5px,2.4vw,16px)] whitespace-nowrap opacity-70">Elige el acompañamiento que mejor encaje con tus metas, ritmo y nivel</p>
 
         @if ($liveProgramCourses->isEmpty() && $hybridCourses->isEmpty() && $recordedCourses->isEmpty())
             <p class="text-base opacity-70">Todavía no hay cursos publicados. Vuelve pronto</p>

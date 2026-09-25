@@ -74,16 +74,13 @@ test('when the scheduling url is not configured the unavailable message shows an
     $response->assertDontSee('https://assets.calendly.com/assets/external/widget.js', false);
 });
 
-test('recorded and hybrid courses do not show the agenda tu clase section', function (CourseType $type) {
+test('a recorded course does not show the agenda tu clase section', function () {
     $user = User::factory()->create();
-    $course = Course::factory()->create(['type' => $type]);
+    $course = Course::factory()->create(['type' => CourseType::Recorded]);
     CourseAccess::factory()->create(['user_id' => $user->id, 'course_id' => $course->id]);
 
     $response = $this->actingAs($user)->get(route('learning.show', $course));
 
     $response->assertOk();
     $response->assertDontSee('Agenda tu clase');
-})->with([
-    'recorded' => [CourseType::Recorded],
-    'hybrid' => [CourseType::Hybrid],
-]);
+});

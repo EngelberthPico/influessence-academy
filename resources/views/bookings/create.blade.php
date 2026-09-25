@@ -3,12 +3,24 @@
         <div id="calendly-embed" style="min-width:320px;height:700px;"></div>
     </div>
 
-    <script src="https://assets.calendly.com/assets/external/widget.js"></script>
     <script>
-        Calendly.initInlineWidget({
-            url: @js(config('services.calendly.scheduling_url')),
-            parentElement: document.getElementById('calendly-embed'),
-        });
+        (function () {
+            function initCalendly() {
+                Calendly.initInlineWidget({
+                    url: @js(config('services.calendly.scheduling_url')),
+                    parentElement: document.getElementById('calendly-embed'),
+                });
+            }
+
+            if (window.Calendly) {
+                initCalendly();
+            } else {
+                var widgetScript = document.createElement('script');
+                widgetScript.src = 'https://assets.calendly.com/assets/external/widget.js';
+                widgetScript.onload = initCalendly;
+                document.head.appendChild(widgetScript);
+            }
+        })();
 
         window.addEventListener('message', function (event) {
             if (event.origin !== 'https://calendly.com') {

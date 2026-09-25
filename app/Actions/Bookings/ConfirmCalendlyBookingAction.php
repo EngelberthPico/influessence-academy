@@ -2,7 +2,7 @@
 
 namespace App\Actions\Bookings;
 
-use App\Actions\Courses\GetLiveProgramSchedulingAction;
+use App\Actions\Courses\GetCourseSchedulingAction;
 use App\Enums\BookingStatus;
 use App\Enums\CourseType;
 use App\Exceptions\CalendlyConfirmationException;
@@ -17,7 +17,7 @@ use Throwable;
 
 class ConfirmCalendlyBookingAction
 {
-    public function __construct(private readonly GetLiveProgramSchedulingAction $schedulingAction) {}
+    public function __construct(private readonly GetCourseSchedulingAction $schedulingAction) {}
 
     public function handle(User $user, string $eventUri, string $inviteeUri, ?Course $course = null): Booking
     {
@@ -26,8 +26,8 @@ class ConfirmCalendlyBookingAction
                 throw new CourseBookingException('No tienes acceso a este curso.', 403);
             }
 
-            if ($course->type !== CourseType::LiveProgram) {
-                throw new CourseBookingException('Este curso no incluye clases en vivo', 422);
+            if (! in_array($course->type, [CourseType::LiveProgram, CourseType::Hybrid], true)) {
+                throw new CourseBookingException('Este curso no incluye sesiones para agendar', 422);
             }
 
             $existingBooking = Booking::query()
@@ -41,6 +41,10 @@ class ConfirmCalendlyBookingAction
             }
 
             $scheduling = $this->schedulingAction->handle($user, $course);
+
+            if ($scheduling['deadlinePassed']) {
+                throw new CourseBookingException('El plazo para agendar tu asesoría ya venció', 422);
+            }
 
             if ($scheduling['remaining'] !== null && $scheduling['remaining'] <= 0) {
                 throw new CourseBookingException('Ya agendaste todas las sesiones de este programa. Escríbenos si necesitas cambiar una', 422);

@@ -1,8 +1,17 @@
 {{-- CTA FINAL + FOOTER --}}
 <section class="bg-espresso-oscuro px-[6vw] pt-16 pb-10 text-crema lg:pt-[100px] lg:pb-[60px]">
     <div class="mb-16 max-w-[640px]">
-        <h2 class="mb-5 text-[clamp(30px,4vw,46px)] leading-[1.15] font-bold">Tu carrera de creadora empieza con una decisión, no con una excusa más</h2>
-        <a href="{{ route('courses.index') }}" wire:navigate class="mt-3 inline-block rounded-full bg-terracota px-[34px] py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-crema hover:text-espresso hover:shadow-lg">Explorar cursos</a>
+        <h2 class="mb-5 text-[clamp(30px,4vw,46px)] leading-[1.15] font-bold">Tu carrera de creadora empieza con una decisión, <span class="font-serif font-normal italic">no con una excusa más</span></h2>
+        @if (request()->routeIs('courses.index'))
+            <a
+                href="https://wa.me/14073533200?text={{ urlencode('¡Hola! Me interesa saber más sobre los cursos de Influessence Academy.') }}"
+                target="_blank"
+                rel="noopener"
+                class="mt-3 inline-block rounded-full bg-terracota px-[34px] py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-crema hover:text-espresso hover:shadow-lg"
+            >Habla con nosotros</a>
+        @else
+            <a href="{{ route('courses.index') }}" wire:navigate class="mt-3 inline-block rounded-full bg-terracota px-[34px] py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-crema hover:text-espresso hover:shadow-lg">Explorar cursos</a>
+        @endif
     </div>
 
     <div class="grid grid-cols-1 gap-10 border-t border-crema/20 pt-10 sm:grid-cols-2 lg:grid-cols-4">

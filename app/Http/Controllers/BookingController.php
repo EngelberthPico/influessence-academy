@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Bookings\ConfirmCalendlyBookingAction;
-use App\Actions\Courses\GetLiveProgramSchedulingAction;
+use App\Actions\Courses\GetCourseSchedulingAction;
 use App\Exceptions\CalendlyConfirmationException;
 use App\Exceptions\CourseBookingException;
 use App\Http\Requests\ConfirmBookingRequest;
@@ -18,7 +18,7 @@ class BookingController extends Controller
         return view('bookings.create');
     }
 
-    public function confirm(ConfirmBookingRequest $request, ConfirmCalendlyBookingAction $action, GetLiveProgramSchedulingAction $schedulingAction): JsonResponse
+    public function confirm(ConfirmBookingRequest $request, ConfirmCalendlyBookingAction $action, GetCourseSchedulingAction $schedulingAction): JsonResponse
     {
         $course = $request->integer('course_id') ? Course::find($request->integer('course_id')) : null;
 

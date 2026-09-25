@@ -69,7 +69,7 @@ test('confirming a booking with revoked access to the course fails with 403', fu
     expect(Booking::count())->toBe(0);
 });
 
-test('confirming a booking for a course that is not a live program fails with 422', function () {
+test('confirming a booking for a recorded course fails with 422', function () {
     $user = User::factory()->create();
     $course = Course::factory()->create(['type' => CourseType::Recorded]);
     CourseAccess::factory()->create(['user_id' => $user->id, 'course_id' => $course->id]);
@@ -84,7 +84,7 @@ test('confirming a booking for a course that is not a live program fails with 42
     ]);
 
     $response->assertStatus(422);
-    $response->assertJsonPath('message', 'Este curso no incluye clases en vivo');
+    $response->assertJsonPath('message', 'Este curso no incluye sesiones para agendar');
     expect(Booking::count())->toBe(0);
 });
 
@@ -201,4 +201,55 @@ test('confirming a booking with a nonexistent course id fails validation', funct
     ]);
 
     $response->assertInvalid(['course_id']);
+});
+
+test('a hybrid course with access inside the redemption window can confirm a booking', function () {
+    $user = User::factory()->create();
+    $course = Course::factory()->create(['type' => CourseType::Hybrid]);
+    CourseAccess::factory()->create([
+        'user_id' => $user->id,
+        'course_id' => $course->id,
+        'advisory_redeemable_until' => now()->addDays(3),
+    ]);
+
+    $eventUri = 'https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA';
+    $inviteeUri = 'https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/BBBBBBBBBBBBBBBB';
+
+    Http::preventStrayRequests();
+    Http::fake([
+        $eventUri => Http::response(['resource' => ['uri' => $eventUri, 'start_time' => '2026-10-01T15:00:00Z']]),
+        $inviteeUri => Http::response(['resource' => ['uri' => $inviteeUri, 'email' => $user->email]]),
+    ]);
+
+    $response = $this->actingAs($user)->postJson('/bookings/confirmar', [
+        'event_uri' => $eventUri,
+        'invitee_uri' => $inviteeUri,
+        'course_id' => $course->id,
+    ]);
+
+    $response->assertOk();
+    expect(Booking::first()->course_id)->toBe($course->id);
+});
+
+test('confirming a hybrid course booking past the redemption window fails with 422 and makes no calendly calls', function () {
+    $user = User::factory()->create();
+    $course = Course::factory()->create(['type' => CourseType::Hybrid]);
+    CourseAccess::factory()->create([
+        'user_id' => $user->id,
+        'course_id' => $course->id,
+        'advisory_redeemable_until' => now()->subDay(),
+    ]);
+
+    Http::preventStrayRequests();
+    Http::fake();
+
+    $response = $this->actingAs($user)->postJson('/bookings/confirmar', [
+        'event_uri' => 'https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA',
+        'invitee_uri' => 'https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/BBBBBBBBBBBBBBBB',
+        'course_id' => $course->id,
+    ]);
+
+    $response->assertStatus(422);
+    $response->assertJsonPath('message', 'El plazo para agendar tu asesoría ya venció');
+    expect(Booking::count())->toBe(0);
 });

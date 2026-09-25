@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Courses\GetActiveCoursesForUserAction;
 use App\Actions\Courses\GetCourseOutlineAction;
-use App\Actions\Courses\GetLiveProgramSchedulingAction;
+use App\Actions\Courses\GetCourseSchedulingAction;
 use App\Actions\Courses\ResolveVimeoEmbedUrlAction;
 use App\Enums\CourseType;
 use App\Models\Course;
@@ -20,7 +20,7 @@ class MyLearningController extends Controller
         ]);
     }
 
-    public function show(Request $request, Course $course, ResolveVimeoEmbedUrlAction $resolver, GetCourseOutlineAction $outlineAction, GetLiveProgramSchedulingAction $schedulingAction)
+    public function show(Request $request, Course $course, ResolveVimeoEmbedUrlAction $resolver, GetCourseOutlineAction $outlineAction, GetCourseSchedulingAction $schedulingAction)
     {
         abort_unless($request->user()->hasAccessTo($course), 403);
 
@@ -29,7 +29,7 @@ class MyLearningController extends Controller
         return view('learning.show', [
             'course' => $course,
             'embedUrl' => $resolver->handle($course->vimeo_id),
-            'scheduling' => $course->type === CourseType::LiveProgram
+            'scheduling' => in_array($course->type, [CourseType::LiveProgram, CourseType::Hybrid], true)
                 ? $schedulingAction->handle($request->user(), $course)
                 : null,
             'calendlySchedulingUrl' => config('services.calendly.scheduling_url'),
