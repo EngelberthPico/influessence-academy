@@ -40,4 +40,10 @@ return [
         'scheduling_url' => env('CALENDLY_SCHEDULING_URL'),
     ],
 
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+
 ];

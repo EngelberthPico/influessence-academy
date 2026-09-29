@@ -2,6 +2,8 @@
 
 use App\Enums\CourseType;
 use App\Models\Course;
+use App\Models\CourseAccess;
+use App\Models\User;
 
 test('the catalog shows a message when there are no published courses', function () {
     Course::factory()->create(['is_published' => false]);
@@ -68,4 +70,29 @@ test('an unpublished course returns a 404', function () {
     $response = $this->get(route('courses.show', $course));
 
     $response->assertNotFound();
+});
+
+test('a logged in user who already has access sees a link to the course instead of the buy button', function () {
+    $user = User::factory()->create();
+    $course = Course::factory()->create(['is_published' => true]);
+    CourseAccess::factory()->create(['user_id' => $user->id, 'course_id' => $course->id]);
+
+    $response = $this->actingAs($user)->get(route('courses.show', $course));
+
+    $response->assertOk();
+    $response->assertSee('Ya tienes este curso');
+    $response->assertSee(route('learning.show', $course), false);
+    $response->assertDontSee('Comprar');
+});
+
+test('a logged in user who already has access to a repeat-purchase course still sees the buy button', function () {
+    $user = User::factory()->create();
+    $course = Course::factory()->allowsRepeatPurchase()->create(['is_published' => true]);
+    CourseAccess::factory()->create(['user_id' => $user->id, 'course_id' => $course->id]);
+
+    $response = $this->actingAs($user)->get(route('courses.show', $course));
+
+    $response->assertOk();
+    $response->assertSee('Comprar');
+    $response->assertDontSee('Ya tienes este curso');
 });

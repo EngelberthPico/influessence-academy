@@ -73,6 +73,10 @@ class CourseForm
                     ->label('Más vendido')
                     ->helperText('Los cursos marcados aparecen en la página de inicio, siempre que estén publicados. Te recomendamos marcar entre 3 y 6'),
 
+                Toggle::make('allows_repeat_purchase')
+                    ->label('Se puede comprar varias veces')
+                    ->helperText('Actívalo para cursos como una asesoría individual, que una estudiante puede comprar más de una vez aunque ya tenga acceso.'),
+
                 Section::make('Contenido del curso')
                     ->columnSpanFull()
                     ->visible(fn (Get $get) => in_array($get->enum('type', CourseType::class), [CourseType::Recorded, CourseType::Hybrid]))

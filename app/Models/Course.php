@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
 
-#[Fillable(['title', 'slug', 'description', 'price_cents', 'currency', 'vimeo_id', 'is_published', 'is_best_seller', 'published_at', 'type', 'session_count', 'duration_months', 'redemption_window_days'])]
+#[Fillable(['title', 'slug', 'description', 'price_cents', 'currency', 'vimeo_id', 'is_published', 'is_best_seller', 'allows_repeat_purchase', 'published_at', 'type', 'session_count', 'duration_months', 'redemption_window_days'])]
 class Course extends Model
 {
     /** @use HasFactory<CourseFactory> */
@@ -23,6 +23,7 @@ class Course extends Model
         return [
             'is_published' => 'boolean',
             'is_best_seller' => 'boolean',
+            'allows_repeat_purchase' => 'boolean',
             'published_at' => 'datetime',
             'type' => CourseType::class,
         ];

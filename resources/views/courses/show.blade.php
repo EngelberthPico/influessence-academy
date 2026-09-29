@@ -30,10 +30,18 @@
                     @endif
                 </ul>
 
-                {{-- TODO: conectar a Stripe Checkout cuando esa integración esté lista. Por ahora el botón no procesa pago. --}}
-                <button type="button" disabled class="w-full cursor-not-allowed rounded-full bg-espresso/40 px-9 py-4 text-base font-semibold text-crema">
-                    Comprar (próximamente)
-                </button>
+                @if ($alreadyHasAccess)
+                    <a href="{{ route('learning.show', $course) }}" wire:navigate class="block w-full rounded-full border border-terracota px-9 py-4 text-center text-base font-semibold text-terracota transition-all duration-300 hover:scale-105 hover:bg-terracota hover:text-crema">
+                        Ya tienes este curso
+                    </a>
+                @else
+                    <form method="POST" action="{{ route('cart.add', $course) }}">
+                        @csrf
+                        <button type="submit" class="w-full rounded-full bg-terracota px-9 py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso hover:shadow-lg">
+                            Comprar
+                        </button>
+                    </form>
+                @endif
             </aside>
         </div>
     </section>

@@ -39,6 +39,13 @@
     </div>
 
     <div class="flex items-center justify-end gap-5">
+        <a href="{{ route('cart.index') }}" wire:navigate class="relative flex items-center text-espresso" aria-label="Carrito de compras">
+            <flux:icon.shopping-bag class="size-5" />
+            @if (count(session('cart', [])) > 0)
+                <span class="absolute -top-2 -right-2 flex size-4 items-center justify-center rounded-full bg-terracota text-[10px] font-semibold text-crema">{{ count(session('cart', [])) }}</span>
+            @endif
+        </a>
+
         @auth
             <a href="{{ route('learning.index') }}" wire:navigate class="hidden text-[15px] sm:inline {{ request()->routeIs('learning.*') ? 'font-semibold' : 'font-medium' }} text-espresso">Mi cuenta</a>
 
@@ -95,6 +102,12 @@
         <a href="{{ route('home') }}#categorias" @click="mobileMenuOpen = false" class="rounded-sm px-3 py-3 text-base font-medium text-espresso hover:bg-crema-suave">Categorías</a>
         <a href="{{ route('home') }}#como-funciona" @click="mobileMenuOpen = false" class="rounded-sm px-3 py-3 text-base font-medium text-espresso hover:bg-crema-suave">Cómo funciona</a>
         <a href="{{ route('home') }}#nosotros" @click="mobileMenuOpen = false" class="rounded-sm px-3 py-3 text-base font-medium text-espresso hover:bg-crema-suave">Nosotros</a>
+        <a href="{{ route('cart.index') }}" wire:navigate @click="mobileMenuOpen = false" class="flex items-center gap-2 rounded-sm px-3 py-3 text-base font-medium text-espresso hover:bg-crema-suave">
+            Carrito
+            @if (count(session('cart', [])) > 0)
+                <span class="flex size-5 items-center justify-center rounded-full bg-terracota text-xs font-semibold text-crema">{{ count(session('cart', [])) }}</span>
+            @endif
+        </a>
 
         <div class="my-2 h-px bg-espresso/10"></div>
 

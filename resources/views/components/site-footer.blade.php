@@ -56,8 +56,13 @@
         </div>
     </div>
 
-    <div class="mt-10 border-t border-crema/20 pt-6 text-[13px] opacity-60">
-        © {{ date('Y') }} Influessence Academy. Todos los derechos reservados
+    <div class="mt-10 flex flex-col gap-4 border-t border-crema/20 pt-6 text-[13px] opacity-60 sm:flex-row sm:items-center sm:justify-between">
+        <span>© {{ date('Y') }} Influessence Academy. Todos los derechos reservados</span>
+        <div class="flex flex-wrap gap-x-5 gap-y-2">
+            <a href="{{ route('legal.privacy') }}" wire:navigate class="hover:opacity-100">Política de Privacidad</a>
+            <a href="{{ route('legal.terms') }}" wire:navigate class="hover:opacity-100">Términos de Servicio</a>
+            <a href="{{ route('legal.refunds') }}" wire:navigate class="hover:opacity-100">Política de Reembolsos</a>
+        </div>
     </div>
 </section>
 

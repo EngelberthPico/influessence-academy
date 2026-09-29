@@ -29,6 +29,7 @@ class CourseFactory extends Factory
             'vimeo_id' => null,
             'is_published' => true,
             'is_best_seller' => false,
+            'allows_repeat_purchase' => false,
             'published_at' => now(),
         ];
     }
@@ -37,6 +38,13 @@ class CourseFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'is_best_seller' => true,
+        ]);
+    }
+
+    public function allowsRepeatPurchase(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'allows_repeat_purchase' => true,
         ]);
     }
 }
