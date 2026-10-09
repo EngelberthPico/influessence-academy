@@ -27,7 +27,7 @@ class StripeWebhookController extends Controller
             return response()->json(['received' => true]);
         }
 
-        $action->handle($event->data->object);
+        $action->handle($event->data->object, $event->created);
 
         return response()->json(['received' => true]);
     }

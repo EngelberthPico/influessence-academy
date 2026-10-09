@@ -51,7 +51,7 @@ class CourseAccessesTable
 
                 TextColumn::make('granted_at')
                     ->label('Otorgado el')
-                    ->dateTime(),
+                    ->dateTime(timezone: config('app.display_timezone')),
 
                 IconColumn::make('is_active')
                     ->label('Activo')
@@ -71,7 +71,7 @@ class CourseAccessesTable
                             return 'Vencida';
                         }
 
-                        return 'Vigente hasta '.$record->advisory_redeemable_until?->format('d/m/Y');
+                        return 'Vigente hasta '.$record->advisory_redeemable_until?->timezone(config('app.display_timezone'))->format('d/m/Y');
                     })
                     ->color(fn (CourseAccess $record) => $record->advisory_expired_at !== null ? 'danger' : 'success'),
             ])

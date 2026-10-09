@@ -1,12 +1,14 @@
 <?php
 
 use App\Enums\OrderStatus;
+use App\Mail\OrderPaidAdminNotification;
 use App\Models\Course;
 use App\Models\CourseAccess;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Stripe\Exception\SignatureVerificationException;
@@ -28,10 +30,11 @@ function fakeStripeCheckoutSession(array $overrides = []): object
     ], $overrides);
 }
 
-function fakeStripeCheckoutEvent(string $type, object $session): object
+function fakeStripeCheckoutEvent(string $type, object $session, int $createdAt = 1_700_000_000): object
 {
     return (object) [
         'type' => $type,
+        'created' => $createdAt,
         'data' => (object) [
             'object' => $session,
         ],
@@ -83,6 +86,7 @@ test('an unrelated event type is acknowledged without creating anything', functi
 
 test('a completed checkout session for a new email creates the user, order, order items, course access and sends a reset link', function () {
     Notification::fake();
+    Mail::fake();
 
     $courseA = Course::factory()->create(['price_cents' => 5000]);
     $courseB = Course::factory()->create(['price_cents' => 3000, 'redemption_window_days' => 10]);
@@ -91,7 +95,8 @@ test('a completed checkout session for a new email creates the user, order, orde
         'amount_total' => 8000,
         'metadata' => (object) ['course_ids' => "{$courseA->id},{$courseB->id}"],
     ]);
-    $event = fakeStripeCheckoutEvent('checkout.session.completed', $session);
+    $eventCreatedAt = now()->subHour()->timestamp;
+    $event = fakeStripeCheckoutEvent('checkout.session.completed', $session, $eventCreatedAt);
 
     Mockery::mock('alias:Stripe\Webhook')
         ->shouldReceive('constructEvent')
@@ -116,7 +121,7 @@ test('a completed checkout session for a new email creates the user, order, orde
         ->and($order->total_cents)->toBe(8000)
         ->and($order->stripe_checkout_session_id)->toBe($session->id)
         ->and($order->stripe_payment_intent_id)->toBe($session->payment_intent)
-        ->and($order->paid_at)->not->toBeNull();
+        ->and($order->paid_at->timestamp)->toBe($eventCreatedAt);
 
     expect(OrderItem::count())->toBe(2);
     expect(OrderItem::where('course_id', $courseA->id)->first()->price_cents)->toBe(5000);
@@ -128,10 +133,16 @@ test('a completed checkout session for a new email creates the user, order, orde
     expect($accessB->advisory_redeemable_until)->not->toBeNull();
 
     Notification::assertSentTo($user, ResetPassword::class);
+
+    Mail::assertQueued(OrderPaidAdminNotification::class, function (OrderPaidAdminNotification $mail) use ($order) {
+        return $mail->hasTo('info@influessenceacademy.com')
+            && $mail->order->id === $order->id;
+    });
 });
 
 test('a completed checkout session for an existing email links the purchase to that account', function () {
     Notification::fake();
+    Mail::fake();
 
     $existingUser = User::factory()->create(['email' => 'compradora@example.com']);
     $course = Course::factory()->create(['price_cents' => 4000]);
@@ -161,6 +172,7 @@ test('a completed checkout session for an existing email links the purchase to t
 
 test('a completed checkout session with a logged in user id in metadata is assigned to that account even if the stripe email differs', function () {
     Notification::fake();
+    Mail::fake();
 
     $loggedInUser = User::factory()->create(['email' => 'cuenta-logueada@example.com']);
     $course = Course::factory()->create(['price_cents' => 4000]);
@@ -198,6 +210,7 @@ test('a completed checkout session with a logged in user id in metadata is assig
 
 test('the same webhook event delivered twice does not duplicate the order or course access', function () {
     Notification::fake();
+    Mail::fake();
 
     $course = Course::factory()->create(['price_cents' => 4000]);
 
@@ -220,4 +233,6 @@ test('the same webhook event delivered twice does not duplicate the order or cou
     expect(Order::count())->toBe(1);
     expect(OrderItem::count())->toBe(1);
     expect(CourseAccess::count())->toBe(1);
+
+    Mail::assertQueued(OrderPaidAdminNotification::class, 1);
 });

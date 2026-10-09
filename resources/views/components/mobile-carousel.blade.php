@@ -49,7 +49,7 @@
         <div
             x-ref="track"
             data-carousel-track
-            class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [&>*]:w-[78%] [&>*]:shrink-0 [&>*]:snap-start sm:[&>*]:w-[46%] md:contents md:gap-0 md:overflow-visible md:pb-0 md:[&>*]:w-auto md:[&>*]:shrink md:[&>*]:snap-align-none"
+            class="flex items-stretch snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [&>*]:w-[78%] [&>*]:shrink-0 [&>*]:snap-start sm:[&>*]:w-[46%] md:contents md:gap-0 md:overflow-visible md:pb-0 md:[&>*]:w-auto md:[&>*]:shrink md:[&>*]:snap-align-none"
         >
             {{ $slot }}
         </div>

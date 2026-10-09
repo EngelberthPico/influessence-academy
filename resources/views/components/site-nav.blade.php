@@ -13,7 +13,7 @@
             :aria-expanded="mobileMenuOpen.toString()"
             aria-controls="mobile-nav-panel"
             :aria-label="mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
-            class="-m-2.5 flex size-11 shrink-0 items-center justify-center text-espresso lg:hidden"
+            class="-m-2.5 flex size-11 shrink-0 items-center justify-center text-espresso xl:hidden"
         >
             <flux:icon.bars-3 x-show="! mobileMenuOpen" class="size-6" />
             <flux:icon.x-mark x-show="mobileMenuOpen" x-cloak class="size-6" />
@@ -26,7 +26,7 @@
         </a>
     </div>
 
-    <div class="hidden items-center justify-center gap-7 lg:flex">
+    <div class="hidden items-center justify-center gap-7 xl:flex">
         <a href="{{ route('courses.index') }}" wire:navigate class="text-[15px] font-medium text-espresso">Cursos</a>
         <a href="{{ route('home') }}#categorias" class="text-[15px] font-medium text-espresso">Categorías</a>
         <a href="{{ route('home') }}#como-funciona" class="text-[15px] font-medium text-espresso">Cómo funciona</a>
@@ -96,7 +96,7 @@
         x-show="mobileMenuOpen"
         x-transition
         x-cloak
-        class="col-span-3 -mx-[6vw] mt-4 flex flex-col gap-1 border-t border-espresso/10 bg-crema px-[6vw] pt-4 pb-4 shadow-lg lg:hidden"
+        class="col-span-3 -mx-[6vw] mt-4 flex flex-col gap-1 border-t border-espresso/10 bg-crema px-[6vw] pt-4 pb-4 shadow-lg xl:hidden"
     >
         <a href="{{ route('courses.index') }}" wire:navigate @click="mobileMenuOpen = false" class="rounded-sm px-3 py-3 text-base font-medium text-espresso hover:bg-crema-suave">Cursos</a>
         <a href="{{ route('home') }}#categorias" @click="mobileMenuOpen = false" class="rounded-sm px-3 py-3 text-base font-medium text-espresso hover:bg-crema-suave">Categorías</a>

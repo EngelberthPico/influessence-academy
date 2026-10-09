@@ -69,6 +69,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Display Timezone
+    |--------------------------------------------------------------------------
+    |
+    | Dates are stored in UTC ("timezone" above). This is the timezone used
+    | only to display dates to Eli and Fabiola in the Filament admin panel
+    | (orders, course accesses, etc.), since they manage the business from
+    | Florida.
+    |
+    */
+
+    'display_timezone' => 'America/New_York',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |

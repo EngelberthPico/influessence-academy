@@ -5,38 +5,38 @@
                  oscuro (mismo criterio que las tarjetas de la sección CATEGORIAS más abajo) para
                  que el texto se lea encima. En lg: vuelve a ser la columna derecha absoluta de
                  siempre, sin scrim, exactamente como antes --}}
-            <div class="absolute inset-0 z-0 lg:left-auto lg:z-auto lg:w-[54%]">
+            <div class="absolute inset-0 z-0 lg:left-auto lg:z-auto lg:w-[60%]">
                 <img
-                    src="{{ asset('images/hero/fabiola-escritorio-editorial.webp') }}"
-                    alt="Fabiola, fundadora de Influessence Academy, en su escritorio con un ejemplar impreso con la portada 'Influessence Academy'"
+                    src="{{ asset('images/hero/fabiola-blazer-periodico-influessence.webp') }}"
+                    alt="Fabiola, fundadora de Influessence Academy, con blazer rosa sosteniendo un ejemplar impreso con la portada 'Influessence Academy'"
                     width="1536"
                     height="1024"
                     fetchpriority="high"
-                    class="hero-photo-mask h-full w-full object-cover object-[65%_32%] lg:object-[76%_center]"
+                    class="hero-photo-mask h-full w-full object-cover object-[65%_32%] lg:object-[85%_center]"
                 >
                 <div class="absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/45 to-transparent lg:hidden"></div>
 
                 <div class="hidden lg:contents">
                     {{-- Crecimiento en redes --}}
-                    <div class="absolute left-6 top-24 w-40 -rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
+                    <div class="hidden xl:block absolute left-6 top-24 w-40 -rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
                         <flux:icon.arrow-up-right class="size-5 text-espresso" />
                         <p class="mt-2 text-xs font-bold tracking-wide text-espresso uppercase">Crecimiento en redes</p>
                     </div>
 
                     {{-- Creación de contenido --}}
-                    <div class="absolute right-8 top-36 w-40 rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
+                    <div class="absolute right-6 top-64 w-40 rotate-6 rounded-sm bg-crema-suave p-4 shadow-lg">
                         <flux:icon.video-camera class="size-5 text-espresso" />
                         <p class="mt-2 text-xs font-bold tracking-wide text-espresso uppercase">Creación de contenido</p>
                     </div>
 
                     {{-- Monetización --}}
-                    <div class="absolute top-1/2 right-10 w-36 -translate-y-1/2 -rotate-3 rounded-sm bg-crema-suave p-4 shadow-lg">
+                    <div class="absolute top-[70%] right-10 w-36 -translate-y-1/2 -rotate-3 rounded-sm bg-crema-suave p-4 shadow-lg">
                         <flux:icon.currency-dollar class="size-5 text-espresso" />
                         <p class="mt-2 text-xs font-bold tracking-wide text-espresso uppercase">Monetización</p>
                     </div>
 
                     {{-- Marca personal --}}
-                    <div class="absolute bottom-28 left-10 w-36 rotate-3 rounded-sm bg-espresso p-4 text-crema shadow-lg">
+                    <div class="hidden xl:block absolute bottom-28 left-10 w-36 rotate-3 rounded-sm bg-espresso p-4 text-crema shadow-lg">
                         <flux:icon.user class="size-5" />
                         <p class="mt-2 text-xs font-bold tracking-wide uppercase">Marca personal</p>
                     </div>
@@ -96,7 +96,7 @@
             <p class="mb-12 max-w-[560px] text-[17px] leading-[1.6] opacity-[0.85]">Desde el primer paso hasta la monetización, tienes todo lo que necesitas para convertirte en una creadora que convierte sus ideas en oportunidades reales</p>
             <div class="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-7">
                 <x-mobile-carousel label="Ecosistema Influessence">
-                    <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                    <div class="reveal flex flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                         <div class="aspect-[16/10] overflow-hidden">
                             <img
                                 src="{{ asset('images/ecosistema/academia-influessence-clase-en-vivo.webp') }}"
@@ -115,7 +115,7 @@
                         </div>
                     </div>
 
-                    <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                    <div class="reveal flex flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                         <div class="aspect-[16/10] overflow-hidden">
                             <img
                                 src="{{ asset('images/ecosistema/ugc-content-creation-productos-belleza.webp') }}"
@@ -134,7 +134,7 @@
                         </div>
                     </div>
 
-                    <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                    <div class="reveal flex flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                         <div class="aspect-[16/10] overflow-hidden">
                             <img
                                 src="{{ asset('images/ecosistema/creator-content-house-experience-batas.webp') }}"
@@ -154,7 +154,7 @@
                     </div>
 
                     {{-- Texto pendiente de confirmar con Eli y Fabiola --}}
-                    <div class="reveal flex h-full flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                    <div class="reveal flex flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                         <div class="flex aspect-[16/10] items-center justify-center bg-espresso-oscuro p-5">
                             <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — escritorio con plantillas impresas y una tablet mostrando una guía ]</p>
                         </div>
@@ -354,6 +354,10 @@
                 <details class="reveal border-b border-espresso py-[22px]">
                     <summary class="flex cursor-pointer list-none items-center gap-3 text-lg font-semibold [&::-webkit-details-marker]:hidden"><x-diamond />¿Los cursos son en vivo o grabados?</summary>
                     <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Depende del curso. Los cursos grabados los ves a tu ritmo y no incluyen sesiones en vivo. Los programas en vivo son con Fabiola, y algunos cursos grabados cierran con una asesoría con ella</p>
+                </details>
+                <details class="reveal border-b border-espresso py-[22px]">
+                    <summary class="flex cursor-pointer list-none items-center gap-3 text-lg font-semibold [&::-webkit-details-marker]:hidden"><x-diamond />¿Lo puedo hacer desde cualquier parte del mundo?</summary>
+                    <p class="mt-[14px] text-[15px] leading-[1.7] opacity-[0.85]">Sí, todo es 100% online. No importa en qué país o ciudad estés: te conectas a las clases en vivo y a la comunidad igual que cualquier otra estudiante</p>
                 </details>
                 <details class="reveal border-b border-espresso py-[22px]">
                     <summary class="flex cursor-pointer list-none items-center gap-3 text-lg font-semibold [&::-webkit-details-marker]:hidden"><x-diamond />¿Puedo tomar más de un curso a la vez?</summary>

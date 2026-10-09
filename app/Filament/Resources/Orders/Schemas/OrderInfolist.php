@@ -31,11 +31,11 @@ class OrderInfolist
 
                         TextEntry::make('paid_at')
                             ->label('Pagada el')
-                            ->date(),
+                            ->date(timezone: config('app.display_timezone')),
 
                         TextEntry::make('created_at')
                             ->label('Creada el')
-                            ->date(),
+                            ->date(timezone: config('app.display_timezone')),
                     ])
                     ->columns(2),
 

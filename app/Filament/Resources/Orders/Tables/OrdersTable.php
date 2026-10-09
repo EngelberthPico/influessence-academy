@@ -30,11 +30,11 @@ class OrdersTable
 
                 TextColumn::make('paid_at')
                     ->label('Pagada el')
-                    ->date(),
+                    ->date(timezone: config('app.display_timezone')),
 
                 TextColumn::make('created_at')
                     ->label('Creada el')
-                    ->date(),
+                    ->date(timezone: config('app.display_timezone')),
             ])
             ->filters([
                 //

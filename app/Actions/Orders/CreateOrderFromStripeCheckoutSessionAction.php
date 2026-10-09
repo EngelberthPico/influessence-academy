@@ -4,11 +4,15 @@ namespace App\Actions\Orders;
 
 use App\Actions\Courses\GrantCourseAccessAction;
 use App\Enums\OrderStatus;
+use App\Mail\OrderPaidAdminNotification;
 use App\Models\Course;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Stripe\Checkout\Session as StripeCheckoutSession;
@@ -17,7 +21,7 @@ class CreateOrderFromStripeCheckoutSessionAction
 {
     public function __construct(private readonly GrantCourseAccessAction $grantCourseAccessAction) {}
 
-    public function handle(object $session): ?Order
+    public function handle(object $session, int $eventCreatedAt): ?Order
     {
         if (Order::where('stripe_checkout_session_id', $session->id)->exists()) {
             return null;
@@ -34,7 +38,7 @@ class CreateOrderFromStripeCheckoutSessionAction
         ]);
         $lineItems = collect($expandedSession->line_items->data)->values();
 
-        [$order, $isNewUser, $user] = DB::transaction(function () use ($session, $email, $name, $courseIds, $lineItems, $loggedInUserId) {
+        [$order, $isNewUser, $user] = DB::transaction(function () use ($session, $email, $name, $courseIds, $lineItems, $loggedInUserId, $eventCreatedAt) {
             $user = $loggedInUserId ? User::find($loggedInUserId) : null;
             $isNewUser = false;
 
@@ -60,7 +64,7 @@ class CreateOrderFromStripeCheckoutSessionAction
                 'status' => OrderStatus::Paid,
                 'total_cents' => $session->amount_total,
                 'currency' => $session->currency,
-                'paid_at' => now(),
+                'paid_at' => Carbon::createFromTimestamp($eventCreatedAt, 'UTC'),
             ]);
 
             $courses = Course::query()->whereIn('id', $courseIds)->get()->keyBy('id');
@@ -83,6 +87,15 @@ class CreateOrderFromStripeCheckoutSessionAction
 
         if ($isNewUser) {
             Password::sendResetLink(['email' => $user->email]);
+        }
+
+        try {
+            Mail::to('info@influessenceacademy.com')->send(new OrderPaidAdminNotification($order));
+        } catch (\Throwable $exception) {
+            Log::error('No se pudo enviar el correo de nueva compra a la academia.', [
+                'order_id' => $order->id,
+                'exception' => $exception->getMessage(),
+            ]);
         }
 
         return $order;
