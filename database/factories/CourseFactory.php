@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\CourseType;
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -45,6 +46,17 @@ class CourseFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'allows_repeat_purchase' => true,
+        ]);
+    }
+
+    public function guide(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => CourseType::Guide,
+            'guide_pages' => [
+                'guides/sample/page-1.jpg',
+                'guides/sample/page-2.jpg',
+            ],
         ]);
     }
 }

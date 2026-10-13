@@ -28,6 +28,10 @@
                     @if ($course->redemption_window_days)
                         <li>Asesoría redimible dentro de {{ $course->redemption_window_days }} días desde la compra</li>
                     @endif
+                    @if ($course->type === \App\Enums\CourseType::Guide)
+                        <li>{{ count($course->guide_pages ?? []) }} {{ count($course->guide_pages ?? []) === 1 ? 'página' : 'páginas' }}</li>
+                        <li>Se lee dentro de tu cuenta, sin descarga</li>
+                    @endif
                 </ul>
 
                 @if ($alreadyHasAccess)

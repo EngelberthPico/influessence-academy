@@ -3,7 +3,7 @@
         <h1 class="mb-5 max-w-[600px] text-[clamp(28px,3.5vw,40px)] leading-[1.05] font-bold">Elige tu nivel de <span class="font-serif font-normal italic">acompañamiento</span></h1>
         <p class="mb-12 text-[clamp(8.5px,2.4vw,16px)] whitespace-nowrap opacity-70">Elige el acompañamiento que mejor encaje con tus metas, ritmo y nivel</p>
 
-        @if ($liveProgramCourses->isEmpty() && $hybridCourses->isEmpty() && $recordedCourses->isEmpty())
+        @if ($liveProgramCourses->isEmpty() && $hybridCourses->isEmpty() && $recordedCourses->isEmpty() && $guideCourses->isEmpty())
             <p class="text-base opacity-70">Todavía no hay cursos publicados. Vuelve pronto</p>
         @endif
 
@@ -59,7 +59,7 @@
 
         @if ($recordedCourses->isNotEmpty())
             <p class="mb-8 max-w-[560px] text-base opacity-70">Catálogo de cursos grabados</p>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
+            <div class="mb-18 grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
                 <x-mobile-carousel :count="$recordedCourses->count()" label="Cursos grabados">
                     @foreach ($recordedCourses as $course)
                         <a href="{{ route('courses.show', $course) }}" wire:navigate
@@ -74,6 +74,30 @@
                                     <span class="text-xs font-semibold opacity-60">Precio próximamente</span>
                                 @endif
                                 <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver curso</span>
+                            </div>
+                        </a>
+                    @endforeach
+                </x-mobile-carousel>
+            </div>
+        @endif
+
+        @if ($guideCourses->isNotEmpty())
+            <p class="mb-8 max-w-[560px] text-base opacity-70">Guías prácticas para leer en tu cuenta</p>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
+                <x-mobile-carousel :count="$guideCourses->count()" label="Guías">
+                    @foreach ($guideCourses as $course)
+                        <a href="{{ route('courses.show', $course) }}" wire:navigate
+                           class="reveal flex flex-col gap-3 rounded-sm border border-espresso/15 bg-crema-suave p-[26px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
+                            <span class="w-fit text-xs font-semibold tracking-wide uppercase text-terracota">Guía</span>
+                            <h3 class="text-[17px] font-bold">{{ $course->title }}</h3>
+                            <p class="grow text-sm leading-[1.55] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 110) }}</p>
+                            <div class="flex items-center justify-between border-t border-espresso/10 pt-3">
+                                @if ($course->price_cents > 0)
+                                    <span class="text-lg font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
+                                @else
+                                    <span class="text-xs font-semibold opacity-60">Precio próximamente</span>
+                                @endif
+                                <span class="text-sm font-semibold underline decoration-terracota decoration-2 underline-offset-4">Ver guía</span>
                             </div>
                         </a>
                     @endforeach

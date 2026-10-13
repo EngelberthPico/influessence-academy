@@ -1,0 +1,126 @@
+<x-layouts::app :title="$course->title">
+    <div class="flex h-full w-full flex-1 flex-col gap-6">
+        <a href="{{ route('learning.index') }}" wire:navigate class="w-fit text-sm font-semibold text-espresso underline decoration-terracota decoration-2 underline-offset-4">Volver a mi cuenta</a>
+
+        <h1 class="text-[clamp(28px,3.5vw,40px)] font-bold text-espresso">{{ $course->title }}</h1>
+
+        <div class="prose-none max-w-none text-[17px] leading-[1.7] text-espresso">
+            {!! $course->description !!}
+        </div>
+
+        @if ($pageUrls->isEmpty())
+            <div class="rounded-sm bg-crema-suave p-6">
+                <p class="text-espresso opacity-70">Esta guía todavía no tiene páginas disponibles</p>
+            </div>
+        @else
+            <div
+                x-data="{
+                    current: 0,
+                    total: {{ $pageUrls->count() }},
+                    urls: @js($pageUrls->values()),
+                    init() {
+                        this.preloadNext();
+                    },
+                    go(index) {
+                        if (index < 0 || index >= this.total) return;
+                        this.current = index;
+                        this.$nextTick(() => {
+                            this.scrollViewerIntoView();
+                            this.scrollThumbIntoView();
+                        });
+                        this.preloadNext();
+                    },
+                    next() { this.go(this.current + 1); },
+                    prev() { this.go(this.current - 1); },
+                    scrollViewerIntoView() {
+                        const rect = this.$refs.viewer.getBoundingClientRect();
+                        if (rect.top < 0 || rect.top > window.innerHeight * 0.5) {
+                            this.$refs.viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    },
+                    scrollThumbIntoView() {
+                        this.$refs.thumbs
+                            ?.querySelector('[data-guide-thumb=\'' + this.current + '\']')
+                            ?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+                    },
+                    preloadNext() {
+                        const url = this.urls[this.current + 1];
+                        if (url) {
+                            (new Image()).src = url;
+                        }
+                    },
+                }"
+                @keydown.window.arrow-right="next()"
+                @keydown.window.arrow-left="prev()"
+                class="select-none"
+                oncontextmenu="return false"
+            >
+                <div x-ref="viewer" class="grid grid-cols-1 gap-4 lg:grid-cols-[6rem_minmax(0,48rem)] lg:items-start lg:justify-center lg:gap-4">
+                    {{-- Página activa: fila 1 en móvil, columna derecha en escritorio --}}
+                    <div class="row-start-1 flex flex-col items-center gap-4 lg:col-start-2 lg:row-start-1">
+                        @foreach ($pageUrls as $index => $url)
+                            <img
+                                x-show="current === {{ $index }}"
+                                src="{{ $url }}"
+                                alt="Página {{ $index + 1 }} de {{ $course->title }}"
+                                loading="lazy"
+                                decoding="async"
+                                draggable="false"
+                                class="h-auto w-full max-w-3xl rounded-sm border border-espresso/15"
+                            >
+                        @endforeach
+                    </div>
+
+                    @if ($pageUrls->count() > 1)
+                        {{-- Miniaturas: tira horizontal en móvil (fila 2), columna izquierda sticky en escritorio --}}
+                        <div
+                            x-ref="thumbs"
+                            class="row-start-2 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24 lg:max-h-[calc(100vh-8rem)] lg:w-24 lg:snap-none lg:flex-col lg:gap-2 lg:overflow-x-visible lg:overflow-y-auto lg:pb-0"
+                        >
+                            @foreach ($pageUrls as $index => $url)
+                                <button
+                                    type="button"
+                                    data-guide-thumb="{{ $index }}"
+                                    @click="go({{ $index }})"
+                                    :aria-current="current === {{ $index }} ? 'true' : 'false'"
+                                    aria-label="Ir a la página {{ $index + 1 }}"
+                                    class="shrink-0 snap-start rounded-sm border border-espresso/15 p-0.5 transition-all duration-300"
+                                    :class="current === {{ $index }} ? 'ring-2 ring-terracota' : ''"
+                                >
+                                    <img
+                                        src="{{ $url }}"
+                                        alt="Página {{ $index + 1 }} de {{ $course->title }}"
+                                        loading="lazy"
+                                        decoding="async"
+                                        draggable="false"
+                                        class="h-auto w-16 rounded-sm lg:w-full"
+                                    >
+                                    <span class="block text-center text-[11px] text-espresso opacity-70">{{ $index + 1 }}</span>
+                                </button>
+                            @endforeach
+                        </div>
+
+                        {{-- Controles: fila 3 en móvil, debajo de la página activa en escritorio --}}
+                        <div class="row-start-3 flex w-full max-w-3xl items-center justify-between lg:col-start-2 lg:row-start-2">
+                            <button
+                                type="button"
+                                @click="prev()"
+                                :disabled="current === 0"
+                                class="rounded-full border border-terracota px-6 py-2.5 text-sm font-semibold text-terracota transition-all duration-300 hover:scale-105 hover:bg-terracota hover:text-crema disabled:pointer-events-none disabled:opacity-40"
+                            >Anterior</button>
+
+                            <p class="text-sm font-semibold text-espresso" aria-live="polite">Página <span x-text="current + 1"></span> de {{ $pageUrls->count() }}</p>
+
+                            <button
+                                type="button"
+                                @click="next()"
+                                :disabled="current === total - 1"
+                                class="rounded-full bg-terracota px-6 py-2.5 text-sm font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso hover:shadow-lg disabled:pointer-events-none disabled:opacity-40"
+                            >Siguiente</button>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @endif
+    </div>
+</x-layouts::app>

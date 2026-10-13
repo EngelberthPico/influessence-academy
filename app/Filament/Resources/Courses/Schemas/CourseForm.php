@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Courses\Schemas;
 
 use App\Enums\CourseType;
 use App\Rules\ValidVimeoVideo;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -39,7 +40,8 @@ class CourseForm
                 TextInput::make('vimeo_id')
                     ->label('Video de bienvenida (opcional)')
                     ->helperText('Se muestra arriba del curso, antes de los módulos. Pega el número del video o el link de Vimeo')
-                    ->rule(new ValidVimeoVideo),
+                    ->rule(new ValidVimeoVideo)
+                    ->visible(fn (Get $get) => $get->enum('type', CourseType::class) !== CourseType::Guide),
 
                 Select::make('type')
                     ->label('Tipo')
@@ -123,6 +125,24 @@ class CourseForm
                                             ->rows(2),
                                     ]),
                             ]),
+                    ]),
+
+                Section::make('Páginas de la guía')
+                    ->columnSpanFull()
+                    ->visible(fn (Get $get) => $get->enum('type', CourseType::class) === CourseType::Guide)
+                    ->schema([
+                        FileUpload::make('guide_pages')
+                            ->label('Páginas')
+                            ->multiple()
+                            ->reorderable()
+                            ->appendFiles()
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->maxSize(5120)
+                            ->disk('local')
+                            ->directory('guides')
+                            ->visibility('private')
+                            ->helperText('Sube las páginas como imágenes (JPG, PNG o WebP) y arrástralas para ordenarlas. La primera es la página 1')
+                            ->required(fn (Get $get): bool => (bool) $get('is_published')),
                     ]),
             ]);
     }

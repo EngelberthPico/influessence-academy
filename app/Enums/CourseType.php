@@ -10,6 +10,7 @@ enum CourseType: string implements HasColor, HasLabel
     case Recorded = 'recorded';
     case LiveProgram = 'live_program';
     case Hybrid = 'hybrid';
+    case Guide = 'guide';
 
     public function getLabel(): string
     {
@@ -17,6 +18,7 @@ enum CourseType: string implements HasColor, HasLabel
             self::Recorded => 'Grabado',
             self::LiveProgram => 'Programa en vivo',
             self::Hybrid => 'Híbrido',
+            self::Guide => 'Guía',
         };
     }
 
@@ -26,6 +28,7 @@ enum CourseType: string implements HasColor, HasLabel
             self::Recorded => 'info',
             self::LiveProgram => 'success',
             self::Hybrid => 'warning',
+            self::Guide => 'danger',
         };
     }
 }

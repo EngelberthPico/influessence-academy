@@ -37,6 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('mi-cuenta/curso/{course:slug}/video/{lesson}', [MyLearningController::class, 'lesson'])
         ->name('learning.lesson')
         ->scopeBindings();
+    Route::get('mi-cuenta/guia/{course:slug}/pagina/{page}', [MyLearningController::class, 'guidePage'])
+        ->name('learning.guide-page')
+        ->whereNumber('page');
 });
 
 require __DIR__.'/settings.php';

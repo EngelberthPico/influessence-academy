@@ -16,6 +16,7 @@ class CourseController extends Controller
             'liveProgramCourses' => $courses['liveProgram'],
             'hybridCourses' => $courses['hybrid'],
             'recordedCourses' => $courses['recorded'],
+            'guideCourses' => $courses['guide'],
         ]);
     }
 

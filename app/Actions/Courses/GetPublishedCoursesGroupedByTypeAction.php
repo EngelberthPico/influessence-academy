@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class GetPublishedCoursesGroupedByTypeAction
 {
     /**
-     * @return array{liveProgram: Collection, hybrid: Collection, recorded: Collection}
+     * @return array{liveProgram: Collection, hybrid: Collection, recorded: Collection, guide: Collection}
      */
     public function handle(): array
     {
@@ -23,6 +23,7 @@ class GetPublishedCoursesGroupedByTypeAction
             'liveProgram' => $courses->get(CourseType::LiveProgram->value, collect()),
             'hybrid' => $courses->get(CourseType::Hybrid->value, collect()),
             'recorded' => $courses->get(CourseType::Recorded->value, collect()),
+            'guide' => $courses->get(CourseType::Guide->value, collect()),
         ];
     }
 }
