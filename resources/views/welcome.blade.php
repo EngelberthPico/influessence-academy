@@ -54,39 +54,37 @@
             </div>
         </section>
 
-        {{-- MARCAS --}}
-        <section class="overflow-hidden bg-crema-suave py-10">
-            <p class="mb-6 flex items-center justify-center gap-3 text-center text-sm font-medium text-espresso opacity-70">
-                <x-diamond />
-                Marcas con las que hemos colaborado
-                <x-diamond />
-            </p>
-            <div class="marquee-mask">
-                <div class="marquee-track">
+        {{-- CAMPAÑAS --}}
+        <section class="bg-crema-suave px-[6vw] py-16 lg:py-[100px]">
+            <h2 class="mb-[18px] max-w-[620px] text-[clamp(28px,3.5vw,40px)] leading-[1.05] font-bold">Campañas de Fabiola <span class="block font-serif font-normal italic">con las marcas</span></h2>
+            <p class="mb-12 max-w-[560px] text-[17px] leading-[1.6] opacity-[0.85]">Un vistazo a algunas de las colaboraciones pagadas que Fabiola ha hecho con marcas de belleza y estilo de vida</p>
+            <div class="grid grid-cols-1 gap-7 md:flex md:flex-wrap md:items-start md:justify-center">
+                <x-mobile-carousel label="Campañas con marcas">
                     @php
-                        $marcas = [
-                            ['file' => 'la-girl.png', 'alt' => 'LA Girl'],
-                            ['file' => 'morphe.svg', 'alt' => 'Morphe'],
-                            ['file' => 'garnier.png', 'alt' => 'Garnier'],
-                            ['file' => 'loreal.svg', 'alt' => "L'Oréal Paris"],
-                            ['file' => 'la-roche-posay.png', 'alt' => 'La Roche-Posay'],
-                            ['file' => 'yves-saint-laurent.png', 'alt' => 'Yves Saint Laurent'],
+                        $campanas = [
+                            ['file' => 'campana-la-girl-cosmetics-fabiola.webp', 'alt' => 'Fabiola maquillándose al aire libre junto a una alberca, en colaboración con L.A. Girl Cosmetics', 'width' => 1130, 'height' => 1582],
+                            ['file' => 'campana-loreal-paris-fabiola.webp', 'alt' => "Fabiola con chaqueta de cuero en una colaboración con L'Oréal Paris", 'width' => 1200, 'height' => 1680],
+                            ['file' => 'campana-kitsch-fabiola.webp', 'alt' => 'Fabiola mostrando el Air Dry Cream de Kitsch en una colaboración de belleza', 'width' => 1132, 'height' => 1585],
+                            ['file' => 'campana-laka-cosmetic-fabiola.webp', 'alt' => 'Fabiola sosteniendo el labial Perfect Twin Lips de Laka Cosmetic', 'width' => 1126, 'height' => 1576],
+                            ['file' => 'campana-truskin-fabiola.webp', 'alt' => 'Fabiola mostrando el sérum de vitamina C de TruSkin', 'width' => 1126, 'height' => 1576],
+                            ['file' => 'campana-dalba-fabiola.webp', 'alt' => "Fabiola en una comparación antes y después usando productos de d'Alba", 'width' => 1132, 'height' => 1585],
+                            ['file' => 'campana-jisulife-fabiola.webp', 'alt' => 'Fabiola sosteniendo el mini ventilador portátil de JisuLife', 'width' => 1118, 'height' => 1565],
                         ];
                     @endphp
-                    <div class="flex shrink-0 items-center gap-16">
-                        @foreach ($marcas as $marca)
-                            <img src="{{ asset("images/brand/{$marca['file']}") }}" alt="{{ $marca['alt'] }}"
-                                 class="{{ $marca['file'] === 'morphe.svg' ? 'h-6 lg:h-7' : 'h-8 lg:h-10' }} w-auto shrink-0">
-                        @endforeach
-                    </div>
-                    {{-- Copia duplicada para el loop continuo — oculta a lectores de pantalla para no repetir la lista --}}
-                    <div class="flex shrink-0 items-center gap-16" aria-hidden="true">
-                        @foreach ($marcas as $marca)
-                            <img src="{{ asset("images/brand/{$marca['file']}") }}" alt=""
-                                 class="{{ $marca['file'] === 'morphe.svg' ? 'h-6 lg:h-7' : 'h-8 lg:h-10' }} w-auto shrink-0">
-                        @endforeach
-                    </div>
-                </div>
+                    @foreach ($campanas as $campana)
+                        <div class="reveal overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)] md:w-[calc(25%-21px)]! md:shrink-0! md:grow-0!">
+                            {{-- Si más adelante se agrega el nombre de la marca, puede ir aquí como overlay o como texto debajo de la foto --}}
+                            <img
+                                src="{{ asset("images/campanas/{$campana['file']}") }}"
+                                alt="{{ $campana['alt'] }}"
+                                width="{{ $campana['width'] }}"
+                                height="{{ $campana['height'] }}"
+                                loading="lazy"
+                                class="h-auto w-full"
+                            >
+                        </div>
+                    @endforeach
+                </x-mobile-carousel>
             </div>
         </section>
 
