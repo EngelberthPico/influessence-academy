@@ -57,7 +57,7 @@
         {{-- CAMPAÑAS --}}
         <section class="bg-crema-suave px-[6vw] py-16 lg:py-[100px]">
             <h2 class="mb-[18px] max-w-[620px] text-[clamp(28px,3.5vw,40px)] leading-[1.05] font-bold">Campañas de Fabiola <span class="block font-serif font-normal italic">con las marcas</span></h2>
-            <p class="mb-12 max-w-[560px] text-[17px] leading-[1.6] opacity-[0.85]">Un vistazo a algunas de las colaboraciones pagadas que Fabiola ha hecho con marcas de belleza y estilo de vida</p>
+            <p class="mb-12 max-w-[560px] text-[17px] leading-[1.6] opacity-[0.85]">Un vistazo a algunas de las colaboraciones pagadas que Fabiola ha hecho con marcas de belleza</p>
             <div class="grid grid-cols-1 gap-7 md:flex md:flex-wrap md:items-start md:justify-center">
                 <x-mobile-carousel label="Campañas con marcas">
                     @php
@@ -69,6 +69,7 @@
                             ['file' => 'campana-truskin-fabiola.webp', 'alt' => 'Fabiola mostrando el sérum de vitamina C de TruSkin', 'width' => 1126, 'height' => 1576],
                             ['file' => 'campana-dalba-fabiola.webp', 'alt' => "Fabiola en una comparación antes y después usando productos de d'Alba", 'width' => 1132, 'height' => 1585],
                             ['file' => 'campana-jisulife-fabiola.webp', 'alt' => 'Fabiola sosteniendo el mini ventilador portátil de JisuLife', 'width' => 1118, 'height' => 1565],
+                            ['file' => 'campana-nail-reformation-fabiola.webp', 'alt' => 'Fabiola mostrando varios sets de uñas prensadas de Nail Reformation', 'width' => 1130, 'height' => 1582],
                         ];
                     @endphp
                     @foreach ($campanas as $campana)
@@ -151,10 +152,16 @@
                         </div>
                     </div>
 
-                    {{-- Texto pendiente de confirmar con Eli y Fabiola --}}
                     <div class="reveal flex flex-col overflow-hidden rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
-                        <div class="flex aspect-[16/10] items-center justify-center bg-espresso-oscuro p-5">
-                            <p class="m-0 text-center font-mono text-xs text-crema opacity-[0.9]">[ ESPACIO PARA FOTO REAL — escritorio con plantillas impresas y una tablet mostrando una guía ]</p>
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img
+                                src="{{ asset('images/ecosistema/plantillas-impresas-influessence-academy.webp') }}"
+                                alt="Varios ejemplares impresos del periódico de Influessence Academy, apilados sobre una superficie"
+                                width="1200"
+                                height="750"
+                                loading="lazy"
+                                class="h-full w-full object-cover"
+                            >
                         </div>
                         <div class="flex grow flex-col gap-2.5 bg-crema-suave p-[26px]">
                             <flux:icon.document-text class="size-5 text-terracota" />
@@ -178,7 +185,7 @@
                 <div class="reveal rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                     <a href="{{ route('courses.index') }}" wire:navigate class="category-card group relative isolate flex min-h-[320px] items-end overflow-hidden rounded-sm bg-espresso p-8 lg:min-h-[360px]">
                         <img src="{{ asset('images/categorias/estrategia-digital.webp') }}"
-                             alt="Escritorio con laptop, libros de estrategia, una libreta con un plan de contenido y una taza de café en luz natural cálida"
+                             alt="Escritorio con laptop mostrando la pantalla de inicio de Influessence Academy, cámara, libreta de notas y productos de belleza alrededor"
                              class="absolute inset-0 h-full w-full object-cover"
                              loading="lazy">
                         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
@@ -196,7 +203,7 @@
                     <div class="reveal rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                         <a href="#cursos" class="category-card group relative isolate flex min-h-[160px] items-end overflow-hidden rounded-sm bg-terracota p-7 lg:min-h-[180px]">
                             <img src="{{ asset('images/categorias/creacion-de-contenido.webp') }}"
-                                 alt="Creadora grabando con el celular montado en un trípode, moodboard de referencias y cámara al fondo"
+                                 alt="Creadora sosteniendo un perfume cerca del rostro para una foto de contenido, fondo rosado con plantas tropicales"
                                  class="absolute inset-0 h-full w-full object-cover object-[center_65%]"
                                  loading="lazy">
                             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/80 via-espresso-oscuro/20 to-transparent"></div>
@@ -212,7 +219,7 @@
                         <div class="reveal rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                             <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-crema p-6 lg:min-h-[160px]">
                                 <img src="{{ asset('images/categorias/redes-sociales.webp') }}"
-                                     alt="Celular sobre un escritorio mostrando la grilla de un perfil de Instagram"
+                                     alt="Mano sosteniendo fotos instantáneas junto a una cámara y productos de maquillaje sobre un bolso tejido, ambiente de playa"
                                      class="absolute inset-0 h-full w-full object-cover"
                                      loading="lazy">
                                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro/70 via-espresso-oscuro/10 to-transparent"></div>
@@ -227,7 +234,7 @@
                         <div class="reveal rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                             <a href="#cursos" class="category-card group relative isolate flex min-h-[140px] items-end overflow-hidden rounded-sm bg-espresso p-6 lg:min-h-[160px]">
                                 <img src="{{ asset('images/categorias/edicion-de-video.webp') }}"
-                                     alt="Laptop con software de edición de video, cámara Sony al lado, escritorio de trabajo"
+                                     alt="Celular mostrando una app de edición de video con un clip en reproducción, laptop y café de fondo en una cafetería"
                                      class="absolute inset-0 h-full w-full object-cover"
                                      loading="lazy">
                                 <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-oscuro via-espresso-oscuro/40 to-transparent"></div>
@@ -245,8 +252,8 @@
             <div class="reveal mt-5 rounded-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_35px_-15px_rgba(42,27,16,0.35)]">
                 <a href="{{ route('courses.index') }}" wire:navigate class="category-card group relative isolate flex min-h-[200px] items-end overflow-hidden rounded-sm bg-espresso-oscuro p-8 lg:min-h-[220px]">
                     <img src="{{ asset('images/categorias/marca-personal.webp') }}"
-                         alt="Retrato editorial de una mujer sentada junto a una ventana con luz natural, moodboard de referencias en la pared"
-                         class="absolute inset-0 h-full w-full object-cover"
+                         alt="Mujer tomándose una selfie frente a un espejo con luces, rodeada de productos de maquillaje organizados en un estuche"
+                         class="absolute inset-0 h-full w-full object-cover object-[center_22%]"
                          loading="lazy">
                     <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-espresso-oscuro via-espresso-oscuro/60 to-transparent lg:w-2/3"></div>
                     <div class="relative z-10 max-w-[360px] text-crema">
