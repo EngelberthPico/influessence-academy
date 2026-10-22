@@ -1,9 +1,28 @@
+@php
+    $resolvedTitle = filled($title ?? null) ? $title.' - '.config('app.name', 'Laravel') : config('app.name', 'Laravel');
+    $resolvedDescription = $description ?? 'Influessence Academy es la academia online de Fabiola Colmenares: cursos para crear contenido, construir tu marca personal y monetizar en redes sociales.';
+    $resolvedCanonical = $canonical ?? url()->current();
+    $gtmContainerId = config('services.google_tag_manager.container_id');
+@endphp
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>
-    {{ filled($title ?? null) ? $title.' - '.config('app.name', 'Laravel') : config('app.name', 'Laravel') }}
-</title>
+<title>{{ $resolvedTitle }}</title>
+<meta name="description" content="{{ $resolvedDescription }}">
+<link rel="canonical" href="{{ $resolvedCanonical }}">
+
+@if (!empty($noindex))
+    <meta name="robots" content="noindex, nofollow">
+@endif
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ config('app.name', 'Laravel') }}">
+<meta property="og:title" content="{{ $resolvedTitle }}">
+<meta property="og:description" content="{{ $resolvedDescription }}">
+<meta property="og:url" content="{{ $resolvedCanonical }}">
+@if (!empty($ogImage))
+    <meta property="og:image" content="{{ $ogImage }}">
+@endif
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -12,3 +31,16 @@
 @fonts
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+@if (filled($gtmContainerId))
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '{{ $gtmContainerId }}');
+    </script>
+@endif

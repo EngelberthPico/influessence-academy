@@ -11,7 +11,9 @@ use App\Models\Course;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Stripe\Checkout\Session as StripeCheckoutSession;
+use Stripe\Exception\ApiErrorException;
 
 class CartController extends Controller
 {
@@ -86,7 +88,17 @@ class CartController extends Controller
             $params['customer_email'] = $user->email;
         }
 
-        $session = StripeCheckoutSession::create($params);
+        try {
+            $session = StripeCheckoutSession::create($params);
+        } catch (ApiErrorException $exception) {
+            Log::error('No se pudo crear la sesión de pago de Stripe.', [
+                'user_id' => $user?->id,
+                'course_ids' => $metadata['course_ids'],
+                'exception' => $exception->getMessage(),
+            ]);
+
+            return redirect()->route('cart.index')->with('error', 'No pudimos iniciar tu pago. Intenta de nuevo en un momento.');
+        }
 
         return redirect($session->url);
     }

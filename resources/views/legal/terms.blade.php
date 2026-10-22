@@ -1,4 +1,7 @@
-<x-layouts.marketing>
+<x-layouts.marketing
+    title="Términos de Servicio"
+    description="Estos términos rigen el uso de la plataforma de Influessence Academy LLC. Al crear una cuenta o comprar un curso, aceptas estos términos."
+>
     <section class="px-[6vw] pt-8 pb-16 lg:pt-12 lg:pb-[100px]">
         <div class="mx-auto max-w-[760px]">
             <h1 class="mb-2 text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold">Términos de Servicio</h1>

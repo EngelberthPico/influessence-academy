@@ -22,7 +22,7 @@ class ConfirmCalendlyBookingAction
     public function handle(User $user, string $eventUri, string $inviteeUri, ?Course $course = null): Booking
     {
         if ($course) {
-            if (! $user->hasAccessTo($course)) {
+            if (! $user->can('access', $course)) {
                 throw new CourseBookingException('No tienes acceso a este curso.', 403);
             }
 

@@ -11,6 +11,7 @@ use App\Enums\CourseType;
 use App\Models\Course;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class MyLearningController extends Controller
@@ -24,7 +25,7 @@ class MyLearningController extends Controller
 
     public function show(Request $request, Course $course, ResolveVimeoEmbedUrlAction $resolver, GetCourseOutlineAction $outlineAction, GetCourseSchedulingAction $schedulingAction, GetGuidePageUrlsAction $guidePageUrlsAction)
     {
-        abort_unless($request->user()->hasAccessTo($course), 403);
+        Gate::authorize('access', $course);
 
         if ($course->type === CourseType::Guide) {
             return view('learning.guide', [
@@ -47,7 +48,7 @@ class MyLearningController extends Controller
 
     public function guidePage(Request $request, Course $course, int $page)
     {
-        abort_unless($request->user()->hasAccessTo($course), 403);
+        Gate::authorize('access', $course);
         abort_unless($course->type === CourseType::Guide, 404);
 
         $path = ($course->guide_pages ?? [])[$page - 1] ?? null;
@@ -59,7 +60,7 @@ class MyLearningController extends Controller
 
     public function lesson(Request $request, Course $course, Lesson $lesson, ResolveVimeoEmbedUrlAction $resolver, GetCourseOutlineAction $outlineAction)
     {
-        abort_unless($request->user()->hasAccessTo($course), 403);
+        Gate::authorize('access', $course);
 
         $outline = $outlineAction->handle($course);
         $course->setRelation('modules', $outline);

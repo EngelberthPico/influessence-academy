@@ -1,4 +1,7 @@
-<x-layouts.marketing>
+<x-layouts.marketing
+    title="Elige tu nivel de acompañamiento"
+    description="Elige el acompañamiento que mejor encaje con tus metas, ritmo y nivel"
+>
     <section class="px-[6vw] pt-8 pb-16 lg:pt-12 lg:pb-[100px]">
         <h1 class="mb-5 max-w-[600px] text-[clamp(28px,3.5vw,40px)] leading-[1.05] font-bold">Elige tu nivel de <span class="font-serif font-normal italic">acompañamiento</span></h1>
         <p class="mb-12 text-[clamp(8.5px,2.4vw,16px)] whitespace-nowrap opacity-70">Elige el acompañamiento que mejor encaje con tus metas, ritmo y nivel</p>

@@ -1,4 +1,7 @@
-<x-layouts.marketing>
+<x-layouts.marketing
+    :title="$course->title"
+    :description="filled($course->description) ? str(strip_tags($course->description))->limit(155)->toString() : null"
+>
     <section class="px-[6vw] pt-8 pb-16 lg:pt-12 lg:pb-[100px]">
         <a href="{{ route('courses.index') }}" wire:navigate class="mb-8 inline-block text-sm font-semibold text-terracota">← Volver al catálogo</a>
 

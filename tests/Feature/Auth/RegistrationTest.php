@@ -44,6 +44,20 @@ test('registering a new account sends the email verification notification', func
     Notification::assertSentTo($user, VerifyEmail::class);
 });
 
+test('registration ignores an extra role field in the request', function () {
+    $this->post(route('register.store'), [
+        'name' => 'John Doe',
+        'email' => 'test@example.com',
+        'password' => 'Passw0rd!',
+        'password_confirmation' => 'Passw0rd!',
+        'role' => 'admin',
+    ]);
+
+    $user = User::whereEmail('test@example.com')->firstOrFail();
+
+    expect($user->isAdmin())->toBeFalse();
+});
+
 test('registration fails with a password that does not meet the complexity requirements', function () {
     $response = $this->post(route('register.store'), [
         'name' => 'John Doe',

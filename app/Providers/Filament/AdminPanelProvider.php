@@ -73,6 +73,10 @@ class AdminPanelProvider extends PanelProvider
                 fn () => view('filament.partials.fonts'),
             )
             ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn () => view('filament.partials.robots-meta'),
+            )
+            ->renderHook(
                 PanelsRenderHook::USER_MENU_BEFORE,
                 fn () => view('filament.partials.topbar-account-button'),
             )

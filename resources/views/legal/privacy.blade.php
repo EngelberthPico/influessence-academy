@@ -1,4 +1,7 @@
-<x-layouts.marketing>
+<x-layouts.marketing
+    title="Política de Privacidad"
+    description="Influessence Academy LLC opera esta plataforma de cursos en línea. Esta política explica qué información recopilamos y cómo la usamos."
+>
     <section class="px-[6vw] pt-8 pb-16 lg:pt-12 lg:pb-[100px]">
         <div class="mx-auto max-w-[760px]">
             <h1 class="mb-2 text-[clamp(28px,4vw,44px)] leading-[1.15] font-bold">Política de Privacidad</h1>

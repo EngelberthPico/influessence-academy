@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /mi-cuenta
+Disallow: /settings
+Disallow: /reservar-clase

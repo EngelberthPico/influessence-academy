@@ -1,7 +1,11 @@
 <?php
 
 use App\Models\Course;
+use App\Models\CourseAccess;
+use App\Models\Order;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use Stripe\Exception\ApiConnectionException;
 
 test('paying with an empty cart redirects back to the cart without calling stripe', function () {
     $response = $this->post(route('cart.pay'));
@@ -70,4 +74,29 @@ test('the checkout session includes the logged in user id and email in metadata'
     $response = $this->actingAs($user)->post(route('cart.pay'));
 
     $response->assertRedirect('https://checkout.stripe.com/test-session');
+});
+
+test('a Stripe API failure when creating the checkout session sends the shopper back to the cart with a friendly message', function () {
+    Log::spy();
+
+    $course = Course::factory()->create(['price_cents' => 5000, 'currency' => 'usd']);
+    $this->post(route('cart.add', $course));
+
+    $mock = Mockery::mock('alias:Stripe\Checkout\Session');
+    $mock->shouldReceive('create')
+        ->once()
+        ->andThrow(new ApiConnectionException('Could not connect to Stripe'));
+
+    $response = $this->post(route('cart.pay'));
+
+    $response->assertRedirect(route('cart.index'));
+    $response->assertSessionHas('error', 'No pudimos iniciar tu pago. Intenta de nuevo en un momento.');
+
+    expect(Order::count())->toBe(0);
+    expect(CourseAccess::count())->toBe(0);
+
+    Log::shouldHaveReceived('error')->once()->withArgs(function (string $message, array $context) use ($course) {
+        return $message === 'No se pudo crear la sesión de pago de Stripe.'
+            && ($context['course_ids'] ?? null) === (string) $course->id;
+    });
 });

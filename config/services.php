@@ -40,6 +40,10 @@ return [
         'scheduling_url' => env('CALENDLY_SCHEDULING_URL'),
     ],
 
+    'google_tag_manager' => [
+        'container_id' => env('GTM_CONTAINER_ID'),
+    ],
+
     'stripe' => [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),

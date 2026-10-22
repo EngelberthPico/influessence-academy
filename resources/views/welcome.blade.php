@@ -1,4 +1,8 @@
-<x-layouts.marketing :transparent-nav="true">
+<x-layouts.marketing
+    :transparent-nav="true"
+    title="Convierte tu contenido en tu profesión"
+    description="Construye una presencia digital auténtica y conviértela en oportunidades. Aprende a crear, conectar con tu comunidad y monetizar tu contenido con un plan que sí puedes sostener."
+>
         {{-- HERO --}}
         <section class="relative isolate flex min-h-dvh flex-col justify-end overflow-hidden bg-crema-suave px-[6vw] pb-28 lg:flex lg:min-h-screen lg:flex-row lg:items-center lg:justify-normal lg:px-0 lg:pb-0">
             {{-- Foto de fondo: en mobile ocupa toda la sección detrás del texto, con un scrim
