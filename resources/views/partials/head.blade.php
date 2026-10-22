@@ -2,6 +2,8 @@
     $resolvedTitle = filled($title ?? null) ? $title.' - '.config('app.name', 'Laravel') : config('app.name', 'Laravel');
     $resolvedDescription = $description ?? 'Influessence Academy es la academia online de Fabiola Colmenares: cursos para crear contenido, construir tu marca personal y monetizar en redes sociales.';
     $resolvedCanonical = $canonical ?? url()->current();
+    $resolvedOgImage = $ogImage ?? asset('og-image.jpg');
+    $resolvedOgImageAlt = $ogImageAlt ?? 'Influessence Academy, academia online para creadoras hispanas';
     $gtmContainerId = config('services.google_tag_manager.container_id');
 @endphp
 <meta charset="utf-8" />
@@ -20,12 +22,15 @@
 <meta property="og:title" content="{{ $resolvedTitle }}">
 <meta property="og:description" content="{{ $resolvedDescription }}">
 <meta property="og:url" content="{{ $resolvedCanonical }}">
-@if (!empty($ogImage))
-    <meta property="og:image" content="{{ $ogImage }}">
-@endif
+<meta property="og:image" content="{{ $resolvedOgImage }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ $resolvedOgImageAlt }}">
+<meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 @fonts

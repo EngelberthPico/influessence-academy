@@ -8,8 +8,10 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Stripe\Exception\SignatureVerificationException;
 
@@ -235,4 +237,82 @@ test('the same webhook event delivered twice does not duplicate the order or cou
     expect(CourseAccess::count())->toBe(1);
 
     Mail::assertQueued(OrderPaidAdminNotification::class, 1);
+});
+
+test('a failure sending the create-password email does not break the order, the access or the webhook response', function () {
+    Mail::fake();
+    Log::spy();
+
+    $course = Course::factory()->create(['price_cents' => 4000]);
+
+    $session = fakeStripeCheckoutSession([
+        'amount_total' => 4000,
+        'metadata' => (object) ['course_ids' => (string) $course->id],
+    ]);
+    $event = fakeStripeCheckoutEvent('checkout.session.completed', $session);
+
+    Mockery::mock('alias:Stripe\Webhook')
+        ->shouldReceive('constructEvent')
+        ->once()
+        ->andReturn($event);
+
+    mockStripeLineItemsRetrieve($session->id, [4000]);
+
+    Password::shouldReceive('sendResetLink')
+        ->once()
+        ->andThrow(new Exception('No se pudo conectar con Resend.'));
+
+    $response = $this->postJson(route('stripe.webhook'), [], ['Stripe-Signature' => 'valid']);
+
+    $response->assertOk();
+
+    $user = User::where('email', 'compradora@example.com')->first();
+    expect($user)->not->toBeNull();
+    expect(Order::count())->toBe(1);
+    expect(CourseAccess::where('user_id', $user->id)->where('course_id', $course->id)->exists())->toBeTrue();
+
+    Log::shouldHaveReceived('error')->once()->withArgs(function (string $message, array $context) use ($user) {
+        return $message === 'No se pudo enviar el correo para crear la contraseña a la nueva clienta.'
+            && $context['user_id'] === $user->id
+            && $context['exception'] === 'No se pudo conectar con Resend.';
+    });
+});
+
+test('a throttled create-password email is logged without breaking the order, the access or the webhook response', function () {
+    Mail::fake();
+    Log::spy();
+
+    $course = Course::factory()->create(['price_cents' => 4000]);
+
+    $session = fakeStripeCheckoutSession([
+        'amount_total' => 4000,
+        'metadata' => (object) ['course_ids' => (string) $course->id],
+    ]);
+    $event = fakeStripeCheckoutEvent('checkout.session.completed', $session);
+
+    Mockery::mock('alias:Stripe\Webhook')
+        ->shouldReceive('constructEvent')
+        ->once()
+        ->andReturn($event);
+
+    mockStripeLineItemsRetrieve($session->id, [4000]);
+
+    Password::shouldReceive('sendResetLink')
+        ->once()
+        ->andReturn(Password::RESET_THROTTLED);
+
+    $response = $this->postJson(route('stripe.webhook'), [], ['Stripe-Signature' => 'valid']);
+
+    $response->assertOk();
+
+    $user = User::where('email', 'compradora@example.com')->first();
+    expect($user)->not->toBeNull();
+    expect(Order::count())->toBe(1);
+    expect(CourseAccess::where('user_id', $user->id)->where('course_id', $course->id)->exists())->toBeTrue();
+
+    Log::shouldHaveReceived('error')->once()->withArgs(function (string $message, array $context) use ($user) {
+        return $message === 'No se pudo enviar el correo para crear la contraseña a la nueva clienta.'
+            && $context['user_id'] === $user->id
+            && $context['status'] === Password::RESET_THROTTLED;
+    });
 });

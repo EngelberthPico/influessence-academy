@@ -1,4 +1,4 @@
-@props(['transparentNav' => false, 'title' => null, 'description' => null, 'ogImage' => null, 'canonical' => null, 'noindex' => false])
+@props(['transparentNav' => false, 'title' => null, 'description' => null, 'ogImage' => null, 'ogImageAlt' => null, 'canonical' => null, 'noindex' => false])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

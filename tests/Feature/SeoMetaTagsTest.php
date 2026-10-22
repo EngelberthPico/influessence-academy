@@ -37,6 +37,28 @@ test('a course detail page uses the course title and description in its meta tag
     $response->assertSee('Aprende a grabar y editar reels que conectan con tu audiencia.', false);
 });
 
+test('public pages use the default og:image with an absolute url when no page overrides it', function () {
+    $response = $this->get(route('home'));
+
+    $response->assertOk();
+    $response->assertSee('<meta property="og:image" content="http', false);
+    $response->assertSee('/og-image.jpg">', false);
+    $response->assertSee('<meta property="og:image:width" content="1200">', false);
+    $response->assertSee('<meta property="og:image:height" content="630">', false);
+    $response->assertSee('<meta name="twitter:card" content="summary_large_image">', false);
+});
+
+test('a page can override the default og:image and its alt text', function () {
+    $html = view('partials.head', [
+        'ogImage' => 'https://example.com/foto-personalizada.jpg',
+        'ogImageAlt' => 'Foto personalizada de la página',
+    ])->render();
+
+    expect($html)->toContain('<meta property="og:image" content="https://example.com/foto-personalizada.jpg">');
+    expect($html)->toContain('<meta property="og:image:alt" content="Foto personalizada de la página">');
+    expect($html)->not->toContain('og-image.jpg');
+});
+
 test('legal pages have their own title', function () {
     $response = $this->get(route('legal.privacy'));
 

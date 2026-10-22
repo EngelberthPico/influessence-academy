@@ -25,6 +25,7 @@
                     @endif
                     Puede tardar unos minutos en llegar.
                 </p>
+                <p class="mt-3 max-w-[480px] text-sm leading-[1.6] opacity-70">¿No te llegó? Usa <a href="{{ route('password.request') }}" wire:navigate class="font-semibold text-terracota">Olvidé mi contraseña</a> con el mismo correo de tu compra.</p>
                 <a href="{{ route('home') }}" wire:navigate class="mt-9 inline-block rounded-full bg-terracota px-9 py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso hover:shadow-lg">Volver al inicio</a>
             @endauth
         @else

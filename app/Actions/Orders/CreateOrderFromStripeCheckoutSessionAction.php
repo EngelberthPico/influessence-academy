@@ -86,7 +86,23 @@ class CreateOrderFromStripeCheckoutSessionAction
         });
 
         if ($isNewUser) {
-            Password::sendResetLink(['email' => $user->email]);
+            try {
+                $status = Password::sendResetLink(['email' => $user->email]);
+
+                if ($status !== Password::RESET_LINK_SENT) {
+                    Log::error('No se pudo enviar el correo para crear la contraseña a la nueva clienta.', [
+                        'order_id' => $order->id,
+                        'user_id' => $user->id,
+                        'status' => $status,
+                    ]);
+                }
+            } catch (\Throwable $exception) {
+                Log::error('No se pudo enviar el correo para crear la contraseña a la nueva clienta.', [
+                    'order_id' => $order->id,
+                    'user_id' => $user->id,
+                    'exception' => $exception->getMessage(),
+                ]);
+            }
         }
 
         try {
