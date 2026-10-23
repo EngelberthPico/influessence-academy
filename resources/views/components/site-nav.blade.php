@@ -54,13 +54,13 @@
                 <flux:profile :initials="auth()->user()->initials()" :chevron="false" aria-label="Cuenta y ajustes" />
 
                 <flux:menu>
-                    <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                    <flux:menu.item :href="route('learning.index')" wire:navigate class="h-auto gap-2">
                         <flux:avatar :name="auth()->user()->name" :initials="auth()->user()->initials()" />
                         <div class="grid flex-1 text-start text-sm leading-tight">
                             <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
                             <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
                         </div>
-                    </div>
+                    </flux:menu.item>
 
                     <flux:menu.separator />
 
