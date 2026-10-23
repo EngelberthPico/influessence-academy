@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Course;
+use App\Models\CourseAccess;
 use App\Models\User;
 use Stripe\Exception\InvalidRequestException;
 
@@ -25,9 +26,10 @@ function mockStripeThanksRetrieve(string $sessionId, object $session): void
         ->andReturn($session);
 }
 
-test('a logged in user sees the purchased courses and a link to their account', function () {
+test('a logged in user with access already granted sees the purchased courses and a link to their account', function () {
     $user = User::factory()->create();
     $course = Course::factory()->create(['title' => 'Curso Comprado']);
+    CourseAccess::factory()->create(['user_id' => $user->id, 'course_id' => $course->id]);
 
     mockStripeThanksRetrieve('cs_test_thanks', fakeStripeCheckoutSessionForThanks([
         'amount_total' => 5000,
@@ -41,6 +43,25 @@ test('a logged in user sees the purchased courses and a link to their account', 
     $response->assertSee('$50');
     $response->assertSee(route('learning.show', $course), false);
     $response->assertDontSee('Revisa el correo');
+    $response->assertDontSee('Estamos activando tu acceso');
+});
+
+test('a logged in user whose access is not granted yet sees an activating-access message instead', function () {
+    $user = User::factory()->create();
+    $course = Course::factory()->create(['title' => 'Curso Comprado']);
+
+    mockStripeThanksRetrieve('cs_test_thanks', fakeStripeCheckoutSessionForThanks([
+        'amount_total' => 5000,
+        'metadata' => (object) ['course_ids' => (string) $course->id],
+    ]));
+
+    $response = $this->actingAs($user)->get(route('cart.thanks', ['session_id' => 'cs_test_thanks']));
+
+    $response->assertOk();
+    $response->assertSee('¡Pago recibido!');
+    $response->assertSee('Estamos activando tu acceso a Curso Comprado');
+    $response->assertSee(route('learning.index'), false);
+    $response->assertDontSee(route('learning.show', $course), false);
 });
 
 test('a guest sees a thank you message with the email that will receive access', function () {

@@ -110,6 +110,11 @@ class CartController extends Controller
         $sessionId = $request->query('session_id');
         $summary = $summaryAction->handle(is_string($sessionId) ? $sessionId : null);
 
-        return view('cart.thanks', ['summary' => $summary]);
+        $user = $request->user();
+        $accessGranted = ($summary && $user)
+            ? $summary['courses']->every(fn (Course $course): bool => $user->hasAccessTo($course))
+            : null;
+
+        return view('cart.thanks', ['summary' => $summary, 'accessGranted' => $accessGranted]);
     }
 }

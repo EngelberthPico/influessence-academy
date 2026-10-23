@@ -4,8 +4,8 @@
     x-data="{ mobileMenuOpen: false }"
     @keydown.escape.window="mobileMenuOpen = false"
     @click.outside="mobileMenuOpen = false"
-    :class="{ 'bg-crema': mobileMenuOpen }"
-    class="fixed inset-x-0 top-0 z-50 grid grid-cols-[auto_1fr_auto] items-center gap-4 px-[6vw] py-4 transition-colors duration-300 {{ $transparent ? '' : 'bg-crema' }}"
+    :data-mobile-menu-open="mobileMenuOpen"
+    class="fixed inset-x-0 top-0 z-50 grid grid-cols-[auto_1fr_auto] items-center gap-4 px-[6vw] py-4 transition-colors duration-300 data-[mobile-menu-open]:bg-crema {{ $transparent ? '' : 'bg-crema' }}"
 >
     <div class="flex items-center gap-3">
         <button
