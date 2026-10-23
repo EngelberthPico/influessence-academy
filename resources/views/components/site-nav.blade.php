@@ -4,6 +4,7 @@
     x-data="{ mobileMenuOpen: false }"
     @keydown.escape.window="mobileMenuOpen = false"
     @click.outside="mobileMenuOpen = false"
+    :class="{ 'bg-crema': mobileMenuOpen }"
     class="fixed inset-x-0 top-0 z-50 grid grid-cols-[auto_1fr_auto] items-center gap-4 px-[6vw] py-4 transition-colors duration-300 {{ $transparent ? '' : 'bg-crema' }}"
 >
     <div class="flex items-center gap-3">
@@ -84,6 +85,9 @@
                 </flux:menu>
             </flux:dropdown>
         @else
+            <a href="{{ route('login') }}" wire:navigate class="flex items-center text-espresso sm:hidden" aria-label="Entrar">
+                <flux:icon.user-circle class="size-6" />
+            </a>
             <a href="{{ route('login') }}" wire:navigate class="hidden text-[15px] font-medium text-espresso sm:inline">Entrar</a>
         @endauth
 
@@ -117,8 +121,6 @@
             @if (auth()->user()->isAdmin())
                 <a href="{{ route('filament.admin.resources.course-accesses.index') }}" @click="mobileMenuOpen = false" class="rounded-sm px-3 py-3 text-base font-medium text-espresso hover:bg-crema-suave">Administración</a>
             @endif
-        @else
-            <a href="{{ route('login') }}" wire:navigate @click="mobileMenuOpen = false" class="rounded-sm px-3 py-3 text-base font-medium text-espresso hover:bg-crema-suave">Entrar</a>
         @endauth
     </div>
 </nav>
