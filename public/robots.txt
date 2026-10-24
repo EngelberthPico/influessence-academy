@@ -3,3 +3,5 @@ Disallow: /admin
 Disallow: /mi-cuenta
 Disallow: /settings
 Disallow: /reservar-clase
+
+Sitemap: https://influessenceacademy.com/sitemap.xml
