@@ -316,3 +316,73 @@ test('a throttled create-password email is logged without breaking the order, th
             && $context['status'] === Password::RESET_THROTTLED;
     });
 });
+
+test('a checkout session without a course_ids key is ignored as not belonging to the Academy', function () {
+    Notification::fake();
+    Mail::fake();
+    Log::spy();
+
+    $session = fakeStripeCheckoutSession(['metadata' => (object) ['payment_link_id' => 'plink_123']]);
+    $event = fakeStripeCheckoutEvent('checkout.session.completed', $session);
+
+    Mockery::mock('alias:Stripe\Webhook')
+        ->shouldReceive('constructEvent')
+        ->once()
+        ->andReturn($event);
+
+    $response = $this->postJson(route('stripe.webhook'), [], ['Stripe-Signature' => 'valid']);
+
+    $response->assertOk();
+    expect(Order::count())->toBe(0);
+    expect(User::count())->toBe(0);
+    expect(CourseAccess::count())->toBe(0);
+
+    Mail::assertNothingSent();
+
+    Log::shouldHaveReceived('info')->once()->withArgs(function (string $message, array $context) use ($session) {
+        return $message === 'Checkout session ignorada: no trae course_ids, no es una compra del Academy.'
+            && $context['stripe_checkout_session_id'] === $session->id;
+    });
+});
+
+test('a checkout session with empty metadata is ignored as not belonging to the Academy', function () {
+    Mail::fake();
+    Log::spy();
+
+    $session = fakeStripeCheckoutSession(['metadata' => (object) []]);
+    $event = fakeStripeCheckoutEvent('checkout.session.completed', $session);
+
+    Mockery::mock('alias:Stripe\Webhook')
+        ->shouldReceive('constructEvent')
+        ->once()
+        ->andReturn($event);
+
+    $response = $this->postJson(route('stripe.webhook'), [], ['Stripe-Signature' => 'valid']);
+
+    $response->assertOk();
+    expect(Order::count())->toBe(0);
+    expect(User::count())->toBe(0);
+    expect(CourseAccess::count())->toBe(0);
+    Mail::assertNothingSent();
+});
+
+test('a checkout session with an empty course_ids value is ignored as not belonging to the Academy', function () {
+    Mail::fake();
+    Log::spy();
+
+    $session = fakeStripeCheckoutSession(['metadata' => (object) ['course_ids' => '']]);
+    $event = fakeStripeCheckoutEvent('checkout.session.completed', $session);
+
+    Mockery::mock('alias:Stripe\Webhook')
+        ->shouldReceive('constructEvent')
+        ->once()
+        ->andReturn($event);
+
+    $response = $this->postJson(route('stripe.webhook'), [], ['Stripe-Signature' => 'valid']);
+
+    $response->assertOk();
+    expect(Order::count())->toBe(0);
+    expect(User::count())->toBe(0);
+    expect(CourseAccess::count())->toBe(0);
+    Mail::assertNothingSent();
+});
