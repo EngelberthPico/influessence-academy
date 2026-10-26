@@ -20,7 +20,7 @@
                                 <h2 class="text-lg font-bold">{{ $course->title }}</h2>
                             </div>
                             <div class="flex shrink-0 items-center gap-5">
-                                <span class="text-lg font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
+                                <span class="text-lg font-bold text-terracota">{{ $course->price_label }}</span>
                                 <form method="POST" action="{{ route('cart.remove', $course) }}">
                                     @csrf
                                     @method('DELETE')
@@ -34,7 +34,7 @@
                 <aside class="reveal h-fit rounded-sm bg-crema-suave p-8">
                     <div class="mb-6 flex items-center justify-between border-b border-espresso/10 pb-6">
                         <span class="text-base font-semibold">Total</span>
-                        <span class="text-2xl font-bold text-terracota">${{ number_format($totalCents / 100, 0) }}</span>
+                        <span class="text-2xl font-bold text-terracota">{{ \App\Models\Course::formatPrice($totalCents) }}</span>
                     </div>
 
                     <form method="POST" action="{{ route('cart.pay') }}">

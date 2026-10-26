@@ -284,7 +284,7 @@
                                 <p class="grow text-[15px] leading-[1.6] opacity-[0.85]">{{ Str::limit(strip_tags($course->description), 140) }}</p>
                                 <div class="flex items-center justify-between border-t border-espresso/10 pt-4">
                                     @if ($course->price_cents > 0)
-                                        <span class="text-xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</span>
+                                        <span class="text-xl font-bold text-terracota">{{ $course->price_label }}</span>
                                     @else
                                         <span class="text-sm font-semibold opacity-60">Precio próximamente</span>
                                     @endif

@@ -81,6 +81,23 @@ test('a guest sees a thank you message with the email that will receive access',
     $response->assertSee('$40');
 });
 
+test('the thanks page shows the total paid with cents instead of rounding it', function () {
+    $user = User::factory()->create();
+    $course = Course::factory()->create(['title' => 'Curso Comprado']);
+    CourseAccess::factory()->create(['user_id' => $user->id, 'course_id' => $course->id]);
+
+    mockStripeThanksRetrieve('cs_test_thanks', fakeStripeCheckoutSessionForThanks([
+        'amount_total' => 6999,
+        'metadata' => (object) ['course_ids' => (string) $course->id],
+    ]));
+
+    $response = $this->actingAs($user)->get(route('cart.thanks', ['session_id' => 'cs_test_thanks']));
+
+    $response->assertOk();
+    $response->assertSee('$69.99');
+    $response->assertDontSee('$70');
+});
+
 test('a missing session id falls back to the generic thank you message', function () {
     $response = $this->get(route('cart.thanks'));
 

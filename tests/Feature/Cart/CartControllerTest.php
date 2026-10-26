@@ -55,6 +55,18 @@ test('the cart page shows the total price of the courses in the cart', function 
     $response->assertSeeText('$80');
 });
 
+test('the cart page shows the course price and total with cents instead of rounding them', function () {
+    $course = Course::factory()->create(['title' => 'Curso con centavos', 'price_cents' => 6999]);
+
+    $this->post(route('cart.add', $course));
+
+    $response = $this->get(route('cart.index'));
+
+    $response->assertOk();
+    $response->assertSeeText('$69.99');
+    $response->assertDontSeeText('$70');
+});
+
 test('cart and checkout routes do not require authentication', function () {
     $course = Course::factory()->create();
 

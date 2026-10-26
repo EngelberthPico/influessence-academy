@@ -64,6 +64,36 @@ test('a published course can be viewed', function () {
     $response->assertSee($course->title);
 });
 
+test('the catalog shows the price with cents instead of rounding it', function () {
+    $course = Course::factory()->create(['price_cents' => 6999, 'is_published' => true]);
+
+    $response = $this->get(route('courses.index'));
+
+    $response->assertOk();
+    $response->assertSee('$69.99');
+    $response->assertDontSee('$70');
+});
+
+test('a published course page shows the price with cents instead of rounding it', function () {
+    $course = Course::factory()->create(['price_cents' => 6999, 'is_published' => true]);
+
+    $response = $this->get(route('courses.show', $course));
+
+    $response->assertOk();
+    $response->assertSee('$69.99');
+    $response->assertDontSee('$70');
+});
+
+test('a published course page shows a whole dollar price without decimals', function () {
+    $course = Course::factory()->create(['price_cents' => 7000, 'is_published' => true]);
+
+    $response = $this->get(route('courses.show', $course));
+
+    $response->assertOk();
+    $response->assertSee('$70');
+    $response->assertDontSee('$70.00');
+});
+
 test('an unpublished course returns a 404', function () {
     $course = Course::factory()->create(['is_published' => false]);
 

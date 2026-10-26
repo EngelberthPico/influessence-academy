@@ -17,6 +17,19 @@ test('the home shows published courses marked as best seller', function () {
     $response->assertSee($bestSeller->title);
 });
 
+test('the home shows a best seller price with cents instead of rounding it', function () {
+    Course::factory()->bestSeller()->create([
+        'price_cents' => 6999,
+        'is_published' => true,
+    ]);
+
+    $response = $this->get(route('home'));
+
+    $response->assertOk();
+    $response->assertSee('$69.99');
+    $response->assertDontSee('$70');
+});
+
 test('the home does not show published courses that are not marked as best seller', function () {
     $regular = Course::factory()->create([
         'title' => 'Curso Regular',

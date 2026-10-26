@@ -8,7 +8,7 @@
             @auth
                 @if ($accessGranted)
                     <h1 class="mb-5 max-w-[560px] text-[clamp(28px,3.5vw,40px)] font-bold">¡Listo! Ya tienes acceso a {{ $courseNames }}</h1>
-                    <p class="max-w-[480px] text-base leading-[1.6] opacity-80">Pagaste ${{ number_format($summary['totalCents'] / 100, 0) }}. Ya puedes empezar cuando quieras.</p>
+                    <p class="max-w-[480px] text-base leading-[1.6] opacity-80">Pagaste {{ \App\Models\Course::formatPrice($summary['totalCents']) }}. Ya puedes empezar cuando quieras.</p>
 
                     @if ($summary['courses']->count() === 1)
                         <a href="{{ route('learning.show', $summary['courses']->first()) }}" wire:navigate class="mt-9 inline-block rounded-full bg-terracota px-9 py-4 text-base font-semibold text-crema transition-all duration-300 hover:scale-105 hover:bg-espresso hover:shadow-lg">Ir a mi curso</a>
@@ -37,7 +37,7 @@
             @else
                 <h1 class="mb-5 max-w-[560px] text-[clamp(28px,3.5vw,40px)] font-bold">¡Gracias por tu compra de {{ $courseNames }}!</h1>
                 <p class="max-w-[480px] text-base leading-[1.6] opacity-80">
-                    Pagaste ${{ number_format($summary['totalCents'] / 100, 0) }}.
+                    Pagaste {{ \App\Models\Course::formatPrice($summary['totalCents']) }}.
                     @if ($summary['email'])
                         Revisa el correo <strong>{{ $summary['email'] }}</strong> para poner tu contraseña y ver tu contenido.
                     @else

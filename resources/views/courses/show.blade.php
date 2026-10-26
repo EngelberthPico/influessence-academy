@@ -16,7 +16,7 @@
 
             <aside class="reveal h-fit rounded-sm bg-crema-suave p-8">
                 @if ($course->price_cents > 0)
-                    <div class="mb-6 text-3xl font-bold text-terracota">${{ number_format($course->price_cents / 100, 0) }}</div>
+                    <div class="mb-6 text-3xl font-bold text-terracota">{{ $course->price_label }}</div>
                 @else
                     <div class="mb-6 text-lg font-semibold opacity-60">Precio próximamente</div>
                 @endif

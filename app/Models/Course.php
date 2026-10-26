@@ -101,4 +101,16 @@ class Course extends Model
             CourseType::Guide => 'Guía',
         };
     }
+
+    public function getPriceLabelAttribute(): string
+    {
+        return self::formatPrice($this->price_cents);
+    }
+
+    public static function formatPrice(int $cents): string
+    {
+        $hasCents = $cents % 100 !== 0;
+
+        return '$'.number_format($cents / 100, $hasCents ? 2 : 0);
+    }
 }
