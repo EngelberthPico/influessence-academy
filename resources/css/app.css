@@ -15,7 +15,7 @@
     /* Altura real del navbar del sitio (resources/views/components/site-nav.blade.php).
        Única fuente de verdad: la usan el propio layout de marketing y el área con sidebar
        para reservar el espacio exacto que ocupa el navbar fijo. */
-    --nav-height: 5rem;
+    --nav-height: 4rem;
 
     --color-crema: #FFFED1;
     --color-crema-suave: #FFFEE8;

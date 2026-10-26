@@ -49,7 +49,7 @@
         <div
             x-ref="track"
             data-carousel-track
-            class="flex items-stretch snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [&>*]:w-[78%] [&>*]:shrink-0 [&>*]:snap-start sm:[&>*]:w-[46%] md:contents md:gap-0 md:overflow-visible md:pb-0 md:[&>*]:w-auto md:[&>*]:shrink md:[&>*]:snap-align-none"
+            class="flex items-stretch snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden pb-2 [&>*]:w-[78%] [&>*]:shrink-0 [&>*]:snap-start sm:[&>*]:w-[46%] md:contents md:gap-0 md:overflow-visible md:pb-0 md:[&>*]:w-auto md:[&>*]:shrink md:[&>*]:snap-align-none"
         >
             {{ $slot }}
         </div>
@@ -58,7 +58,7 @@
             x-show="cards.length > 1"
             role="group"
             aria-label="{{ $label }}"
-            class="mt-5 flex items-center justify-center gap-2 md:hidden"
+            class="mt-5 flex flex-wrap items-center justify-center gap-2 md:hidden"
         >
             <template x-for="(card, index) in cards" :key="index">
                 <button

@@ -1,6 +1,6 @@
 <x-layouts::app :title="'Reservar clase'">
     <div class="flex h-full w-full flex-1 flex-col gap-4">
-        <div id="calendly-embed" style="min-width:320px;height:700px;"></div>
+        <div id="calendly-embed" style="min-width:min(320px, 100%);height:700px;"></div>
     </div>
 
     <script>
