@@ -6,6 +6,7 @@ use App\Actions\Courses\GetActiveCoursesForUserAction;
 use App\Actions\Courses\GetCourseOutlineAction;
 use App\Actions\Courses\GetCourseSchedulingAction;
 use App\Actions\Courses\GetGuidePageUrlsAction;
+use App\Actions\Courses\GetGuideThumbnailsAction;
 use App\Actions\Courses\ResolveVimeoEmbedUrlAction;
 use App\Enums\CourseType;
 use App\Models\Course;
@@ -23,7 +24,7 @@ class MyLearningController extends Controller
         ]);
     }
 
-    public function show(Request $request, Course $course, ResolveVimeoEmbedUrlAction $resolver, GetCourseOutlineAction $outlineAction, GetCourseSchedulingAction $schedulingAction, GetGuidePageUrlsAction $guidePageUrlsAction)
+    public function show(Request $request, Course $course, ResolveVimeoEmbedUrlAction $resolver, GetCourseOutlineAction $outlineAction, GetCourseSchedulingAction $schedulingAction, GetGuidePageUrlsAction $guidePageUrlsAction, GetGuideThumbnailsAction $guideThumbnailsAction)
     {
         Gate::authorize('access', $course);
 
@@ -31,6 +32,7 @@ class MyLearningController extends Controller
             return view('learning.guide', [
                 'course' => $course,
                 'pageUrls' => $guidePageUrlsAction->handle($course),
+                'thumbnails' => $guideThumbnailsAction->handle($course),
             ]);
         }
 
